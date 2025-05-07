@@ -1,35 +1,28 @@
 const quoteElement = document.getElementById("quote");
 
-// Function to fetch the quote of the day
+// Fetch and display quote
 const fetchQuote = async () => {
   try {
     const currentDate = new Date().toLocaleDateString();
     const storedQuote = localStorage.getItem(currentDate);
 
     if (storedQuote) {
-      // Check if a quote exists for the current date in local storage
-      const display = `<div>
-        <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
-        <span id="quote" class="homeInfoDescription">${storedQuote}</span>
-      </div>`;
-      quoteElement.innerHTML = display;
+      quoteElement.innerHTML = `
+        <div>
+          <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
+          <span class="homeInfoDescription">${storedQuote}</span>
+        </div>`;
     } else {
-      // If a quote does not exist for the current date in local storage, fetch it
-      const response = await fetch(
-        "https://api.quotable.io/quotes/random?tags=technology,famous-quotes|happiness|wisdom"
-        // "https://api.quotable.io/quotes/random?tags=technology,famous-quotes"
-      );
-
+      const response = await fetch("https://quotes-api-et4v.onrender.com/quote");
       if (response.ok) {
         const data = await response.json();
-        const quote = `${data[0].content} - ${data[0].author}`;
-        const display = `<div>
-        <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
-        <span id="quote" class="homeInfoDescription">${quote}</span>
-      </div>`;
-        quoteElement.innerHTML = display;
-        console.log(data[0]);
-        // Store the quote in local storage for the current date
+        const quote = `${data.quote} - ${data.author}`;
+        console.log(quote);
+        quoteElement.innerHTML = `
+          <div>
+            <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
+            <span class="homeInfoDescription">${quote}</span>
+          </div>`;
         localStorage.setItem(currentDate, quote);
       } else {
         console.error("Error: " + response.status);
@@ -40,5 +33,19 @@ const fetchQuote = async () => {
   }
 };
 
-// Initially fetch and display the quote of the day
+// Refresh at midnight
+const setMidnightRefresh = () => {
+  const now = new Date();
+  const millisUntilMidnight =
+    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0) - now;
+
+  setTimeout(() => {
+    localStorage.removeItem(new Date().toLocaleDateString());
+    fetchQuote();
+    setMidnightRefresh(); // Repeat for next midnight
+  }, millisUntilMidnight);
+};
+
+// Initial load
 fetchQuote();
+setMidnightRefresh();

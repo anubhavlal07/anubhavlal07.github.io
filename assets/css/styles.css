@@ -678,122 +678,6 @@ body.dark-theme {
   background-color: var(--title-color);
 }
 
-/*=============== CONTACT ===============*/
-
-.contactContainer {
-  row-gap: 3.5rem;
-}
-
-.contactTitle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 0.5rem;
-  font-size: var(--small-font-size);
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 2.5rem;
-}
-
-.contactTitle i {
-  font-size: 1rem;
-  font-weight: initial;
-}
-
-.contactForm {
-  display: grid;
-}
-
-.contactButton {
-  width: max-content;
-  display: inline-flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  color: var(--title-color);
-  font-size: var(--small-font-size);
-}
-
-.contactButton i {
-  font-size: 1rem;
-  transition: transform.3s;
-}
-
-.contactButton:hover i {
-  transform: translateX(0.25rem);
-}
-
-.contactForm {
-  position: relative;
-  row-gap: 2rem;
-}
-
-.contactFormDiv {
-  position: relative;
-  height: 4rem;
-}
-
-.contactFormInput {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 2px solid var(--text-color-light);
-  border-radius: 2rem;
-  padding: 1.5rem;
-  font-size: var(--normal-font-size);
-  font-family: var(--title-font);
-  background: none;
-  outline: none;
-  z-index: 1;
-}
-
-.contactFormTag {
-  position: absolute;
-  top: -0.75rem;
-  left: 1.25rem;
-  z-index: 10;
-  background-color: var(--body-color);
-  color: var(--title-color);
-  font-size: var(--smaller-font-size);
-  font-weight: var(--font-medium);
-  padding: 0.35rem;
-  transition: background 0.4s;
-  /* For dark mode animation */
-}
-
-.contactFromArea {
-  height: 10rem;
-}
-
-.contactFromArea textarea {
-  resize: none;
-}
-
-.contactForm .contactButton {
-  border: none;
-  background: none;
-  font-size: var(--h2-font-size);
-  font-family: var(--title-font);
-  font-weight: var(--font-semi-bold);
-  cursor: pointer;
-  outline: none;
-  margin-top: 0.75rem;
-}
-
-.contactForm .contactButton i {
-  font-size: 1.5rem;
-  font-weight: initial;
-}
-
-/* Status color */
-.colorRed {
-  color: hsl(4, 71%, 50%);
-}
-
-.colorBlue {
-  color: hsl(207, 56%, 45%);
-}
-
 /*=============== FOOTER ===============*/
 .footerContainer {
   padding: 3rem 0 7rem;
@@ -981,9 +865,6 @@ body.dark-theme {
     width: 500px;
   }
 
-  .contactForm {
-    width: 360px;
-  }
 }
 
 /* For large devices */
@@ -1210,18 +1091,6 @@ body.dark-theme {
   .projectImage {
     width: 320px;
     margin-bottom: 2rem;
-  }
-
-  .contactTitle {
-    margin-bottom: 3rem;
-  }
-
-  .contactTitle i {
-    font-size: 1.25rem;
-  }
-
-  .contactForm {
-    row-gap: 2.5rem;
   }
 
   .footerContainer {

@@ -1,0 +1,37 @@
+[
+  {
+    "img": "assets/img/HRagent.png",
+    "subtitle": "Machine Learning",
+    "title": "HireMind",
+    "link": "https://github.com/anubhavlal07/RAG-Agent",
+    "linkText": "Github"
+  },
+  {
+    "img": "assets/img/faceReg.png",
+    "subtitle": "Machine Learning",
+    "title": "FaceReg Attendance Monitor",
+    "link": "https://github.com/anubhavlal07/Attendance-Management",
+    "linkText": "Github"
+  },
+  {
+    "img": "assets/img/cyberCrimeAnalysis.png",
+    "subtitle": "Data Analytics",
+    "title": "Cyber Crime Analysis",
+    "link": "https://github.com/anubhavlal07/Cyber-Crime-Analysis-And-Prediction",
+    "linkText": "Github"
+  },
+  {
+    "img": "assets/img/movieRecommendation.png",
+    "subtitle": "Progressive Web App",
+    "title": "Movie Bliss",
+    "link": "https://distraction-buff.netlify.app/",
+    "linkText": "Demo"
+  },
+  {
+    "img": "assets/img/MERNstack.png",
+    "subtitle": "MERN Stack",
+    "title": "Blogger's Den",
+    "link": "https://github.com/anubhavlal07/Blog-Website",
+    "linkText": "Github"
+  }
+]

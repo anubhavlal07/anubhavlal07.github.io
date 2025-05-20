@@ -2,7 +2,6 @@ fetch("assets/json/projects.json")
     .then(res => res.json())
     .then(data => {
         const container = document.querySelector(".swiper-wrapper");
-        
         // Inject projects dynamically
         data.forEach(proj => {
             const div = document.createElement("div");

@@ -30,25 +30,6 @@ const linkAction = () => {
 };
 navLink.forEach((n) => n.addEventListener("click", linkAction));
 
-/*=============== SWIPER PROJECTS ===============*/
-let swiper = new Swiper(".projectContainer", {
-  loop: true,
-  spaceBetween: 24,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-  },
-  breakpoints: {
-    1200: {
-      slidesPerView: 2,
-      spaceBetween: -56,
-    },
-  },
-});
-
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
 
 const sections = document.querySelectorAll("section[id]");

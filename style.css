@@ -50,14 +50,6 @@ body {
     width: 100%;
 }
 
-.sub-title {
-    /* border-top: .1rem solid #fff; */
-    padding: 1rem 4rem;
-    text-align: center;
-    background: linear-gradient(to right top, #ffdc00, #ffbe00, #ff9e00, #ff7d00, #ff5913);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
 /* Message Typed */
 .centered {

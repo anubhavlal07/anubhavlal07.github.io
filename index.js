@@ -1,44 +1,28 @@
-// Here are the different messages we'll use for creating the 500 displayable message
+// Message arrays for the 500 displayable message
 const messages = [
   [
-    "Whoops.",
-    "Oops.",
-    "Excuse me.",
-    "Oh Dear.",
-    "Hm...",
-    "This is awkward.",
-    "Well gosh!",
+    "Whoops.", "Oops.", "Excuse me.", "Oh dear.", "Hm...", "This is awkward.",
+    "Well, gosh!", "Yikes!", "Uh-oh.", "Blimey!"
   ],
   [
-    "It appears",
-    "Looks like",
-    "Unfortunately,",
-    "It just so happens that ",
-    "Sadly,",
-    "Seemingly from nowhere",
+    "It appears", "Looks like", "Unfortunately,", "It just so happens that",
+    "Sadly,", "Seemingly from nowhere,", "Against all odds,",
+    "By some cosmic joke,", "As fate would have it,"
   ],
   [
-    "there was an error.",
-    "I goofed up.",
-    "a bad thing happend.",
-    "the code crashed.",
-    "a bug appeared.",
-    "someone did a naughty.",
-    "the code threw a tantrum.",
-    "the website had a bad day.",
-    "my code pooped out.",
+    "there was an error.", "I goofed up.", "a bad thing happened.",
+    "the code crashed.", "a bug appeared.", "the code threw a tantrum.", "the website had a bad day.",
+    "my code pooped out.", "the electrons got confused.",
+    "the server had a coffee break."
   ],
   [
-    "Sorry.",
-    "Apologies.",
-    "My bad.",
-    "Sad day.",
-    "I am quite contrite.",
-    "Beg pardon.",
+    "Sorry.", "Apologies.", "My bad.", "Sad day.", "I am quite contrite.",
+    "Beg pardon.", "Oopsie daisy.", "Please forgive me.",
+    "I'll try harder next time.", "Let's pretend this didn't happen."
   ],
 ];
 
-// These are the different elements we'll be populating. They are in the same order as the messages array
+// Elements to populate, in the same order as messages array
 const messageElements = [
   document.querySelector("#js-whoops"),
   document.querySelector("#js-appears"),
@@ -46,118 +30,91 @@ const messageElements = [
   document.querySelector("#js-apology"),
 ];
 
-// we'll use this element for width calculations
+// Element for width calculations
 const widthElement = document.querySelector("#js-hidden");
-// keeping track of the message we just displayed last
-let lastMessageType = -1;
-// How often the page should swap messages
-let messageTimer = 3000;
 
-// on document load, setup the initial messages AND set a timer for setting messages
-document.addEventListener("DOMContentLoaded", (event) => {
+let lastMessageType = -1;
+const messageTimer = 3000;
+
+// Initialize messages and set interval for swapping
+document.addEventListener("DOMContentLoaded", () => {
   setupMessages();
-  setInterval(() => {
-    swapMessage();
-  }, messageTimer);
+  setInterval(swapMessage, messageTimer);
 });
 
-// Get initial messages for each message element
+// Set initial messages for each element
 function setupMessages() {
-  messageElements.forEach((element, index) => {
-    let newMessage = getNewMessage(index);
-    element.innerText = newMessage;
+  messageElements.forEach((el, idx) => {
+    const msg = getNewMessage(idx);
+    el.innerText = msg;
+    calculateWidth(el, msg);
   });
 }
 
-// set the width of a given element to match its text's width
+// Set width of element to match its text's width
 function calculateWidth(element, message) {
-  // use our dummy hidden element to get the text's width. Then use that to set the real element's width
   widthElement.innerText = message;
-  let newWidth = widthElement.getBoundingClientRect().width;
+  const newWidth = widthElement.getBoundingClientRect().width;
   element.style.width = `${newWidth}px`;
 }
 
-// swap a message for one of the message types
+// Swap a message for one of the message types
 function swapMessage() {
-  let toSwapIndex = getNewSwapIndex();
-  let newMessage = getNewMessage(toSwapIndex);
-  // Animate the disappearing, setting width, and reappearing
-  messageElements[toSwapIndex].style.lineHeight = "0";
-  // once line height is done transitioning, set element width & message
+  const idx = getNewSwapIndex();
+  const el = messageElements[idx];
+  const newMsg = getNewMessage(idx);
+
+  el.style.lineHeight = "0";
   setTimeout(() => {
-    // make sure the element has a width set for transitions
-    checkWidthSet(toSwapIndex, messageElements[toSwapIndex].innerText);
-    // set the new text
-    messageElements[toSwapIndex].innerText = newMessage;
-    // set the new width
-    calculateWidth(messageElements[toSwapIndex], newMessage);
+    ensureWidthSet(idx, el.innerText);
+    el.innerText = newMsg;
+    calculateWidth(el, newMsg);
   }, 200);
-  // once width is done, transition the lineheight back to 1 so we can view the message
   setTimeout(() => {
-    messageElements[toSwapIndex].style.lineHeight = "1.2";
+    el.style.lineHeight = "1.2";
   }, 400);
+
+  lastMessageType = idx;
 }
 
-// We need to make sure that the element at the passed index has a width set so we can use transitions
-function checkWidthSet(index, message) {
-  if (false == messageElements[index].style.width) {
-    messageElements[
-      index
-    ].style.width = `${messageElements[index].clientWidth}px`;
+// Ensure the element at the index has a width set for transitions
+function ensureWidthSet(index, message) {
+  const el = messageElements[index];
+  if (!el.style.width) {
+    el.style.width = `${el.clientWidth}px`;
   }
 }
 
-// Return a new index to swap message in. Should not be the same as the last message type swapped
+// Return a new index to swap message in, not the same as last swapped
 function getNewSwapIndex() {
-  let newMessageIndex = Math.floor(Math.random() * messages.length);
-  while (lastMessageType == newMessageIndex) {
-    newMessageIndex = Math.floor(Math.random() * messages.length);
-  }
-  return newMessageIndex;
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * messages.length);
+  } while (idx === lastMessageType);
+  return idx;
 }
 
-// Get a new message for the message element.
-function getNewMessage(toSwapIndex) {
-  const messagesArray = messages[toSwapIndex];
-  const previousMessage = messageElements[toSwapIndex].innerText;
-  // Get a new random index and the message at that index
-  let newMessageIndex = Math.floor(Math.random() * messagesArray.length);
-  let newMessage = messagesArray[newMessageIndex];
-  // let's make sure they aren't the same as the message already there
-  while (newMessage == previousMessage) {
-    newMessageIndex = Math.floor(Math.random() * messagesArray.length);
-    newMessage = messagesArray[newMessageIndex];
-  }
-  return newMessage;
+// Get a new message for the message element, not the same as previous
+function getNewMessage(idx) {
+  const arr = messages[idx];
+  const prev = messageElements[idx].innerText;
+  let msg, i;
+  do {
+    i = Math.floor(Math.random() * arr.length);
+    msg = arr[i];
+  } while (msg === prev);
+  return msg;
 }
 
-// Disabled Input from keyboard
-(document.onkeydown = function (event) {
-  if (event.keyCode == 123) {
-    return false;
-  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
-    return false;
-  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
-    return false;
-  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 86) {
-    return false;
-  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 117) {
-    return false;
-  } else if (event.ctrlKey && event.keyCode == 85) {
+// Disable certain keyboard shortcuts and context menu
+document.onkeydown = function (event) {
+  if (
+    event.keyCode === 123 || // F12
+    (event.ctrlKey && event.shiftKey && [73, 67, 86, 117].includes(event.keyCode)) || // Ctrl+Shift+I/C/V/F6
+    (event.ctrlKey && event.keyCode === 85) // Ctrl+U
+  ) {
     return false;
   }
-}),
-  false;
-if (document.addEventListener) {
-  document.addEventListener(
-    "contextmenu",
-    function (e) {
-      e.preventDefault();
-    },
-    false
-  );
-} else {
-  document.attachEvent("oncontextmenu", function () {
-    window.event.returnValue = false;
-  });
-}
+};
+
+document.addEventListener("contextmenu", e => e.preventDefault());

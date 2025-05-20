@@ -9,7 +9,7 @@ const fetchQuote = async () => {
     if (storedQuote) {
       quoteElement.innerHTML = `
         <div>
-          <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
+          <h3 class="homeInfoTitle">Quote of the day</h3>
           <span class="homeInfoDescription">${storedQuote}</span>
         </div>`;
     } else {
@@ -17,10 +17,10 @@ const fetchQuote = async () => {
       if (response.ok) {
         const data = await response.json();
         const quote = `${data.quote} - ${data.author}`;
-        console.log(quote);
+        // console.log(quote);
         quoteElement.innerHTML = `
           <div>
-            <h3 class="homeInfoTitle">PHRASE OF THE DAY</h3>
+            <h3 class="homeInfoTitle">Quote of the day</h3>
             <span class="homeInfoDescription">${quote}</span>
           </div>`;
         localStorage.setItem(currentDate, quote);

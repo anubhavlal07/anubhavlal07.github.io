@@ -1,0 +1,102 @@
+{
+    "personalInfo": {
+        "name": "Anubhav Lal",
+        "title": "AI Software Developer",
+        "email": "anubhavlal.15@gmail.com",
+        "phone": "+91 8578028430",
+        "location": "Bangalore, India",
+        "linkedin": "linkedin.com/in/anubhavl",
+        "github": "github.com/anubhavlal07",
+        "resumeDownloadLink": "https://drive.google.com/file/d/1kLQAOWJKMIA8Qv8nrYeYm29XN0ZiMVVN/view"
+    },
+    "summary": "Performance-focused Software Developer with expertise in Python backend engineering and AI system design. Proven track record of building high-concurrency applications using FastAPI and Django, reducing process errors by 80% and supporting 150+ concurrent users. Adept at merging complex PostgreSQL schemas with vector databases to deliver sub-200ms latency in retrieval systems. Proficient in containerizing applications using Docker and managing version control with Git.",
+    "education": [
+        {
+            "degree": "Master in Computer Application",
+            "institution": "SRM Institute of Science and Technology",
+            "location": "Chennai, India",
+            "date": "Jul 2023 — May 2025",
+            "coursework": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security"
+        },
+        {
+            "degree": "Bachelor in Computer Application",
+            "institution": "Acharya Institute of Graduate Studies",
+            "location": "Bangalore, India",
+            "date": "Jul 2019 — Sep 2022",
+            "coursework": "Database Management Systems, Software Engineering, Web Technologies"
+        }
+    ],
+    "experience": [
+        {
+            "role": "AI Software Developer",
+            "company": "KAT Enterprise LLC",
+            "date": "Jul 2025 — Jan 2026",
+            "achievements": [
+                "Engineered a multi-agent conversational ecosystem ('Etown') using LangGraph and FastAPI, orchestrating distinct 'Member' and 'Provider' agents for autonomous service discovery",
+                "Developed 15+ custom AI tools, enabling GPT-4 agents to execute deterministic actions including geospatial provider search and real-time booking management via direct PostgreSQL interfacing",
+                "Implemented a dynamic context injection system to personalize System Prompts based on user location and role, increasing response relevance and location awareness",
+                "Built an asynchronous translation pipeline using Azure Translator, enabling multilingual support for diverse user bases with efficient batch processing"
+            ]
+        },
+        {
+            "role": "Python Developer Intern",
+            "company": "Jupitos Technologies LLC",
+            "date": "Jan 2025 — Jun 2025",
+            "achievements": [
+                "Developed a robust Django-based hiring platform capable of handling 150 concurrent users, improving page load speeds by 50% through optimized session management",
+                "Integrated a Resume Parser that automates the screening of 250+ resumes/month, achieving 92% parsing accuracy and significantly reducing manual HR verification time",
+                "Designed a 'Dual-Agent' interview bot using Groq LLM and LangChain that simulates recruiter behaviour with 95% response relevance",
+                "Engineered a hybrid storage system using PostgreSQL (structured) and Pinecone (vector) to achieve sub-200ms information retrieval speeds for the interview agent",
+                "Deployed an automated attendance tracking module for 150 employees, cutting data entry errors by 80%"
+            ]
+        }
+    ],
+    "skills": {
+        "languages": [
+            "Python",
+            "SQL",
+            "JavaScript (Basic)"
+        ],
+        "backend": [
+            "FastAPI",
+            "Django",
+            "RESTful APIs",
+            "AsyncIO",
+            "Microservices Architecture"
+        ],
+        "ai": [
+            "LangChain",
+            "LangGraph",
+            "OpenAI API",
+            "Groq",
+            "RAG",
+            "Pinecone",
+            "Vector Databases"
+        ],
+        "databases": [
+            "PostgreSQL",
+            "SQLAlchemy",
+            "PGVector"
+        ],
+        "devops": [
+            "Docker",
+            "Git",
+            "GitHub",
+            "NumPy",
+            "Pandas",
+            "GeoPy"
+        ]
+    },
+    "projects": [
+        {
+            "name": "Real-Time Face Recognition Attendance System",
+            "role": "Researcher & Developer",
+            "description": "Authored and published a research paper in the Indian Journal of Natural Sciences validating the efficiency of biometric automation in educational sectors. Developed the proof-of-concept using Python and OpenCV, demonstrating a reduction in manual tracking time by over 90%."
+        },
+        {
+            "name": "Cybersecurity Hackathon",
+            "role": "Team Lead",
+            "description": "Secured 2nd Place among 100+ participants by identifying and exploiting critical vulnerabilities (SQL Injection, XSS) in target web applications under strict time constraints. Earned a Junior Cybersecurity Analyst Internship at Supraja Technologies based on strong technical performance."
+        }
+    ]
+}

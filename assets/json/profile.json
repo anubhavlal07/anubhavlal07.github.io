@@ -1,0 +1,43 @@
+{
+    "name": "Anubhav Lal",
+    "title": "Software Developer",
+    "summary": [
+        "I am a recent Computer Science graduate from Acharya Institute of Graduate Studies, Bangalore, currently pursuing a Master's in Computer Application from SRM Institute of Science and Technology, Chennai. I have a strong foundation in software development, web development, data analytics, and cybersecurity. I hold a Bachelor in Computer Application and have completed relevant coursework in Object-Oriented Programming, Data Structures and Algorithms, Database Systems, and Software Engineering.",
+        "I have experience in programming languages such as C++, and Python, and a good understanding of web development technologies like HTML, CSS, JavaScript, and MySQL. I also have experience in data analysis using SQL, Excel, and Tableau. In cybersecurity, I've used tools like Metasploit, Burp Suite, and Nmap for penetration testing and vulnerability assessments. I'm familiar with Agile practices and have worked in collaborative teams to build secure and efficient software.",
+        "I've worked on projects like a real-time attendance system using OpenCV for face detection and recognition, built with a GUI in Tkinter and Pandas for data handling, achieving high accuracy in attendance tracking and reporting.",
+        "In my free time, I enjoy playing football, reading, and playing video games. I am a quick learner with strong problem-solving and analytical skills."
+    ],
+    "worksOn": [
+        "Software Development",
+        "Database Management",
+        "Data Analysis"
+    ],
+    "resumeLink": "https://drive.google.com/file/d/1AB-wl5RH7aTqNV6QpT9fFesqZeeC4DeT/view",
+    "socialLinks": [
+        {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/anubhavl/",
+            "icon": "ri-linkedin-line"
+        },
+        {
+            "name": "GitHub",
+            "url": "https://github.com/anubhavlal07",
+            "icon": "ri-github-line"
+        },
+        {
+            "name": "Instagram",
+            "url": "https://www.instagram.com/_anu_bhav/",
+            "icon": "ri-instagram-line"
+        },
+        {
+            "name": "Spotify",
+            "url": "https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi?si=0d60cfb3b67f4b98",
+            "icon": "ri-spotify-fill"
+        },
+        {
+            "name": "Terminal",
+            "url": "https://anubhavlal07.github.io/terminal",
+            "icon": "ri-terminal-box-line"
+        }
+    ]
+}

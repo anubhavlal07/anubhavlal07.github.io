@@ -1,0 +1,35 @@
+[
+    {
+        "role": "AI Software Developer",
+        "company": "KAT Enterprise LLC",
+        "date": "Jul 2025 - Jan 2026",
+        "_comment": [
+            "I built a multi-agent chat system called \"Etown\" that helps users find and book service providers autonomously.",
+            "I developed over 15 AI tools to enable features like location-based searching and real-time management.",
+            "I also added support for multiple languages and personalized the system's responses based on the user's specific location."
+        ],
+        "description": ""
+    },
+    {
+        "role": "Python Developer Intern",
+        "company": "Jupitos Technologies LLC",
+        "date": "Jan 2025 - Jun 2025",
+        "_comment": [
+            "I developed a hiring platform that automatically screens resumes and handles high user traffic efficiently.",
+            "I designed an AI interview bot that simulates a real recruiter and retrieves information instantly.",
+            "Additionally, I deployed an automated attendance system that drastically reduced manual data entry errors."
+        ],
+        "description": ""
+    },
+    {
+        "role": "Junior Cyber Security Analyst Intern",
+        "company": "Supraja Technologies",
+        "date": "Dec 2023 - Dec 2024",
+        "_comment": [
+            "I conducted over 50 security assessments to find and fix vulnerabilities like SQL injection and XSS.",
+            "I performed specialized testing on APIs to identify weaknesses in how they handle data.",
+            "I successfully resolved over 30 complex security issues to strengthen the server defenses against attacks."
+        ],
+        "description": ""
+    }
+]

@@ -16,11 +16,9 @@
 
   /* Change the first number */
   /* Blue: 207 - Purple: 250 - Pink: 356 - Teal: 174 */
-  --gradient-color: linear-gradient(
-    180deg,
-    hsla(207, 48%, 72%, 0),
-    hsla(207, 65%, 65%, 1)
-  );
+  --gradient-color: linear-gradient(180deg,
+      hsla(207, 48%, 72%, 0),
+      hsla(207, 65%, 65%, 1));
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
@@ -56,6 +54,9 @@
     --small-font-size: 0.875rem;
     --smaller-font-size: 0.813rem;
     --tiny-font-size: 0.688rem;
+    --body-color-glass: hsla(207, 4%, 99%, 0.1);
+    /* Reduced opacity */
+    /* Glass variant desktop default likely redundant but good for consistency if referenced */
   }
 }
 
@@ -68,6 +69,21 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+  /* Account for fixed header */
+}
+
+/* Respect user's motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -100,6 +116,49 @@ img {
   height: auto;
 }
 
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1024px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 0.5rem;
+}
+
+.sectionBorder {
+  border-bottom: 1px solid var(--title-color);
+  padding-bottom: 2.5rem;
+}
+
+.sectionTitle,
+.sectionSubtitle {
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.25rem;
+}
+
+.sectionSubtitle {
+  display: block;
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  margin: 1rem 0rem 2rem 0rem;
+}
+
+.main {
+  overflow: hidden;
+  /* For animation */
+}
+
 /*=============== THEME ===============*/
 .navButtons {
   display: flex;
@@ -114,21 +173,31 @@ img {
   transition: color 0.3s;
 }
 
+.changeTheme:hover {
+  color: var(--title-color);
+}
+
 /*========== Variables Dark theme ==========*/
 body.dark-theme {
   --title-color: hsl(207, 4%, 95%);
   --text-color: hsl(207, 4%, 65%);
   --body-color: hsl(207, 4%, 10%);
   --container-color: hsl(207, 4%, 12%);
+  --body-color-glass: hsla(207, 4%, 10%, 0.2);
+  /* Reduced opacity for dark */
+  --container-color-glass: hsla(207, 4%, 12%, 0.2);
+  /* Reduced opacity for dark */
 }
 
 /*========== 
-    Color changes in some parts of  the website, in light theme
+    Color changes in some parts of the website, in light theme
 ==========*/
 .dark-theme .nav,
 .dark-theme .navMenu,
 .dark-theme .scrollUp {
-  background-color: var(--container-color);
+  background-color: var(--container-color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 20px hsla(207, 24%, 8%, 0.4);
 }
 
@@ -157,47 +226,8 @@ body.dark-theme {
   background-color: hsl(207, 4%, 35%);
 }
 
-/*=============== REUSABLE CSS CLASSES ===============*/
-.container {
-  max-width: 1024px;
-  margin-inline: 1.5rem;
-}
-
-.grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.section {
-  padding-block: 2.5rem;
-}
-
-.sectionBorder {
-  border-bottom: 1px solid var(--title-color);
-  padding-bottom: 3.5rem;
-}
-
-.sectionTitle,
-.sectionSubtitle {
-  text-align: center;
-}
-
-.sectionTitle {
-  font-size: var(--h1-font-size);
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 0.25rem;
-}
-
-.sectionSubtitle {
-  display: block;
-  font-size: var(--small-font-size);
-  color: var(--text-color-light);
-  margin-bottom: 3rem;
-}
-
-.main {
-  overflow: hidden;
-  /* For animation */
+.dark-theme .backgroundHeader {
+  box-shadow: 0 6px 24px hsla(207, 24%, 8%, 0.6);
 }
 
 /*=============== HEADER & NAV ===============*/
@@ -209,12 +239,19 @@ body.dark-theme {
   z-index: var(--z-fixed);
 }
 
+.backgroundHeader {
+  box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
+}
+
 .nav {
   height: calc(var(--header-height) + 0.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--body-color);
+  background-color: hsla(207, 4%, 99%, 0.1);
+  /* Reduced opacity */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
   padding-inline: 1.5rem;
   border-radius: 3rem;
@@ -237,22 +274,6 @@ body.dark-theme {
   display: flex;
   font-size: 1.25rem;
   cursor: pointer;
-}
-
-@media screen and (max-width: 1023px) {
-  .navMenu {
-    position: fixed;
-    width: 88%;
-    left: 0;
-    right: 0;
-    bottom: -60%;
-    margin: 0 auto;
-    background-color: var(--body-color);
-    box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
-    padding: 2rem 1.5rem 5rem;
-    border-radius: 2rem;
-    transition: bottom 0.3s;
-  }
 }
 
 .navList {
@@ -381,6 +402,11 @@ body.dark-theme {
 .homeInfo {
   display: grid;
   row-gap: 2rem;
+}
+
+/* Hide quote container when empty to prevent whitespace */
+#quote:empty {
+  display: none;
 }
 
 .homeInfoTitle {
@@ -538,6 +564,11 @@ body.dark-theme {
   margin-bottom: 0.75rem;
 }
 
+/*=============== EXPERIENCE ===============*/
+.experienceContainer {
+  row-gap: 3.5rem;
+}
+
 /*=============== KNOWLEDGE ===============*/
 .knowledgeContainer {
   row-gap: 2.5rem;
@@ -680,52 +711,12 @@ body.dark-theme {
 
 /*=============== FOOTER ===============*/
 .footerContainer {
-  padding: 3rem 0 7rem;
+  padding: 1rem 0 2rem;
   text-align: center;
-}
-
-.footerTitle {
-  font-size: var(--h1-font-size);
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 1rem;
-}
-
-.footerList,
-.footerSocial {
-  display: flex;
-  justify-content: center;
-}
-
-.footerList {
-  margin: 2.5rem 0;
-  column-gap: 2.5rem;
-}
-
-.footerLink {
-  color: var(--title-color);
-}
-
-.footerLink:hover {
-  text-decoration: underline;
-}
-
-.footerSocial {
-  column-gap: 1.2rem;
-}
-
-.footerSocialLink {
-  font-size: 1.25rem;
-  color: var(--title-color);
-  transition: transform 0.3s;
-}
-
-.footerSocialLink:hover {
-  transform: translateY(-0.15rem);
 }
 
 .footerCopy {
   display: block;
-  margin-top: 4.5rem;
   font-size: var(--small-font-size);
   color: var(--text-color-light);
 }
@@ -734,9 +725,11 @@ body.dark-theme {
   text-decoration: none;
   color: var(--title-color);
 }
+
 .footerCopy a:hover {
   color: var(--first-color);
 }
+
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {
   width: 0.6rem;
@@ -778,8 +771,324 @@ body.dark-theme {
   bottom: 7.5rem;
 }
 
+/* Hide scroll-up button when modal is open */
+.resumeModal.showModal~.scrollUp {
+  display: none;
+}
+
+/*=============== RESUME MODAL ===============*/
+.resumeModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.resumeModal.showModal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.resumeModal.showModal .modalContent {
+  transform: scale(1);
+}
+
+.modalContent {
+  background-color: var(--body-color);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  border-radius: 1rem;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: var(--container-color);
+  border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: var(--first-color);
+  border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: hsl(207, 65%, 55%);
+}
+
+.modalClose {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: var(--title-color);
+  cursor: pointer;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--container-color);
+  transition: all 0.3s;
+}
+
+.modalClose:hover {
+  background-color: var(--first-color);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.resumeContent {
+  padding: 3rem 2rem;
+}
+
+.resumeHeader {
+  text-align: center;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid var(--first-color);
+  margin-bottom: 2rem;
+}
+
+.resumeName {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+}
+
+.resumeTitle {
+  font-size: var(--h3-font-size);
+  color: var(--first-color);
+  margin-bottom: 1rem;
+}
+
+.resumeContact {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+}
+
+.resumeContact span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.resumeContact i {
+  color: var(--first-color);
+}
+
+.linkSeparator {
+  color: var(--text-color-light);
+  font-weight: 300;
+}
+
+.resumeLinks {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.resumeLinks a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--title-color);
+  font-size: var(--small-font-size);
+  transition: color 0.3s;
+}
+
+.resumeLinks a:hover {
+  color: var(--first-color);
+  text-decoration: none;
+}
+
+.resumeSocialLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--title-color);
+  font-size: var(--small-font-size);
+  transition: color 0.3s;
+}
+
+.resumeSocialLink:hover {
+  color: var(--first-color);
+}
+
+.resumeSection {
+  margin-bottom: 2rem;
+}
+
+.resumeSectionTitle {
+  font-size: var(--h2-font-size);
+  color: var(--title-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--container-color);
+}
+
+.resumeSectionTitle i {
+  color: var(--first-color);
+}
+
+.resumeSummary {
+  color: var(--text-color);
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.resumeItem {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--first-color);
+}
+
+.resumeItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.resumeItemTitle {
+  font-size: var(--normal-font-size);
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.25rem;
+}
+
+.resumeCompany {
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  font-style: italic;
+}
+
+.resumeDate {
+  font-size: var(--smaller-font-size);
+  color: var(--first-color);
+  white-space: nowrap;
+}
+
+.resumeGpa {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  font-weight: var(--font-medium);
+}
+
+.resumeList {
+  list-style: disc;
+  margin-left: 1.5rem;
+  color: var(--text-color);
+}
+
+.resumeList li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.resumeSkills {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillCategory h4 {
+  font-size: var(--normal-font-size);
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+}
+
+.skillCategory p {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.resumeCoursework {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Resume Download Button */
+.resumeDownload {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 0.25rem;
+  margin-top: 2rem;
+  border-top: 2px solid var(--container-color);
+}
+
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--first-color);
+  color: white;
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(90, 159, 212, 0.3);
+}
+
+.downloadButton:hover {
+  background: hsl(207, 65%, 55%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(90, 159, 212, 0.4);
+}
+
+.downloadButton i {
+  font-size: 1.25rem;
+}
+
+/* Contact Links */
+.contactLink {
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+.contactLink:hover {
+  color: var(--first-color);
+  text-decoration: underline;
+}
+
 /*=============== BREAKPOINTS ===============*/
-/* For small devices */
+/* For small devices (Mobile) */
 @media screen and (max-width: 340px) {
   .container {
     margin-inline: 1rem;
@@ -803,8 +1112,53 @@ body.dark-theme {
   }
 }
 
+/* Mobile specific styling */
+@media screen and (max-width: 767px) {
+  .navMenu {
+    position: fixed;
+    width: 88%;
+    left: 0;
+    right: 0;
+    bottom: -60%;
+    margin: 0 auto;
+    background-color: var(--body-color);
+    box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
+    padding: 2rem 1.5rem 5rem;
+    border-radius: 2rem;
+    transition: bottom 0.3s;
+  }
+
+  /* Footer padding for mobile to clear floating navbar */
+  .footerContainer {
+    padding-bottom: 7rem;
+  }
+
+  /* Resume Modal Mobile Fixes */
+  .resumeContent {
+    padding: 0.25rem 1.5rem;
+  }
+
+  .resumeContact {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .linkSeparator {
+    display: none !important;
+  }
+
+  .resumeItemHeader {
+    flex-direction: column;
+  }
+
+  .resumeDate {
+    white-space: normal;
+  }
+}
+
 /* For medium devices */
 @media screen and (min-width: 576px) {
+
   .nav,
   .navMenu {
     width: 380px;
@@ -835,10 +1189,22 @@ body.dark-theme {
 @media screen and (min-width: 767px) {
   .homeContainer {
     grid-template-columns: 2fr 2fr;
+    row-gap: 0;
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  .homeData {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: start;
   }
 
   .homeInfo {
-    margin-top: 10rem;
+    grid-row: 1;
+    grid-column: 2;
+    margin-top: 1rem !important;
+    align-self: start !important;
   }
 
   .homeInfoDescription {
@@ -857,6 +1223,7 @@ body.dark-theme {
   }
 
   .qualificationContainer,
+  .experienceContainer,
   .contactContainer {
     justify-content: center;
   }
@@ -864,16 +1231,29 @@ body.dark-theme {
   .projectContainer {
     width: 500px;
   }
+}
 
+@media screen and (min-width: 768px) {
+  .resumeContent {
+    padding: 4rem 3rem 2rem 3rem;
+  }
+
+  .resumeSkills {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }
 
 /* For large devices */
-
 @media screen and (min-width: 1023px) {
   .header {
     top: 0;
     bottom: initial;
-    background-color: var(--body-color);
+    background-color: transparent;
+    /* Changed from var(--body-color) for glass effect on scroll if needed, or keeping it transparent so nav handles it? Wait. On desktop header IS the bar. */
+    background-color: hsla(207, 4%, 99%, 0.1);
+    /* Reduced opacity */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transition: 0.4s;
   }
 
@@ -885,6 +1265,9 @@ body.dark-theme {
     column-gap: 3rem;
     margin-inline: 1.5rem;
     padding: 0;
+    background-color: transparent;
+    /* Remove nav background on desktop so header handles glass */
+    backdrop-filter: none;
   }
 
   .navLink i,
@@ -911,8 +1294,15 @@ body.dark-theme {
 
   .dark-theme .nav,
   .dark-theme .navMenu {
-    background-color: var(--body-color);
+    background-color: transparent;
     box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  /* Make sure generic dark header gets glass too */
+  .dark-theme .header {
+    background-color: hsla(207, 4%, 10%, 0.2);
+    backdrop-filter: blur(16px);
   }
 
   .changeTheme {
@@ -924,7 +1314,7 @@ body.dark-theme {
   }
 
   .section {
-    padding-block: 8rem 0;
+    padding-block: 2.5rem 0;
   }
 
   .homeTitle {
@@ -957,11 +1347,11 @@ body.dark-theme {
 
 @media screen and (min-width: 1200px) {
   .sectionBorder {
-    padding-bottom: 6rem;
+    padding-bottom: 3rem;
   }
 
   .sectionSubtitle {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
 
   .homeTitle {
@@ -1009,8 +1399,6 @@ body.dark-theme {
   }
 
   .homeInfo {
-    /* grid-template-columns: repeat(3, 130px); */
-    /* row-gap: 4rem; */
     margin-top: 16rem;
   }
 
@@ -1091,26 +1479,5 @@ body.dark-theme {
   .projectImage {
     width: 320px;
     margin-bottom: 2rem;
-  }
-
-  .footerContainer {
-    padding: 4rem 0 3rem;
-  }
-
-  .footerList {
-    column-gap: 3rem;
-    margin: 3rem 0;
-  }
-
-  .footerSocial {
-    column-gap: 2rem;
-  }
-
-  .footerSocialLink {
-    font-size: 1.5rem;
-  }
-
-  .footerCopy {
-    margin-top: 5rem;
   }
 }

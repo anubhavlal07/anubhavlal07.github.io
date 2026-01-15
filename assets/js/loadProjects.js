@@ -1,17 +1,25 @@
 fetch("assets/json/projects.json")
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+    })
     .then(data => {
+        if (!data || data.length === 0) {
+            throw new Error('No projects data found');
+        }
+
         const container = document.querySelector(".swiper-wrapper");
+
         // Inject projects dynamically
         data.forEach(proj => {
             const div = document.createElement("div");
             div.className = "projectContent swiper-slide";
             div.innerHTML = `
-                <img src="${proj.img}" alt="project image" class="projectImage"/>
+                <img src="${proj.img}" alt="${proj.title} project" class="projectImage" loading="lazy"/>
                 <div>
                   <span class="projectSubtitle">${proj.subtitle}</span>
                   <h1 class="projectTitle">${proj.title}</h1>
-                  <a href="${proj.link}" target="_blank" class="projectButton">
+                  <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="projectButton">
                     ${proj.linkText} <i class="ri-arrow-right-line"></i>
                   </a>
                 </div>`;

@@ -1,178 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--=============== FAVICON ===============-->
-    <!-- <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon"> -->
-    <link rel="icon" href="assets/img/favicon.png" type="image/icon type" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--=============== REMIXICONS ===============-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+  <!--=============== SEO META TAGS ===============-->
+  <title>Anubhav Lal - Software Developer Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Anubhav Lal, a Computer Science graduate specializing in software development, web development, data analytics, and cybersecurity. Master's student at SRM Institute." />
+  <meta name="keywords"
+    content="software developer, web developer, data analyst, portfolio, anubhav lal, computer science, python, javascript, react, mysql" />
+  <meta name="author" content="Anubhav Lal" />
 
-    <!--=============== SWIPER CSS ===============-->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+  <!--=============== OPEN GRAPH / SOCIAL MEDIA ===============-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anubhavlal07.github.io/" />
+  <meta property="og:title" content="Anubhav Lal - Software Developer Portfolio" />
+  <meta property="og:description"
+    content="Explore my projects and experience in software development, web development, and data analytics." />
+  <meta property="og:image" content="https://anubhavlal07.github.io/assets/img/Person.png" />
 
-    <!--=============== CSS ===============-->
-    <link rel="stylesheet" href="assets/css/styles.css" />
+  <!--=============== TWITTER CARD ===============-->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://anubhavlal07.github.io/" />
+  <meta property="twitter:title" content="Anubhav Lal - Software Developer Portfolio" />
+  <meta property="twitter:description"
+    content="Explore my projects and experience in software development, web development, and data analytics." />
+  <meta property="twitter:image" content="https://anubhavlal07.github.io/assets/img/Person.png" />
 
-    <title>Portfolio</title>
-  </head>
+  <!--=============== THEME COLOR ===============-->
+  <meta name="theme-color" content="#5A9FD4" />
 
-  <body>
-    <!--==================== HEADER ====================-->
-    <header class="header" id="header">
-      <nav class="nav conatiner">
-        <a href="#" class="navLogo">Portfolio</a>
-        <div class="navMenu" id="navMenu">
-          <ul class="navList grid">
-            <li class="navItem">
-              <a href="#home" class="navLink activeLink">
-                <i class="ri-home-5-line"></i>Home
-              </a>
-            </li>
-            <li class="navItem">
-              <a href="#skills" class="navLink">
-                <i class="ri-trophy-line"></i>Skills
-              </a>
-            </li>
-            <li class="navItem">
-              <a href="#qualification" class="navLink">
-                <i class="ri-book-line"></i>Qualifications
-              </a>
-            </li>
-            <!-- <li class="navItem">
+  <!--=============== RESOURCE HINTS ===============-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://github.com" />
+  <link rel="dns-prefetch" href="https://www.linkedin.com" />
+
+  <!--=============== FAVICON ===============-->
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+
+  <!--=============== REMIXICONS ===============-->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!--=============== SWIPER CSS ===============-->
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+
+  <!--=============== CSS ===============-->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!--==================== HEADER ====================-->
+  <header class="header" id="header">
+    <nav class="nav conatiner">
+      <a href="#" class="navLogo">Portfolio</a>
+      <div class="navMenu" id="navMenu">
+        <ul class="navList grid">
+          <li class="navItem">
+            <a href="#home" class="navLink activeLink">
+              <i class="ri-home-5-line"></i>Home
+            </a>
+          </li>
+          <li class="navItem">
+            <a href="#skills" class="navLink">
+              <i class="ri-trophy-line"></i>Skills
+            </a>
+          </li>
+          <li class="navItem">
+            <a href="#qualification" class="navLink">
+              <i class="ri-book-line"></i>Qualifications
+            </a>
+          </li>
+          <li class="navItem">
+            <a href="#experience" class="navLink">
+              <i class="ri-briefcase-line"></i>Experience
+            </a>
+          </li>
+          <!-- <li class="navItem">
               <a href="#knowledge" class="navLink">
                 <i class="ri-computer-line"></i>Knowledge
               </a>
             </li> -->
-            <li class="navItem">
-              <a href="#projects" class="navLink">
-                <i class="ri-stack-line"></i>Projects
-              </a>
-            </li>
-          </ul>
-          <!-- Close Button -->
-          <div class="navClose" id="navClose">
-            <i class="ri-close-line"></i>
-          </div>
+          <li class="navItem">
+            <a href="#projects" class="navLink">
+              <i class="ri-stack-line"></i>Projects
+            </a>
+          </li>
+        </ul>
+        <!-- Close Button -->
+        <div class="navClose" id="navClose">
+          <i class="ri-close-line"></i>
         </div>
-        <div class="navButtons">
-          <!-- Theme Change -->
-          <i class="ri-moon-line changeTheme" id="themeButton"></i>
-          <!-- Toggle Button -->
-          <div class="navToggle" id="navToggle">
-            <i class="ri-menu-4-line"></i>
-          </div>
+      </div>
+      <div class="navButtons">
+        <!-- Theme Change -->
+        <i class="ri-moon-line changeTheme" id="themeButton"></i>
+        <!-- Toggle Button -->
+        <div class="navToggle" id="navToggle">
+          <i class="ri-menu-4-line"></i>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
-    <!--==================== MAIN ====================-->
-    <main class="main">
-      <!--==================== HOME ====================-->
-      <section class="home section" id="home">
-        <div class="homeContainer container grid sectionBorder">
-          <div class="homeData grid">
-            <h1 class="homeTitle">Hello there,I'm Anubhav <br /></h1>
-            <div class="homeBlob grid">
-              <div class="homePrefil">
-                <img src="assets/img/Person.png" alt="Human Graphics" />
-              </div>
-              <img
-                src="assets/img/shape-wawes.svg"
-                alt=""
-                class="homeShapeWaves"
-              />
-              <img
-                src="assets/img/shape-circle.svg"
-                alt=""
-                class="homeShapeCircle"
-              />
+  <!--==================== MAIN ====================-->
+  <main class="main">
+    <!--==================== HOME ====================-->
+    <section class="home section" id="home">
+      <div class="homeContainer container grid sectionBorder">
+        <div class="homeData grid">
+          <h1 class="homeTitle">Hello there,I'm Anubhav <br /></h1>
+          <div class="homeBlob grid">
+            <div class="homePrefil">
+              <img src="assets/img/Person.png" alt="Human Graphics" />
             </div>
-            <ul class="homeSocial">
-              <a
-                href="https://www.linkedin.com/in/anubhavl/"
-                target="_blank"
-                class="homeSocialLink"
-              >
-                <i class="ri-linkedin-line"></i>
-              </a>
-              <a
-                href="https://github.com/anubhavlal07"
-                target="_blank"
-                class="homeSocialLink"
-              >
-                <i class="ri-github-line"></i>
-              </a>
-              <a
-                href="https://www.instagram.com/_anu_bhav/"
-                target="_blank"
-                class="homeSocialLink"
-              >
-                <i class="ri-instagram-line"></i>
-              </a>
-              <a
-                href="https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi?si=0d60cfb3b67f4b98"
-                target="_blank"
-                class="homeSocialLink"
-              >
-                <i class="ri-spotify-fill"></i>
-              </a>
-              <a
-                href="https://anubhavlal07.github.io/terminal"
-                target="_blank"
-                class="homeSocialLink"
-              >
-                <i class="ri-terminal-box-line"></i>
-              </a>
-            </ul>
+            <img src="assets/img/shape-wawes.svg" alt="" class="homeShapeWaves" />
+            <img src="assets/img/shape-circle.svg" alt="" class="homeShapeCircle" />
           </div>
-          <!--==================== HOME INFO ====================-->
-          <div class="homeInfo">
-            <div id="quote"></div>
-            <div>
-              <h3 class="homeInfoTitle">SUMMARY</h3>
-              <p class="homeInfoDescription">
-                I am a recent Computer Science graduate from Acharya Institute of Graduate Studies, Bangalore, currently pursuing a Master's in Computer Application from SRM Institute of Science and Technology, Chennai. I have a strong foundation in software development, web development, data analytics, and cybersecurity. I hold a Bachelor in Computer Application and have completed relevant coursework in Object-Oriented Programming, Data Structures and Algorithms, Database Systems, and Software Engineering.
-                <br />
-                <br />
-                I have experience in programming languages such as C++, and Python, and a good understanding of web development technologies like HTML, CSS, JavaScript, and MySQL. I also have experience in data analysis using SQL, Excel, and Tableau. In cybersecurity, I've used tools like Metasploit, Burp Suite, and Nmap for penetration testing and vulnerability assessments. I'm familiar with Agile practices and have worked in collaborative teams to build secure and efficient software.
-                <br />
-                <br />
-                I've worked on projects like a real-time attendance system using OpenCV for face detection and recognition, built with a GUI in Tkinter and Pandas for data handling, achieving high accuracy in attendance tracking and reporting.
-                <br />
-                <br />
-                In my free time, I enjoy playing football, reading, and playing video games. I am a quick learner with strong problem-solving and analytical skills.
-                <br />
-              </p>
-              
-            </div>
-            <div>
-              <h3 class="homeInfoTitle">WORKS ON</h3>
-              <p class="homeInfoDescription">
-                - Software Development <br />
-                - Database Management <br />
-                - Data Analysis <br />
-                <!-- - Web Development <br /> -->
-              </p>
-            </div>
-            <div>
-              <h3 class="homeInfoTitle">
-                <a
-                  href="https://drive.google.com/file/d/1AB-wl5RH7aTqNV6QpT9fFesqZeeC4DeT/view"
-                  target="_blank"
-                >
-                  RESUME
-                  <i class="ri-link"></i
-                ></a>
-              </h3>
-            </div>
-            <!-- <div>
+          <ul class="homeSocial">
+            <a href="https://www.linkedin.com/in/anubhavl/" target="_blank" class="homeSocialLink">
+              <i class="ri-linkedin-line"></i>
+            </a>
+            <a href="https://github.com/anubhavlal07" target="_blank" class="homeSocialLink">
+              <i class="ri-github-line"></i>
+            </a>
+            <a href="https://www.instagram.com/_anu_bhav/" target="_blank" class="homeSocialLink">
+              <i class="ri-instagram-line"></i>
+            </a>
+            <a href="https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi?si=0d60cfb3b67f4b98" target="_blank"
+              class="homeSocialLink">
+              <i class="ri-spotify-fill"></i>
+            </a>
+            <a href="https://anubhavlal07.github.io/terminal" target="_blank" class="homeSocialLink">
+              <i class="ri-terminal-box-line"></i>
+            </a>
+          </ul>
+        </div>
+        <!--==================== HOME INFO ====================-->
+        <div class="homeInfo">
+          <div id="quote"></div>
+          <div>
+            <h3 class="homeInfoTitle">SUMMARY</h3>
+            <p class="homeInfoDescription" id="summary-content">
+              <!-- Summary will be loaded from JSON -->
+            </p>
+          </div>
+          <div>
+            <h3 class="homeInfoTitle">WORKS ON</h3>
+            <p class="homeInfoDescription" id="works-on-content">
+              <!-- Works On will be loaded from JSON -->
+            </p>
+          </div>
+          <div>
+            <h3 class="homeInfoTitle">
+              <a href="#" id="resume-link" target="_blank" rel="noopener noreferrer">
+                RESUME
+                <i class="ri-link"></i>
+              </a>
+            </h3>
+          </div>
+          <!-- <div>
               <h3 class="homeInfoTitle">
                 <a
                   href="https://drive.google.com/drive/folders/1Z1_zi_eGh4dQfSIcqyyrFax6l22VOTao"
@@ -183,131 +173,130 @@
                 ></a>
               </h3>
             </div> -->
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!--==================== SKILLS ====================-->
-      <section class="skills section" id="skills">
-        <h2 class="sectionTitle">Skills</h2>
-        <span class="sectionSubtitle">- My favourite skills -</span>
-        <div class="skillsContainer container grid sectionBorder">
-          <!-- SKILL 1 -->
-          <div class="skillContent">
-            <h3 class="skillTitle">
-              <i class="ri-braces-line"></i> Programming Languages
-            </h3>
-            <div class="skillInfo">
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img src="assets/img/python.svg" alt="skills image" />
-                </div>
-                <h3 class="skillName">Python</h3>
-                <span class="skillSubtitle">Skillful</span>
+    <!--==================== SKILLS ====================-->
+    <section class="skills section" id="skills">
+      <h2 class="sectionTitle">Skills</h2>
+      <span class="sectionSubtitle">- My favourite skills -</span>
+      <div class="skillsContainer container grid sectionBorder">
+        <!-- SKILL 1 -->
+        <div class="skillContent">
+          <h3 class="skillTitle">
+            <i class="ri-braces-line"></i> Programming Languages
+          </h3>
+          <div class="skillInfo">
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/python.svg" alt="skills image" />
               </div>
-
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img src="assets/img/c.svg" alt="skills image" />
-                </div>
-                <h3 class="skillName">C</h3>
-                <span class="skillSubtitle">Skillful</span>
-              </div>
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img
-                    src="assets/img/c++.svg"
-                    alt="skills image"
-                  />
-                </div>
-                <h3 class="skillName">C++</h3>
-                <span class="skillSubtitle">Intermediate</span>
-              </div>
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img src="assets/img/mysql-3.svg" alt="skills image" />
-                </div>
-                <h3 class="skillName">MySQL</h3>
-                <span class="skillSubtitle">Skillful</span>
-              </div>              
+              <h3 class="skillName">Python</h3>
+              <span class="skillSubtitle">Skillful</span>
             </div>
-          </div>
 
-          <!-- SKILL 2 -->
-          <div class="skillContent">
-            <h3 class="skillTitle">
-              <i class="ri-server-line"></i> Tools and Technologies
-            </h3>
-            <div class="skillInfo">
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img src="assets/img/git-icon.svg" alt="skills image" />
-                </div>
-                <h3 class="skillName">Git</h3>
-                <span class="skillSubtitle">Intermediate</span>
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/c.svg" alt="skills image" />
               </div>
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img src="assets/img/excel.svg" alt="skills image" />
-                </div>
-                <h3 class="skillName">Excel</h3>
-                <span class="skillSubtitle">Intermediate</span>
+              <h3 class="skillName">C</h3>
+              <span class="skillSubtitle">Skillful</span>
+            </div>
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/c++.svg" alt="skills image" />
               </div>
-              
-              <div class="skillData">
-                <div class="skillBlob">
-                  <img
-                    src="assets/img/tableau-software.svg"
-                    alt="skills image"
-                  />
-                </div>
-                <h3 class="skillName">Tableau</h3>
-                <span class="skillSubtitle">Beginner</span>
+              <h3 class="skillName">C++</h3>
+              <span class="skillSubtitle">Intermediate</span>
+            </div>
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/mysql-3.svg" alt="skills image" />
               </div>
+              <h3 class="skillName">MySQL</h3>
+              <span class="skillSubtitle">Skillful</span>
             </div>
           </div>
         </div>
-      </section>
 
-      <!--==================== QUALIFICATION ====================-->
-      <section class="qualification section" id="qualification">
-        <h2 class="sectionTitle">Qualification</h2>
-        <span class="sectionSubtitle">- Education -</span>
-        <div class="qualificationContainer container grid sectionBorder">
-          <!-- Qualifiaction 1 -->
-          <div class="qualificationContent">
-            <h3 class="qualificationTitle">
-              <i class="ri-book-line"></i> Education
-            </h3>
-            <div class="qualificationInfo">
-              <div>
-                <h3 class="qualificationName">
-                  Master In Computer Application
-                </h3>
-                <span class="qualificationCity"
-                  >SRM Institute Of Science And Technology</span
-                >
-                <span class="qualificationYear">Jul 2023 — May 2025</span>
-                <span class="qualificationYear">9.7 CGPA | 3.9 GPA</span>
+        <!-- SKILL 2 -->
+        <div class="skillContent">
+          <h3 class="skillTitle">
+            <i class="ri-server-line"></i> Tools and Technologies
+          </h3>
+          <div class="skillInfo">
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/git-icon.svg" alt="skills image" />
               </div>
-              <br />
-              <div>
-                <h3 class="qualificationName">
-                  Bachelor In Computer Application
-                </h3>
-                <span class="qualificationCity"
-                  >Bengaluru Central University</span
-                >
-                <span class="qualificationYear">Jul 2019 — Sep 2022</span>
-                <span class="qualificationYear">8.75 CGPA | 3.62 GPA</span>
+              <h3 class="skillName">Git</h3>
+              <span class="skillSubtitle">Intermediate</span>
+            </div>
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/excel.svg" alt="skills image" />
               </div>
+              <h3 class="skillName">Excel</h3>
+              <span class="skillSubtitle">Intermediate</span>
+            </div>
+
+            <div class="skillData">
+              <div class="skillBlob">
+                <img src="assets/img/tableau-software.svg" alt="skills image" />
+              </div>
+              <h3 class="skillName">Tableau</h3>
+              <span class="skillSubtitle">Beginner</span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!--==================== Knowledge ====================-->
-      <!-- <section class="knowledge section" id="knowledge">
+    <!--==================== QUALIFICATION ====================-->
+    <section class="qualification section" id="qualification">
+      <h2 class="sectionTitle">Qualification</h2>
+      <span class="sectionSubtitle">- Education -</span>
+      <div class="qualificationContainer container grid sectionBorder">
+        <!-- Qualifiaction 1 -->
+        <div class="qualificationContent">
+          <h3 class="qualificationTitle">
+            <i class="ri-book-line"></i> Education
+          </h3>
+          <div class="qualificationInfo">
+            <div>
+              <h3 class="qualificationName">
+                Master In Computer Application
+              </h3>
+              <span class="qualificationCity">SRM Institute Of Science And Technology</span>
+              <span class="qualificationYear">Jul 2023 — May 2025</span>
+              <span class="qualificationYear">9.7 CGPA | 3.9 GPA</span>
+            </div>
+            <br />
+            <div>
+              <h3 class="qualificationName">
+                Bachelor In Computer Application
+              </h3>
+              <span class="qualificationCity">Bengaluru Central University</span>
+              <span class="qualificationYear">Jul 2019 — Sep 2022</span>
+              <span class="qualificationYear">8.75 CGPA | 3.62 GPA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--==================== EXPERIENCE ====================-->
+    <section class="experience section" id="experience">
+      <h2 class="sectionTitle">Experience</h2>
+      <span class="sectionSubtitle">- Work History -</span>
+      <div class="experienceContainer container grid sectionBorder">
+        <!-- Experience will be injected here -->
+      </div>
+    </section>
+
+    <!--==================== Knowledge ====================-->
+    <!-- <section class="knowledge section" id="knowledge">
         <h2 class="sectionTitle">Knowledge</h2>
         <span class="sectionSubtitle">- What I Know -</span>
         <div class="knowledgeContainer container grid sectionBorder">
@@ -344,78 +333,28 @@
         </div>
       </section> -->
 
-<!--==================== PROJECTS ====================-->
-<section class="projects section" id="projects">
-  <h2 class="sectionTitle">Projects</h2>
-  <span class="sectionSubtitle">- Recent Work -</span>
-  <div class="container sectionBorder">
-    <div class="projectContainer swiper">
-      <div class="swiper-wrapper">
-        <!-- Projects will be injected here -->
-      </div>
+    <!--==================== PROJECTS ====================-->
+    <section class="projects section" id="projects">
+      <h2 class="sectionTitle">Projects</h2>
+      <span class="sectionSubtitle">- Recent Work -</span>
+      <div class="container sectionBorder">
+        <div class="projectContainer swiper">
+          <div class="swiper-wrapper">
+            <!-- Projects will be injected here -->
+          </div>
 
-      <div class="swiper-button-next"><i class="ri-arrow-right-s-line"></i></div>
-      <div class="swiper-button-prev"><i class="ri-arrow-left-s-line"></i></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-</section>
+          <div class="swiper-button-next"><i class="ri-arrow-right-s-line"></i></div>
+          <div class="swiper-button-prev"><i class="ri-arrow-left-s-line"></i></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
 
 
     <!--==================== FOOTER ====================-->
     <footer class="footer">
       <div class="footerContainer container">
-        <h1 class="footerTitle">Anubhav</h1>
-        <ul class="footerList">
-          <li>
-            <a href="#home" class="footerLink">Home</a>
-          </li>
-          <li>
-            <a href="#skills" class="footerLink">Skill</a>
-          </li>
-          <li>
-            <a href="#qualification" class="footerLink">Qualification</a>
-          </li>
-          <li>
-            <a href="#projects" class="footerLink">Projects</a>
-          </li>
-        </ul>
-        <ul class="footerSocial">
-          <a
-            href="https://www.linkedin.com/in/anubhavl/"
-            target="_blank"
-            class="footerSocialLink"
-          >
-            <i class="ri-linkedin-line"></i>
-          </a>
-          <a
-            href="https://github.com/anubhavlal07"
-            target="_blank"
-            class="footerSocialLink"
-          >
-            <i class="ri-github-line"></i>
-          </a>
-          <a
-            href="https://www.instagram.com/_anu_bhav/"
-            target="_blank"
-            class="footerSocialLink"
-          >
-            <i class="ri-instagram-line"></i>
-          </a>
-          <a
-            href="https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi?si=0d60cfb3b67f4b98"
-            target="_blank"
-            class="footerSocialLink"
-          >
-            <i class="ri-spotify-fill"></i>
-          </a>
-          <a
-            href="https://anubhavlal07.github.io/terminal"
-            target="_blank"
-            class="footerSocialLink"
-            ><i class="ri-terminal-box-line"></i>
-          </a>
-        </ul>
+
         <span class="footerCopy" id="footerCopy"></span>
       </div>
     </footer>
@@ -439,9 +378,28 @@
 
     <!--=============== PROJECTS JS ===============-->
     <script src="assets/js/loadProjects.js" defer></script>
-    
+
+    <!--=============== EXPERIENCE JS ===============-->
+    <script src="assets/js/loadExperience.js" defer></script>
+
+    <!--=============== PROFILE JS ===============-->
+    <script src="assets/js/loadProfile.js" defer></script>
+
     <!--=============== Quote JS ===============-->
     <script src="assets/js/quotes.js"></script>
+    <!--=============== RESUME MODAL JS ===============-->
+    <script src="assets/js/resumeModal.js" defer></script>
 
-  </body>
+    <!--=============== RESUME MODAL ===============-->
+    <div class="resumeModal" id="resumeModal">
+      <div class="modalContent">
+        <i class="ri-close-line modalClose"></i>
+        <div class="resumeContent" id="resumeContent">
+          <!-- Resume content will be loaded here dynamically -->
+        </div>
+      </div>
+    </div>
+
+</body>
+
 </html>

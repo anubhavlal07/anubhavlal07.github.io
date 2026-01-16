@@ -558,7 +558,7 @@ body.dark-theme {
 
 .qualificationName {
   font-size: var(--normal-font-size);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .qualificationCity,
@@ -570,7 +570,7 @@ body.dark-theme {
 
 .qualificationCity,
 .qualificationYear {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 /*=============== EXPERIENCE ===============*/

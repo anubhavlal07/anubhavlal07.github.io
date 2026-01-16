@@ -1,6 +1,20 @@
 fetch("assets/json/experience.json")
     .then(res => res.json())
     .then(data => {
+        // Sort data by ID in descending order
+        data.sort((a, b) => b.id - a.id);
+
+        // Set dynamic end date for the latest experience
+        const date = new Date();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const currentMonth = months[date.getMonth()];
+        const currentYear = date.getFullYear();
+        data.forEach(exp => {
+            if (exp.end_date === "Present") {
+                exp.end_date = `${currentMonth} ${currentYear}`;
+            }
+        });
+
         const container = document.querySelector(".experienceContainer");
 
         // Create the experience content wrapper
@@ -37,7 +51,7 @@ fetch("assets/json/experience.json")
             // Create date
             const dateSpan = document.createElement("span");
             dateSpan.className = "qualificationYear";
-            dateSpan.textContent = exp.date;
+            dateSpan.textContent = `${exp.start_date} - ${exp.end_date}`;
             entryDiv.appendChild(dateSpan);
 
             // Create description bullets

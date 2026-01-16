@@ -42,6 +42,22 @@ function loadResumeData() {
   fetch('assets/json/resume.json')
     .then(res => res.json())
     .then(data => {
+      // Sort experience by ID descending
+      if (data.experience) {
+        data.experience.sort((a, b) => b.id - a.id);
+
+        // Dynamic end date for "Present"
+        const date = new Date();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const currentMonth = months[date.getMonth()];
+        const currentYear = date.getFullYear();
+
+        data.experience.forEach(exp => {
+          if (exp.end_date === "Present") {
+            exp.end_date = `${currentMonth} ${currentYear}`;
+          }
+        });
+      }
       renderResume(data);
     })
     .catch(err => console.error('Failed to load resume:', err));
@@ -92,7 +108,7 @@ function renderResume(data) {
               <h3 class="resumeItemTitle">${exp.role}</h3>
               <p class="resumeCompany">${exp.company}</p>
             </div>
-            <span class="resumeDate">${exp.date}</span>
+            <span class="resumeDate">${exp.start_date} — ${exp.end_date}</span>
           </div>
           <ul class="resumeList">
             ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}

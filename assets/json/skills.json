@@ -1,0 +1,64 @@
+[
+    {
+        "title": "Programming Languages",
+        "icon": "ri-braces-line",
+        "skills": [
+            {
+                "name": "Python",
+                "level": "Skillful",
+                "image": "assets/img/python.svg"
+            },
+            {
+                "name": "C",
+                "level": "Skillful",
+                "image": "assets/img/c.svg"
+            },
+            {
+                "name": "Pinecone",
+                "level": "Beginner",
+                "image": "assets/img/pinecone-icon.svg"
+            },
+            {
+                "name": "MySQL",
+                "level": "Skillful",
+                "image": "assets/img/mysql.svg"
+            },
+            {
+                "name": "PostgreSQL",
+                "level": "Skillful",
+                "image": "assets/img/postgresql.svg"
+            }
+        ]
+    },
+    {
+        "title": "Tools and Technologies",
+        "icon": "ri-server-line",
+        "skills": [
+            {
+                "name": "Git",
+                "level": "Intermediate",
+                "image": "assets/img/git-icon.svg"
+            },
+            {
+                "name": "Docker",
+                "level": "Beginner",
+                "image": "assets/img/docker-icon.svg"
+            },
+            {
+                "name": "Fast API",
+                "level": "Intermediate",
+                "image": "assets/img/fastapi-icon.svg"
+            },
+            {
+                "name": "Pandas",
+                "level": "Intermediate",
+                "image": "assets/img/pandas-icon.svg"
+            },
+            {
+                "name": "Postman",
+                "level": "Beginner",
+                "image": "assets/img/postman-icon.svg"
+            }
+        ]
+    }
+]

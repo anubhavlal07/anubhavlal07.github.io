@@ -55,8 +55,6 @@
     --smaller-font-size: 0.813rem;
     --tiny-font-size: 0.688rem;
     --body-color-glass: hsla(207, 4%, 99%, 0.1);
-    /* Reduced opacity */
-    /* Glass variant desktop default likely redundant but good for consistency if referenced */
   }
 }
 
@@ -70,7 +68,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
-  /* Account for fixed header */
 }
 
 /* Respect user's motion preferences for accessibility */
@@ -92,7 +89,6 @@ body {
   background-color: var(--body-color);
   color: var(--text-color);
   transition: background 0.4s;
-  /* for dark mode animation */
 }
 
 h1,
@@ -160,6 +156,16 @@ img {
 }
 
 /*=============== THEME ===============*/
+/*========== Variables Dark theme ==========*/
+body.dark-theme {
+  --title-color: hsl(207, 4%, 95%);
+  --text-color: hsl(207, 4%, 65%);
+  --body-color: hsl(207, 4%, 10%);
+  --container-color: hsl(207, 4%, 12%);
+  --body-color-glass: hsla(207, 4%, 10%, 0.2);
+  --container-color-glass: hsla(207, 4%, 12%, 0.2);
+}
+
 .navButtons {
   display: flex;
   align-items: center;
@@ -177,24 +183,19 @@ img {
   color: var(--title-color);
 }
 
-/*========== Variables Dark theme ==========*/
-body.dark-theme {
-  --title-color: hsl(207, 4%, 95%);
-  --text-color: hsl(207, 4%, 65%);
-  --body-color: hsl(207, 4%, 10%);
-  --container-color: hsl(207, 4%, 12%);
-  --body-color-glass: hsla(207, 4%, 10%, 0.2);
-  /* Reduced opacity for dark */
-  --container-color-glass: hsla(207, 4%, 12%, 0.2);
-  /* Reduced opacity for dark */
-}
-
-/*========== 
-    Color changes in some parts of the website, in light theme
-==========*/
-.dark-theme .nav,
+/* Dark Theme Overrides */
+/* Note: Global dark theme nav overrides commented out to prevent conflict with mobile fixes */
+/* .dark-theme .nav,
 .dark-theme .navMenu,
 .dark-theme .scrollUp {
+  background-color: var(--container-color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px hsla(207, 24%, 8%, 0.4);
+} */
+
+.dark-theme .scrollUp,
+.dark-theme .downloadButton {
   background-color: var(--container-color-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -214,6 +215,7 @@ body.dark-theme {
   border-bottom: 1px solid hsl(207, 4%, 32%);
 }
 
+/* Scroll Bar - Dark Theme */
 .dark-theme::-webkit-scrollbar {
   background-color: hsl(207, 4%, 10%);
 }
@@ -226,10 +228,6 @@ body.dark-theme {
   background-color: hsl(207, 4%, 35%);
 }
 
-.dark-theme .backgroundHeader {
-  box-shadow: 0 6px 24px hsla(207, 24%, 8%, 0.6);
-}
-
 /*=============== HEADER & NAV ===============*/
 .header {
   width: 100%;
@@ -239,24 +237,38 @@ body.dark-theme {
   z-index: var(--z-fixed);
 }
 
-.backgroundHeader {
-  box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
-}
+
 
 .nav {
   height: calc(var(--header-height) + 0.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 100;
+  padding-inline: 1.5rem;
+  border-radius: 3rem;
+}
+
+.nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: hsla(207, 4%, 99%, 0.1);
-  /* Reduced opacity */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
-  padding-inline: 1.5rem;
   border-radius: 3rem;
+  z-index: -1;
   transition: background 0.4s;
-  /* For dark mode animation */
+}
+
+.dark-theme .nav::before {
+  background-color: hsla(207, 4%, 10%, 0.2);
+  box-shadow: 0 4px 20px hsla(207, 24%, 8%, 0.4);
 }
 
 .navLogo,
@@ -310,7 +322,8 @@ body.dark-theme {
 
 /* Show menu */
 .showMenu {
-  bottom: 2rem;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Active link */
@@ -404,7 +417,6 @@ body.dark-theme {
   row-gap: 2rem;
 }
 
-/* Hide quote container when empty to prevent whitespace */
 #quote:empty {
   display: none;
 }
@@ -465,7 +477,7 @@ body.dark-theme {
   gap: 2.5rem 2rem;
 }
 
-.skillsData {
+.skillData {
   justify-content: center;
   text-align: center;
 }
@@ -476,16 +488,14 @@ body.dark-theme {
   border-color: var(--container-color);
   border-radius: 3rem;
   place-items: center;
-  margin-bottom: 1rem;
   transition: background 0.4s;
-  /* For dark mode animation */
 }
 
 .skillBlob img {
   width: 60px;
 }
 
-.slillName {
+.skillName {
   font-size: var(--small-font-size);
   margin-bottom: 0.25rem;
 }
@@ -496,7 +506,6 @@ body.dark-theme {
   color: var(--text-color-light);
 }
 
-/* Animation skills */
 .skillBlob:hover img {
   animation: bounceSkill 0.6s;
 }
@@ -709,73 +718,6 @@ body.dark-theme {
   background-color: var(--title-color);
 }
 
-/*=============== FOOTER ===============*/
-.footerContainer {
-  padding: 1rem 0 2rem;
-  text-align: center;
-}
-
-.footerCopy {
-  display: block;
-  font-size: var(--small-font-size);
-  color: var(--text-color-light);
-}
-
-.footerCopy a {
-  text-decoration: none;
-  color: var(--title-color);
-}
-
-.footerCopy a:hover {
-  color: var(--first-color);
-}
-
-/*=============== SCROLL BAR ===============*/
-::-webkit-scrollbar {
-  width: 0.6rem;
-  border-radius: 0.5rem;
-  background-color: hsl(207, 4%, 99%);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: hsl(207, 4%, 65%);
-  border-radius: 0.5rem;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(207, 4%, 55%);
-}
-
-/*=============== SCROLL UP ===============*/
-.scrollUp {
-  position: fixed;
-  right: 1rem;
-  bottom: -30%;
-  background-color: var(--body-color);
-  box-shadow: 0 4px 12px hsl(207, 24%, 35%, 0.15);
-  display: inline-flex;
-  padding: 0.35rem;
-  border-radius: 0.25rem;
-  font-size: 1.1rem;
-  color: var(--title-color);
-  z-index: var(--z-tooltip);
-  transition: bottom 0.3s transform 0.3s;
-}
-
-.scrollUp:hover {
-  transform: translateY(-0.25rem);
-}
-
-/* Show Scroll Up*/
-.showScroll {
-  bottom: 7.5rem;
-}
-
-/* Hide scroll-up button when modal is open */
-.resumeModal.showModal~.scrollUp {
-  display: none;
-}
-
 /*=============== RESUME MODAL ===============*/
 .resumeModal {
   position: fixed;
@@ -783,7 +725,8 @@ body.dark-theme {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: transparent;
+  background-color: hsla(207, 4%, 99%, 0.1);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -802,6 +745,10 @@ body.dark-theme {
 
 .resumeModal.showModal .modalContent {
   transform: scale(1);
+}
+
+.resumeModal.showModal~.scrollUp {
+  display: none;
 }
 
 .modalContent {
@@ -1046,8 +993,7 @@ body.dark-theme {
 /* Resume Download Button */
 .resumeDownload {
   text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 0.25rem;
+  padding: 0.25rem 0rem;
   margin-top: 2rem;
   border-top: 2px solid var(--container-color);
 }
@@ -1056,20 +1002,18 @@ body.dark-theme {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 2rem;
-  background: var(--first-color);
-  color: white;
-  font-size: var(--normal-font-size);
+  padding: 0.35rem;
+  background: var(--body-color);
+  color: var(--title-color);
+  font-size: 1.1rem;
   font-weight: var(--font-semi-bold);
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(90, 159, 212, 0.3);
+  border-radius: 0.25rem;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 12px hsl(207, 24%, 35%, 0.15);
 }
 
 .downloadButton:hover {
-  background: hsl(207, 65%, 55%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(90, 159, 212, 0.4);
+  transform: translateY(-0.25rem);
 }
 
 .downloadButton i {
@@ -1085,6 +1029,68 @@ body.dark-theme {
 .contactLink:hover {
   color: var(--first-color);
   text-decoration: underline;
+}
+
+/*=============== FOOTER ===============*/
+.footerContainer {
+  padding: 1rem 0 2rem;
+  text-align: center;
+}
+
+.footerCopy {
+  display: block;
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+}
+
+.footerCopy a {
+  text-decoration: none;
+  color: var(--title-color);
+}
+
+.footerCopy a:hover {
+  color: var(--first-color);
+}
+
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar {
+  width: 0.6rem;
+  border-radius: 0.5rem;
+  background-color: hsl(207, 4%, 99%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(207, 4%, 65%);
+  border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(207, 4%, 55%);
+}
+
+/*=============== SCROLL UP ===============*/
+.scrollUp {
+  position: fixed;
+  right: 1rem;
+  bottom: -30%;
+  background-color: var(--body-color);
+  box-shadow: 0 4px 12px hsl(207, 24%, 35%, 0.15);
+  display: inline-flex;
+  padding: 0.35rem;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
+  color: var(--title-color);
+  z-index: var(--z-tooltip);
+  transition: bottom 0.3s transform 0.3s;
+}
+
+.scrollUp:hover {
+  transform: translateY(-0.25rem);
+}
+
+/* Show Scroll Up*/
+.showScroll {
+  bottom: 7.5rem;
 }
 
 /*=============== BREAKPOINTS ===============*/
@@ -1114,23 +1120,8 @@ body.dark-theme {
 
 /* Mobile specific styling */
 @media screen and (max-width: 767px) {
-  .navMenu {
-    position: fixed;
-    width: 88%;
-    left: 0;
-    right: 0;
-    bottom: -60%;
-    margin: 0 auto;
-    background-color: var(--body-color);
-    box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
-    padding: 2rem 1.5rem 5rem;
-    border-radius: 2rem;
-    transition: bottom 0.3s;
-  }
-
-  /* Footer padding for mobile to clear floating navbar */
   .footerContainer {
-    padding-bottom: 7rem;
+    padding-bottom: 7.5rem;
   }
 
   /* Resume Modal Mobile Fixes */
@@ -1153,6 +1144,35 @@ body.dark-theme {
 
   .resumeDate {
     white-space: normal;
+  }
+}
+
+/* Mobile/Tablet specific styling for Navigation */
+@media screen and (max-width: 1023px) {
+  .navMenu {
+    position: absolute !important;
+    width: 88%;
+    left: 0;
+    right: 0;
+    bottom: 5rem !important;
+    margin: 0 auto;
+    background-color: hsla(207, 4%, 99%, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
+    padding: 2rem 1.5rem;
+    border-radius: 2rem;
+    transition: visibility 0.4s, opacity 0.4s;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .dark-theme .navMenu {
+    background-color: hsla(207, 4%, 10%, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px hsla(207, 24%, 8%, 0.4);
   }
 }
 
@@ -1249,9 +1269,7 @@ body.dark-theme {
     top: 0;
     bottom: initial;
     background-color: transparent;
-    /* Changed from var(--body-color) for glass effect on scroll if needed, or keeping it transparent so nav handles it? Wait. On desktop header IS the bar. */
     background-color: hsla(207, 4%, 99%, 0.1);
-    /* Reduced opacity */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transition: 0.4s;
@@ -1266,8 +1284,11 @@ body.dark-theme {
     margin-inline: 1.5rem;
     padding: 0;
     background-color: transparent;
-    /* Remove nav background on desktop so header handles glass */
     backdrop-filter: none;
+  }
+
+  .nav::before {
+    display: none;
   }
 
   .navLink i,
@@ -1279,8 +1300,8 @@ body.dark-theme {
   .navMenu {
     width: initial;
     margin-left: auto;
-    background-color: var(--body-color);
-    transform: background 0.4s;
+    background-color: transparent;
+    transition: background 0.4s;
   }
 
   .navList {
@@ -1299,7 +1320,6 @@ body.dark-theme {
     backdrop-filter: none;
   }
 
-  /* Make sure generic dark header gets glass too */
   .dark-theme .header {
     background-color: hsla(207, 4%, 10%, 0.2);
     backdrop-filter: blur(16px);
@@ -1329,14 +1349,6 @@ body.dark-theme {
     bottom: 5rem;
   }
 
-  /* Change background header */
-  .backgroundHeader {
-    box-shadow: 0 4px 20px hsla(207, 24%, 35%, 0.1);
-  }
-
-  .dark-theme .backgroundHeader {
-    box-shadow: 0 6px 24px hsla(207, 24%, 8%, 0.6);
-  }
 }
 
 @media screen and (min-width: 1048px) {

@@ -5,52 +5,52 @@ const closeModal = document.querySelector('.modalClose');
 
 // Open modal when resume link is clicked
 if (resumeLink) {
-    resumeLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        resumeModal.classList.add('showModal');
-        document.body.style.overflow = 'hidden'; // Prevent background scroll
-        loadResumeData();
-    });
+  resumeLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    resumeModal.classList.add('showModal');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    loadResumeData();
+  });
 }
 
 // Close modal when X is clicked
 if (closeModal) {
-    closeModal.addEventListener('click', () => {
-        resumeModal.classList.remove('showModal');
-        document.body.style.overflow = 'auto';
-    });
+  closeModal.addEventListener('click', () => {
+    resumeModal.classList.remove('showModal');
+    document.body.style.overflow = 'auto';
+  });
 }
 
 // Close modal when clicking outside
 resumeModal.addEventListener('click', (e) => {
-    if (e.target === resumeModal) {
-        resumeModal.classList.remove('showModal');
-        document.body.style.overflow = 'auto';
-    }
+  if (e.target === resumeModal) {
+    resumeModal.classList.remove('showModal');
+    document.body.style.overflow = 'auto';
+  }
 });
 
 // Close with Escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && resumeModal.classList.contains('showModal')) {
-        resumeModal.classList.remove('showModal');
-        document.body.style.overflow = 'auto';
-    }
+  if (e.key === 'Escape' && resumeModal.classList.contains('showModal')) {
+    resumeModal.classList.remove('showModal');
+    document.body.style.overflow = 'auto';
+  }
 });
 
 // Load and render resume data
 function loadResumeData() {
-    fetch('assets/json/resume.json')
-        .then(res => res.json())
-        .then(data => {
-            renderResume(data);
-        })
-        .catch(err => console.error('Failed to load resume:', err));
+  fetch('assets/json/resume.json')
+    .then(res => res.json())
+    .then(data => {
+      renderResume(data);
+    })
+    .catch(err => console.error('Failed to load resume:', err));
 }
 
 function renderResume(data) {
-    const container = document.getElementById('resumeContent');
+  const container = document.getElementById('resumeContent');
 
-    container.innerHTML = `
+  container.innerHTML = `
     <!-- Header -->
     <div class="resumeHeader">
       <h1 class="resumeName">${data.personalInfo.name}</h1>
@@ -166,8 +166,7 @@ function renderResume(data) {
     ${data.personalInfo.resumeDownloadLink ? `
     <div class="resumeDownload">
       <a href="${data.personalInfo.resumeDownloadLink}" target="_blank" rel="noopener noreferrer" class="downloadButton">
-        <i class="ri-download-line"></i> Download
-      </a>
+        <i class="ri-download-line"></i></a>
     </div>` : ''}
   `;
 }

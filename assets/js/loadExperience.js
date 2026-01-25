@@ -74,7 +74,8 @@ async function loadExperience() {
             entryDiv.appendChild(dateSpan);
 
             // Create description bullets from highlights
-            if (exp.highlights && exp.highlights.length > 0) {
+            // Currently not required so making it optional
+            if (exp.highlightss && exp.highlightss.length > 0) {
                 const descList = document.createElement("ul");
                 descList.style.marginTop = "0.5rem";
                 descList.style.marginLeft = "1rem";

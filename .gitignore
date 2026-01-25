@@ -1,0 +1,15 @@
+.agent
+
+# Supabase credentials
+.env
+.env.local
+*.env.*
+
+# Migration scripts (contains sensitive data temporarily)
+scripts/migrate-to-supabase.js
+
+# Node modules
+node_modules/
+
+# Admin dashboard (moved to separate private repo)
+admin/

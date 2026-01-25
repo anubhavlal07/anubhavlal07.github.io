@@ -17,6 +17,7 @@ async function loadSkills() {
         const { data: skillItems, error: itemsError } = await supabase
             .from('skill_items')
             .select('*')
+            .eq('is_visible', true)
             .order('display_order', { ascending: true })
             .execute();
 

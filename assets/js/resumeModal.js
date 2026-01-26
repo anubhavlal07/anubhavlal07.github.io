@@ -87,10 +87,34 @@ async function loadFromSupabase() {
       resumeDownloadLink: resume.resume_download_link
     },
     summary: resume.summary,
-    education: resume.education || [],
-    experience: resume.experience || [],
-    skills: resume.skills || {},
-    projects: resume.projects || []
+    education: (resume.education || []).map(edu => ({
+      ...edu,
+      date: `${edu.startDate} — ${edu.endDate}`,
+      location: edu.location || '',
+      coursework: edu.score
+    })),
+    experience: (resume.experience || []).map(exp => ({
+      ...exp,
+      start_date: exp.startDate,
+      end_date: exp.endDate,
+      achievements: exp.achievements || (exp.description ? exp.description.split('\n').filter(line => line.includes('•')).map(line => line.replace(/[•-]\s*/, '').trim()) : [])
+    })),
+    skills: (() => {
+      const skillsArray = resume.skills || [];
+      if (!Array.isArray(skillsArray) && typeof skillsArray === 'object') return skillsArray;
+
+      return {
+        languages: skillsArray.filter(s => s.category === 'languages').map(s => s.name),
+        backend: skillsArray.filter(s => s.category === 'backend').map(s => s.name),
+        ai: skillsArray.filter(s => s.category === 'ai').map(s => s.name),
+        databases: skillsArray.filter(s => s.category === 'databases').map(s => s.name),
+        devops: skillsArray.filter(s => s.category === 'devops' || s.category === 'tools').map(s => s.name)
+      };
+    })(),
+    projects: (resume.projects || []).map(proj => ({
+      ...proj,
+      name: proj.title
+    }))
   };
 
   processAndRender(data);
@@ -174,7 +198,7 @@ function renderResume(data) {
             <span class="resumeDate">${exp.start_date} — ${exp.end_date}</span>
           </div>
           <ul class="resumeList">
-            ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+            ${(exp.achievements || []).map(achievement => `<li>${achievement}</li>`).join('')}
           </ul>
         </div>
       `).join('')}

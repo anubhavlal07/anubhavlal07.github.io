@@ -38,29 +38,92 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Load and render resume data
-function loadResumeData() {
+async function loadResumeData() {
+  try {
+    // Try fetching from Supabase
+    await loadFromSupabase();
+  } catch (err) {
+    console.warn('Supabase fetch failed, falling back to local JSON:', err);
+    // Fallback to local JSON
+    loadFromLocalJSON();
+  }
+}
+
+async function loadFromSupabase() {
+  // Fetch resume content
+  const { data: resumeRows, error: resumeError } = await supabase
+    .from('resume')
+    .select('*')
+    .execute();
+
+  if (resumeError) throw new Error(resumeError.message);
+  if (!resumeRows || resumeRows.length === 0) throw new Error('No resume data found');
+  const resume = resumeRows[0];
+
+  // Fetch social links
+  const { data: socialRows, error: socialError } = await supabase
+    .from('social_links')
+    .select('*')
+    .execute();
+
+  if (socialError) console.error('Error fetching social links:', socialError);
+
+  // Extract social links
+  const linkedinUrl = socialRows?.find(link => link.name.toLowerCase().includes('linkedin'))?.url || '';
+  const githubUrl = socialRows?.find(link => link.name.toLowerCase().includes('github'))?.url || '';
+
+  // Format data for renderResume (remove protocol for display/href construction in template)
+  const formatLink = (url) => url.replace(/^https?:\/\//, '');
+
+  const data = {
+    personalInfo: {
+      name: resume.name,
+      title: resume.title,
+      email: resume.email,
+      phone: resume.phone,
+      location: resume.location,
+      linkedin: formatLink(linkedinUrl),
+      github: formatLink(githubUrl),
+      resumeDownloadLink: resume.resume_download_link
+    },
+    summary: resume.summary,
+    education: resume.education || [],
+    experience: resume.experience || [],
+    skills: resume.skills || {},
+    projects: resume.projects || []
+  };
+
+  processAndRender(data);
+  console.log("Resume data loaded successfully from Supabase");
+}
+
+function loadFromLocalJSON() {
   fetch('assets/json/resume.json')
     .then(res => res.json())
     .then(data => {
-      // Sort experience by ID descending
-      if (data.experience) {
-        data.experience.sort((a, b) => b.id - a.id);
-
-        // Dynamic end date for "Present"
-        const date = new Date();
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const currentMonth = months[date.getMonth()];
-        const currentYear = date.getFullYear();
-
-        data.experience.forEach(exp => {
-          if (exp.end_date === "Present") {
-            exp.end_date = `${currentMonth} ${currentYear}`;
-          }
-        });
-      }
-      renderResume(data);
+      processAndRender(data);
     })
-    .catch(err => console.error('Failed to load resume:', err));
+    .catch(err => console.error('Failed to load local resume:', err));
+}
+
+function processAndRender(data) {
+  // Sort experience by ID descending
+  if (data.experience) {
+    data.experience.sort((a, b) => b.id - a.id);
+
+    // Dynamic end date for "Present"
+    const date = new Date();
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const currentMonth = months[date.getMonth()];
+    const currentYear = date.getFullYear();
+
+    data.experience.forEach(exp => {
+      if (exp.end_date === "Present") {
+        exp.end_date = `${currentMonth} ${currentYear}`;
+      }
+    });
+  }
+  renderResume(data);
 }
 
 function renderResume(data) {

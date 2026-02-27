@@ -442,7 +442,6 @@ body.dark-theme {
   font-family: var(--title-font);
   color: var(--title-color);
   padding-right: 4rem;
-  display: contents;
   text-align: justify;
 }
 

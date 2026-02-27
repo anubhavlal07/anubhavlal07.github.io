@@ -8,16 +8,24 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzcW1ydHhldWJndXp2aWl4bmlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzMzk1NTksImV4cCI6MjA4NDkxNTU1OX0.Lw3mH4Io_RWJaCSj_Cg27HaNFfEf53vJtHFf2XV1_pk";
     const ANALYTICS_SOURCE = window.__analyticsSource || "portfolio";
 
-    // Generate or retrieve session ID (persists across page reloads in the same tab)
+    // Generate or retrieve session ID (persists across page reloads and tabs)
     const SESSION_KEY = "__analytics_session_id";
-    let sessionId = sessionStorage.getItem(SESSION_KEY);
-    const isExistingSession = !!sessionId;
+    const SESSION_EXP_KEY = "__analytics_session_exp";
+    const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 
-    if (!sessionId) {
+    let sessionId = localStorage.getItem(SESSION_KEY);
+    let sessionExp = localStorage.getItem(SESSION_EXP_KEY);
+    let isExistingSession = false;
+
+    if (sessionId && sessionExp && Date.now() < parseInt(sessionExp, 10)) {
+        isExistingSession = true;
+        localStorage.setItem(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
+    } else {
         sessionId = crypto.randomUUID
             ? crypto.randomUUID()
             : "s_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
-        sessionStorage.setItem(SESSION_KEY, sessionId);
+        localStorage.setItem(SESSION_KEY, sessionId);
+        localStorage.setItem(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
     }
 
     // Store geolocation globally for weather command
@@ -594,6 +602,7 @@
             first_visit_at: returnInfo.firstVisitAt,
             screen_orientation: getOrientation(),
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+            viewed_resume: false
         };
 
         if (isExistingSession) {
@@ -608,6 +617,9 @@
 
         // ─── Heartbeat: update ALL dynamic metrics ───
         const startTime = Date.now();
+
+        // ─── Resume Boolean Tracking ───
+        let hasViewedResume = false;
 
         async function getHeartbeatPayload() {
             const uptimeSecs = Math.round((Date.now() - startTime) / 1000);
@@ -632,6 +644,7 @@
                 p_storage: storage,
                 p_permissions: permissions,
                 p_screen_orientation: getOrientation(),
+                p_viewed_resume: hasViewedResume
             };
         }
 
@@ -666,6 +679,7 @@
                     p_scroll_depth: maxScrollDepth,
                     p_connection: collectConnectionInfo(),
                     p_screen_orientation: getOrientation(),
+                    p_viewed_resume: hasViewedResume
                 };
                 fetch(SUPABASE_URL + "/rest/v1/rpc/update_visitor_heartbeat", {
                     method: "POST",
@@ -693,6 +707,79 @@
         document.addEventListener("visibilitychange", function () {
             if (document.visibilityState === "hidden") {
                 flushOnExit();
+            }
+        });
+
+        // ─── Link Click Tracking ───
+        document.addEventListener("click", function (e) {
+            const link = e.target.closest("a");
+            if (!link || !link.href) return;
+
+            const isResume = link.id === "resume-link" || (link.classList && link.classList.contains("resumeButton"));
+            const isExternal = link.href.startsWith("http") || link.href.startsWith("mailto");
+
+            if (isResume) {
+                hasViewedResume = true;
+                // Force an immediate heartbeat flush so the database captures this right away
+                sendHeartbeat();
+            }
+
+            // Only track external links and the resume modal click
+            // (ignore internal navigation like #skills, unless it's the resume link)
+            const isInternalAnchor = link.href.includes(window.location.host) && link.href.includes("#");
+
+            if ((isExternal && !isInternalAnchor) || isResume) {
+                let linkText = link.innerText.trim() || link.getAttribute("aria-label") || "";
+
+                if (!linkText) {
+                    const icon = link.querySelector("i[class*='ri-']");
+                    if (icon) {
+                        const match = icon.className.match(/ri-([a-z0-9-]+)-(line|fill)/);
+                        if (match) {
+                            linkText = match[1];
+                            if (linkText === "terminal-box") linkText = "Terminal";
+                            if (linkText === "link-m") linkText = "Demo";
+                            linkText = linkText.charAt(0).toUpperCase() + linkText.slice(1);
+                        }
+                    }
+
+                    // Fallback to URL parsing if no icon matches
+                    if (!linkText && isExternal) {
+                        try {
+                            const urlObj = new URL(link.href);
+                            let hostname = urlObj.hostname.replace('www.', '');
+                            const domainParts = hostname.split('.');
+                            if (domainParts.length > 0) {
+                                linkText = domainParts[0].charAt(0).toUpperCase() + domainParts[0].slice(1);
+                            }
+                        } catch (err) { }
+                    }
+                }
+
+                if (!linkText) linkText = link.href; // Fallback to raw URL
+                if (isResume && linkText === link.href) linkText = "RESUME";
+
+                const clickData = {
+                    session_id: sessionId,
+                    page_url: window.location.href,
+                    url_clicked: link.href,
+                    link_text: linkText
+                };
+
+                try {
+                    fetch(SUPABASE_URL + "/rest/v1/link_clicks", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            apikey: SUPABASE_KEY,
+                            Authorization: "Bearer " + SUPABASE_KEY
+                        },
+                        body: JSON.stringify(clickData),
+                        keepalive: true // Ensure request is sent even if navigating away
+                    });
+                } catch (err) {
+                    // Silent fail
+                }
             }
         });
     }

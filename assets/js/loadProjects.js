@@ -44,7 +44,7 @@ async function loadProjects() {
         // Initialize Swiper after content is loaded
         setTimeout(() => {
             const swiper = new Swiper('.swiper', {
-                loop: true,
+                loop: false,
                 slidesPerView: 2,
                 spaceBetween: 30,
                 navigation: {
@@ -57,6 +57,8 @@ async function loadProjects() {
                     clickable: true,
                     dynamicBullets: true,
                 },
+                preventClicks: false,
+                preventClicksPropagation: false,
                 breakpoints: {
                     340: {
                         slidesPerView: 1,
@@ -125,7 +127,7 @@ async function loadProjects() {
             // Initialize Swiper
             setTimeout(() => {
                 const swiper = new Swiper('.swiper', {
-                    loop: true,
+                    loop: false,
                     slidesPerView: 2,
                     spaceBetween: 30,
                     navigation: {
@@ -138,6 +140,8 @@ async function loadProjects() {
                         clickable: true,
                         dynamicBullets: true,
                     },
+                    preventClicks: false,
+                    preventClicksPropagation: false,
                     breakpoints: {
                         340: {
                             slidesPerView: 1,

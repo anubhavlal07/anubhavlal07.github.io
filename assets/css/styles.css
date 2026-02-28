@@ -386,6 +386,7 @@ body.dark-theme {
   width: 50px;
   left: -1.5rem;
   top: 8rem;
+  z-index: -1;
 }
 
 .homeShapeCircle {
@@ -441,7 +442,6 @@ body.dark-theme {
 .homeInfoDescription {
   font-family: var(--title-font);
   color: var(--title-color);
-  padding-right: 4rem;
   text-align: justify;
 }
 
@@ -700,6 +700,12 @@ body.dark-theme {
   top: 4.5rem;
 }
 
+.projectContainer .swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+}
+
 .projectContainer .swiper-slide {
   margin-bottom: 4.5rem;
 }
@@ -913,7 +919,6 @@ body.dark-theme {
 .resumeSummary {
   color: var(--text-color);
   line-height: 1.8;
-  text-align: justify;
 }
 
 .resumeItem {
@@ -1119,9 +1124,6 @@ body.dark-theme {
 
 /* Mobile specific styling */
 @media screen and (max-width: 767px) {
-  .footerContainer {
-    padding-bottom: 7.5rem;
-  }
 
   /* Resume Modal Mobile Fixes */
   .resumeContent {
@@ -1148,6 +1150,10 @@ body.dark-theme {
 
 /* Mobile/Tablet specific styling for Navigation */
 @media screen and (max-width: 1023px) {
+  .footerContainer {
+    padding-bottom: 7.5rem;
+  }
+
   .navMenu {
     position: absolute !important;
     width: 88%;

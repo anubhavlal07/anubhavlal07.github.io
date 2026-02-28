@@ -15,7 +15,7 @@
   --container-color: hsl(207, 4%, 95%);
 
   /* Change the first number */
-  /* Blue: 207 - Purple: 250 - Pink: 356 - Teal: 174 */
+  /* Blue: 207 - Pink: 356 - Teal: 174 */
   --gradient-color: linear-gradient(180deg,
       hsla(207, 48%, 72%, 0),
       hsla(207, 65%, 65%, 1));
@@ -919,6 +919,7 @@ body.dark-theme {
 .resumeSummary {
   color: var(--text-color);
   line-height: 1.8;
+  text-align: justify;
 }
 
 .resumeItem {
@@ -969,6 +970,7 @@ body.dark-theme {
 .resumeList li {
   margin-bottom: 0.5rem;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .resumeSkills {
@@ -985,6 +987,7 @@ body.dark-theme {
 .skillCategory p {
   color: var(--text-color);
   line-height: 1.6;
+  text-align: justify;
 }
 
 .resumeCoursework {

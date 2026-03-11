@@ -2,149 +2,146 @@
  * Load Skills Data from Supabase
  */
 
-async function loadSkills() {
-    try {
-        // Fetch skills categories from Supabase
-        const { data: skillsCategories, error: categoriesError } = await supabase
-            .from('skills')
-            .select('*')
-            .order('display_order', { ascending: true })
-            .execute();
+function renderSkillsData(skillsCategories, skillItems, isFromSupabase = false) {
+    const skillsContainer = document.querySelector(".skillsContainer");
+    if (!skillsContainer) return;
 
-        if (categoriesError) throw new Error(categoriesError);
+    // Clear existing content
+    skillsContainer.innerHTML = "";
 
-        // Fetch all skill items
-        const { data: skillItems, error: itemsError } = await supabase
-            .from('skill_items')
-            .select('*')
-            .eq('is_visible', true)
-            .order('display_order', { ascending: true })
-            .execute();
-
-        if (itemsError) throw new Error(itemsError);
-
-        const skillsContainer = document.querySelector(".skillsContainer");
-        if (!skillsContainer) return;
-
-        // Clear existing content
-        skillsContainer.innerHTML = "";
-
-        // Group skill items by category
+    if (isFromSupabase) {
+        // Group skill items by category map
         skillsCategories.forEach((category) => {
-            // Get items for this category
             const categoryItems = skillItems.filter(
                 item => item.skill_category_id === category.id
             );
+            buildCategoryDOM(category, categoryItems, true);
+        });
+    } else {
+        // JSON structure has skills inside category
+        const skillsData = skillsCategories; // First param holds the JSON structure
+        skillsData.forEach((category) => {
+            buildCategoryDOM(category, category.skills, false);
+        });
+    }
 
-            // Create Category Container
-            const skillContent = document.createElement("div");
-            skillContent.className = "skillContent";
+    function buildCategoryDOM(category, items, isSupabase) {
+        // Create Category Container
+        const skillContent = document.createElement("div");
+        skillContent.className = "skillContent";
 
-            // Create Category Title
-            const skillTitle = document.createElement("h3");
-            skillTitle.className = "skillTitle";
-            skillTitle.innerHTML = `<i class="${category.icon}"></i> ${category.title}`;
-            skillContent.appendChild(skillTitle);
+        // Create Category Title
+        const skillTitle = document.createElement("h3");
+        skillTitle.className = "skillTitle";
+        skillTitle.innerHTML = `<i class="${category.icon}"></i> ${category.title}`;
+        skillContent.appendChild(skillTitle);
 
-            // Create Skills Grid
-            const skillInfo = document.createElement("div");
-            skillInfo.className = "skillInfo";
+        // Create Skills Grid
+        const skillInfo = document.createElement("div");
+        skillInfo.className = "skillInfo";
 
-            categoryItems.forEach((skill) => {
-                const skillData = document.createElement("div");
-                skillData.className = "skillData";
+        items.forEach((skill) => {
+            const skillData = document.createElement("div");
+            skillData.className = "skillData";
 
-                const skillBlob = document.createElement("div");
-                skillBlob.className = "skillBlob";
-                const img = document.createElement("img");
-                img.src = skill.image_url;
-                img.alt = `${skill.name} icon`;
-                skillBlob.appendChild(img);
+            const skillBlob = document.createElement("div");
+            skillBlob.className = "skillBlob";
+            const img = document.createElement("img");
+            img.src = isSupabase ? skill.image_url : skill.image;
+            img.alt = `${skill.name} icon`;
+            skillBlob.appendChild(img);
 
-                const skillName = document.createElement("h3");
-                skillName.className = "skillName";
-                skillName.textContent = skill.name;
+            const skillName = document.createElement("h3");
+            skillName.className = "skillName";
+            skillName.textContent = skill.name;
 
-                const skillSubtitle = document.createElement("span");
-                skillSubtitle.className = "skillSubtitle";
-                skillSubtitle.textContent = skill.level;
+            const skillSubtitle = document.createElement("span");
+            skillSubtitle.className = "skillSubtitle";
+            skillSubtitle.textContent = skill.level;
 
-                skillData.appendChild(skillBlob);
-                skillData.appendChild(skillName);
-                skillData.appendChild(skillSubtitle);
+            skillData.appendChild(skillBlob);
+            skillData.appendChild(skillName);
+            skillData.appendChild(skillSubtitle);
 
-                skillInfo.appendChild(skillData);
-            });
-
-            skillContent.appendChild(skillInfo);
-            skillsContainer.appendChild(skillContent);
+            skillInfo.appendChild(skillData);
         });
 
-        console.log('Skills data loaded successfully from Supabase');
-    } catch (error) {
-        console.error('Failed to load skills from Supabase:', error);
+        skillContent.appendChild(skillInfo);
+        skillsContainer.appendChild(skillContent);
+    }
+}
 
-        // Fallback to JSON file
-        console.log('Attempting fallback to JSON file...');
+async function fetchSupabaseSkills() {
+    // Fetch skills categories from Supabase
+    const { data: skillsCategories, error: categoriesError } = await supabase
+        .from('skills')
+        .select('*')
+        .order('display_order', { ascending: true })
+        .execute();
+
+    if (categoriesError) throw new Error(categoriesError);
+    if (!skillsCategories || skillsCategories.length === 0) throw new Error("Empty categories");
+
+    // Fetch all skill items
+    const { data: skillItems, error: itemsError } = await supabase
+        .from('skill_items')
+        .select('*')
+        .eq('is_visible', true)
+        .order('display_order', { ascending: true })
+        .execute();
+
+    if (itemsError) throw new Error(itemsError);
+    if (!skillItems || skillItems.length === 0) throw new Error("Empty skills");
+
+    return { skillsCategories, skillItems };
+}
+
+async function loadSkills() {
+    let supabaseLoaded = false;
+    let jsonFallbackLoaded = false;
+
+    // 1. Start Supabase fetch
+    fetchSupabaseSkills().then(({ skillsCategories, skillItems }) => {
+        renderSkillsData(skillsCategories, skillItems, true);
+        supabaseLoaded = true;
+
+        if (jsonFallbackLoaded) {
+            console.log('Skills data updated with live Supabase data');
+        } else {
+            console.log('Skills data loaded successfully from Supabase');
+        }
+    }).catch(error => {
+        console.error('Failed to load skills from Supabase:', error);
+        if (!jsonFallbackLoaded) {
+            loadJsonSkills();
+        }
+    });
+
+    // 2. Fallback timer (1 second)
+    setTimeout(() => {
+        if (!supabaseLoaded && !jsonFallbackLoaded) {
+            console.log('Supabase taking too long, loading JSON fallback...');
+            loadJsonSkills();
+        }
+    }, 1000);
+
+    async function loadJsonSkills() {
+        if (jsonFallbackLoaded) return;
+        jsonFallbackLoaded = true;
+
         try {
             const response = await fetch("assets/json/skills.json");
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const skillsData = await response.json();
-            const skillsContainer = document.querySelector(".skillsContainer");
-            if (!skillsContainer) return;
-
-            // Clear existing content
-            skillsContainer.innerHTML = "";
-
-            skillsData.forEach((category) => {
-                // Create Category Container
-                const skillContent = document.createElement("div");
-                skillContent.className = "skillContent";
-
-                // Create Category Title
-                const skillTitle = document.createElement("h3");
-                skillTitle.className = "skillTitle";
-                skillTitle.innerHTML = `<i class="${category.icon}"></i> ${category.title}`;
-                skillContent.appendChild(skillTitle);
-
-                // Create Skills Grid
-                const skillInfo = document.createElement("div");
-                skillInfo.className = "skillInfo";
-
-                category.skills.forEach((skill) => {
-                    const skillData = document.createElement("div");
-                    skillData.className = "skillData";
-
-                    const skillBlob = document.createElement("div");
-                    skillBlob.className = "skillBlob";
-                    const img = document.createElement("img");
-                    img.src = skill.image;
-                    img.alt = "skills image";
-                    skillBlob.appendChild(img);
-
-                    const skillName = document.createElement("h3");
-                    skillName.className = "skillName";
-                    skillName.textContent = skill.name;
-
-                    const skillSubtitle = document.createElement("span");
-                    skillSubtitle.className = "skillSubtitle";
-                    skillSubtitle.textContent = skill.level;
-
-                    skillData.appendChild(skillBlob);
-                    skillData.appendChild(skillName);
-                    skillData.appendChild(skillSubtitle);
-
-                    skillInfo.appendChild(skillData);
-                });
-
-                skillContent.appendChild(skillInfo);
-                skillsContainer.appendChild(skillContent);
-            });
-
-            console.log('Skills data loaded from fallback JSON');
+            
+            if (!supabaseLoaded) {
+                renderSkillsData(skillsData, null, false);
+                console.log('Skills data loaded from fallback JSON');
+            }
         } catch (fallbackError) {
             console.error("Fallback also failed:", fallbackError);
+            jsonFallbackLoaded = false;
         }
     }
 }

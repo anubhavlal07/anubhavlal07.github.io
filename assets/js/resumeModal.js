@@ -9,6 +9,11 @@ if (resumeLink) {
     e.preventDefault();
     resumeModal.classList.add('showModal');
     document.body.style.overflow = 'hidden'; // Prevent background scroll
+    
+    // Clear previous content to show loading state if desired (optional)
+    const container = document.getElementById('resumeContent');
+    if (container) container.innerHTML = '<div style="text-align:center; padding: 2rem;">Loading Resume Data...</div>';
+    
     loadResumeData();
   });
 }
@@ -37,19 +42,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Load and render resume data
-async function loadResumeData() {
-  try {
-    // Try fetching from Supabase
-    await loadFromSupabase();
-  } catch (err) {
-    console.warn('Supabase fetch failed, falling back to local JSON:', err);
-    // Fallback to local JSON
-    loadFromLocalJSON();
-  }
-}
-
-async function loadFromSupabase() {
+async function fetchSupabaseResume() {
   // Fetch resume content
   const { data: resumeRows, error: resumeError } = await supabase
     .from('resume')
@@ -75,7 +68,7 @@ async function loadFromSupabase() {
   // Format data for renderResume (remove protocol for display/href construction in template)
   const formatLink = (url) => url.replace(/^https?:\/\//, '');
 
-  const data = {
+  return {
     personalInfo: {
       name: resume.name,
       title: resume.title,
@@ -116,18 +109,59 @@ async function loadFromSupabase() {
       name: proj.title
     }))
   };
-
-  processAndRender(data);
-  console.log("Resume data loaded successfully from Supabase");
 }
 
-function loadFromLocalJSON() {
-  fetch('assets/json/resume.json')
-    .then(res => res.json())
+// Load and render resume data using optimistic UI pattern
+async function loadResumeData() {
+  let supabaseLoaded = false;
+  let jsonFallbackLoaded = false;
+
+  // 1. Start Supabase fetch
+  fetchSupabaseResume()
     .then(data => {
       processAndRender(data);
+      supabaseLoaded = true;
+      if (jsonFallbackLoaded) {
+        console.log("Resume data updated with live Supabase data");
+      } else {
+        console.log("Resume data loaded successfully from Supabase");
+      }
     })
-    .catch(err => console.error('Failed to load local resume:', err));
+    .catch(err => {
+      console.warn('Supabase fetch failed:', err);
+      if (!jsonFallbackLoaded) {
+        loadFromLocalJSON();
+      }
+    });
+
+  // 2. Fallback timer (1 second)
+  setTimeout(() => {
+    if (!supabaseLoaded && !jsonFallbackLoaded) {
+      console.log('Supabase taking too long, loading JSON fallback...');
+      loadFromLocalJSON();
+    }
+  }, 1000);
+
+  function loadFromLocalJSON() {
+    if (jsonFallbackLoaded) return;
+    jsonFallbackLoaded = true;
+
+    fetch('assets/json/resume.json')
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        if (!supabaseLoaded) {
+          processAndRender(data);
+          console.log('Resume data loaded from fallback JSON');
+        }
+      })
+      .catch(err => {
+        console.error('Failed to load local resume:', err);
+        jsonFallbackLoaded = false;
+      });
+  }
 }
 
 function processAndRender(data) {
@@ -152,6 +186,7 @@ function processAndRender(data) {
 
 function renderResume(data) {
   const container = document.getElementById('resumeContent');
+  if (!container) return;
 
   container.innerHTML = `
     <!-- Header -->
@@ -226,27 +261,27 @@ function renderResume(data) {
     <div class="resumeSection">
       <h2 class="resumeSectionTitle"><i class="ri-code-line"></i> Skills</h2>
       <div class="resumeSkills">
-        ${data.skills.languages ? `
+        ${data.skills.languages && data.skills.languages.length > 0 ? `
         <div class="skillCategory">
           <h4>Programming Languages</h4>
           <p>${data.skills.languages.join(', ')}</p>
         </div>` : ''}
-        ${data.skills.backend ? `
+        ${data.skills.backend && data.skills.backend.length > 0 ? `
         <div class="skillCategory">
           <h4>Backend Frameworks</h4>
           <p>${data.skills.backend.join(', ')}</p>
         </div>` : ''}
-        ${data.skills.ai ? `
+        ${data.skills.ai && data.skills.ai.length > 0 ? `
         <div class="skillCategory">
           <h4>AI & LLM Orchestration</h4>
           <p>${data.skills.ai.join(', ')}</p>
         </div>` : ''}
-        ${data.skills.databases ? `
+        ${data.skills.databases && data.skills.databases.length > 0 ? `
         <div class="skillCategory">
           <h4>Databases</h4>
           <p>${data.skills.databases.join(', ')}</p>
         </div>` : ''}
-        ${data.skills.devops ? `
+        ${data.skills.devops && data.skills.devops.length > 0 ? `
         <div class="skillCategory">
           <h4>DevOps & Tools</h4>
           <p>${data.skills.devops.join(', ')}</p>
@@ -269,7 +304,7 @@ function renderResume(data) {
     ${data.personalInfo.resumeDownloadLink ? `
     <div class="resumeDownload">
       <a href="${data.personalInfo.resumeDownloadLink}" target="_blank" rel="noopener noreferrer" class="downloadButton">
-        <i class="ri-download-line"></i></a>
+        <i class="ri-download-line"></i> Download Resume</a>
     </div>` : ''}
   `;
 }

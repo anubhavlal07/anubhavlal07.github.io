@@ -112,10 +112,11 @@ window.addEventListener("scroll", scrollHeader);
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const scrollReveal = ScrollReveal({
   origin: "top",
-  distance: "60px",
-  duration: 2500,
-  delay: 300,
-  // reset: true /*Animation repeat*/,
+  distance: "40px",
+  duration: 1000,
+  delay: 150,
+  easing: "cubic-bezier(0.5, 0, 0, 1)",
+  reset: false,
 });
 scrollReveal.reveal(`.homeData,.projectContainer,.footerContainer`);
 scrollReveal.reveal(`.homeInfo div`, {

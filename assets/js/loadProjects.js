@@ -12,21 +12,23 @@ function renderProjectsData(data, isFromSupabase = false) {
     // Inject projects dynamically
     data.forEach(proj => {
         const div = document.createElement("div");
-        div.className = "projectContent swiper-slide";
-        
+        div.className = "swiper-slide";
+
         // Handle property name differences (Supabase vs JSON)
         const imageUrl = isFromSupabase ? proj.image_url : proj.img;
         const projectLink = isFromSupabase ? proj.project_link : proj.link;
         const linkText = isFromSupabase ? proj.link_text : proj.linkText;
-        
+
         div.innerHTML = `
-        <img src="${imageUrl}" alt="${proj.title} project" class="projectImage" loading="lazy"/>
-        <div>
-          <span class="projectSubtitle">${proj.subtitle}</span>
-          <h1 class="projectTitle">${proj.title}</h1>
-          <a href="${projectLink}" target="_blank" rel="noopener noreferrer" class="projectButton">
-            ${linkText} <i class="ri-arrow-right-line"></i>
-          </a>
+        <div class="projectContent">
+          <img src="${imageUrl}" alt="${proj.title} project" class="projectImage" loading="lazy"/>
+          <div>
+            <span class="projectSubtitle">${proj.subtitle}</span>
+            <h1 class="projectTitle">${proj.title}</h1>
+            <a href="${projectLink}" target="_blank" rel="noopener noreferrer" class="projectButton">
+              ${linkText} <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
         </div>`;
         container.appendChild(div);
     });

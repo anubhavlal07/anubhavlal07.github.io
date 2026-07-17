@@ -47,16 +47,11 @@ function renderExperienceData(data) {
         
         if (bulletPoints && bulletPoints.length > 0) {
             const descList = document.createElement("ul");
-            descList.style.marginTop = "0.5rem";
-            descList.style.marginLeft = "1rem";
-            descList.style.fontSize = "var(--small-font-size)";
-            descList.style.color = "var(--text-color-light)";
-            descList.style.listStyleType = "disc";
+            descList.className = "qualificationList";
 
             bulletPoints.forEach(bullet => {
                 const listItem = document.createElement("li");
                 listItem.textContent = bullet;
-                listItem.style.marginBottom = "0.25rem";
                 descList.appendChild(listItem);
             });
 
@@ -86,9 +81,11 @@ function renderExperienceData(data) {
 
         const scrollReveal = ScrollReveal({
             origin: "top",
-            distance: "60px",
-            duration: 2500,
-            delay: 300,
+            distance: "40px",
+            duration: 1000,
+            delay: 150,
+            easing: "cubic-bezier(0.5, 0, 0, 1)",
+            reset: false,
         });
 
         scrollReveal.reveal('.experienceContainer', {

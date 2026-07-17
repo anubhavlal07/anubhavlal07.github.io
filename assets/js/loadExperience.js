@@ -102,7 +102,7 @@ async function fetchSupabaseExperience() {
         .from('experience')
         .select('*')
         .eq('is_visible', true)
-        .order('display_order', { ascending: false })
+        .order('display_order', { ascending: true })
         .execute();
 
     if (error) throw new Error(error);

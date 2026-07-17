@@ -110,10 +110,5 @@ class QueryBuilder {
     }
 }
 
-// Create and export Supabase client instance
+// Create the global Supabase client instance used by all loader scripts
 const supabase = new SupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Export for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { supabase, SupabaseClient };
-}

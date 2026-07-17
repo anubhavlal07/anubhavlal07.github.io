@@ -7,7 +7,6 @@ const navMenu = document.getElementById("navMenu"),
 /* Validate if constant exists */
 if (navToggle) {
   navToggle.addEventListener("click", () => {
-    console.log("Nav toggle clicked");
     navMenu.classList.add("showMenu");
   });
 }
@@ -124,11 +123,11 @@ scrollReveal.reveal(`.homeInfo div`, {
   origin: "bottom",
   interval: 100,
 });
-scrollReveal.reveal(`.skillContent:nth-child(1),.contactContent`, {
+scrollReveal.reveal(`.skillContent:nth-child(1)`, {
   origin: "left",
 });
 scrollReveal.reveal(`.skillContent:nth-child(2)`, { origin: "right" });
-scrollReveal.reveal(`.qualificationContainer,.knowledgeCard`, {
+scrollReveal.reveal(`.qualificationContainer`, {
   interval: 100,
 });
 

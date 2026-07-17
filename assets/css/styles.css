@@ -577,60 +577,6 @@ body.dark-theme {
   row-gap: 3.5rem;
 }
 
-/*=============== KNOWLEDGE ===============*/
-.knowledgeContainer {
-  row-gap: 2.5rem;
-  justify-content: center;
-}
-
-.knowledgeCard {
-  position: relative;
-  width: 228px;
-  height: 322px;
-  background-color: var(--container-color);
-  text-align: center;
-  padding: 3.5rem;
-  border-radius: 7.25rem;
-  transition: background 0.4s;
-  /* For dark mode animation */
-}
-
-.knowledgeCard i {
-  display: block;
-  font-size: 2rem;
-  color: var(--title-color);
-  margin-bottom: 0.75rem;
-  transition: transform 0.6s;
-}
-
-.knowledgeTitle {
-  font-size: var(--h2-font-size);
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 1.5rem;
-}
-
-.knowledgeBorder {
-  width: 248px;
-  height: 342px;
-  border: 1.8px solid var(--text-color-light);
-  border-radius: 7.75rem;
-  position: absolute;
-  inset: 0;
-  left: -10px;
-  margin: auto;
-  z-index: -1;
-  transition: opacity 0.6s;
-  opacity: 0;
-}
-
-.knowledgeCard:hover i {
-  transform: rotateY(360deg);
-}
-
-.knowledgeCard:hover .knowledgeBorder {
-  opacity: 1;
-}
-
 /*=============== PROJECTS ===============*/
 .projectContainer {
   overflow: initial;
@@ -1027,17 +973,6 @@ body.dark-theme {
   font-size: 1.25rem;
 }
 
-/* Contact Links */
-.contactLink {
-  color: var(--text-color);
-  transition: color 0.3s;
-}
-
-.contactLink:hover {
-  color: var(--first-color);
-  text-decoration: underline;
-}
-
 /*=============== FOOTER ===============*/
 .footerContainer {
   padding: 1rem 0 2rem;
@@ -1240,19 +1175,16 @@ body.dark-theme {
   }
 
   .skillsContainer,
-  .qualificationContainer,
-  .knowledgeContainer {
+  .qualificationContainer {
     grid-template-columns: repeat(2, max-content);
   }
 
-  .skillsContainer,
-  .knowledgeContainer {
+  .skillsContainer {
     column-gap: 5rem;
   }
 
   .qualificationContainer,
-  .experienceContainer,
-  .contactContainer {
+  .experienceContainer {
     justify-content: center;
   }
 
@@ -1452,27 +1384,6 @@ body.dark-theme {
 
   .qualificationName {
     font-size: var(--h3-font-size);
-  }
-
-  .knowledgeContainer {
-    grid-template-columns: repeat(3, max-content);
-  }
-
-  .knowledgeCard {
-    width: 245px;
-    height: 345px;
-    border-radius: 7.6rem;
-    padding: 3.5rem 1.5rem;
-  }
-
-  .knowledgeCard i {
-    font-size: 2.5rem;
-  }
-
-  .knowledgeBorder {
-    width: 265px;
-    height: 365px;
-    border-radius: 8.25rem;
   }
 
   .projectContainer {

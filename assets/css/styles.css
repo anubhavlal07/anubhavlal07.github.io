@@ -730,13 +730,33 @@ img {
 .qualificationInfo > div::before {
   content: "";
   position: absolute;
-  left: -0.46rem;
+  left: -1px;
+  transform: translateX(-50%);
   top: 0.3rem;
   width: 0.7rem;
   height: 0.7rem;
   border-radius: 50%;
   background-color: var(--first-color);
   box-shadow: 0 0 0 4px var(--first-color-tint);
+}
+
+.experienceContainer .qualificationInfo > div:last-child::before {
+  animation: experienceDotBlink 1.8s ease-in-out infinite;
+}
+
+@keyframes experienceDotBlink {
+  0%,
+  100% {
+    background-color: var(--first-color);
+    box-shadow: 0 0 0 4px var(--first-color-tint),
+      0 0 0 0 var(--first-color-glow);
+  }
+
+  50% {
+    background-color: hsl(213, 90%, 30%);
+    box-shadow: 0 0 0 4px var(--first-color-tint),
+      0 0 0 9px hsla(213, 89%, 54%, 0);
+  }
 }
 
 .qualificationName {

@@ -1,0 +1,25 @@
+{
+  "name": "Anubhav Lal — Software Developer Portfolio",
+  "short_name": "Anubhav Lal",
+  "description": "Portfolio of Anubhav Lal, an AI software developer specializing in multi-agent systems, web development, and data analytics.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#111820",
+  "theme_color": "#217ff2",
+  "icons": [
+    {
+      "src": "assets/img/favicon.png",
+      "sizes": "100x100",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/Person.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

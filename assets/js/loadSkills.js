@@ -96,9 +96,24 @@ async function fetchSupabaseSkills() {
     return { skillsCategories, skillItems };
 }
 
+// Placeholder cards shown while skills are loading.
+function renderSkillsSkeleton() {
+    const container = document.querySelector(".skillsContainer");
+    if (!container) return;
+    const group = `
+      <div class="skillContent">
+        <div class="skillTitle"><span class="skeleton" style="width:11rem;height:0.9rem;border-radius:0.4rem;display:block"></span></div>
+        <div class="skillInfo">${'<div class="skeleton skillSkeleton"></div>'.repeat(4)}</div>
+      </div>`;
+    container.innerHTML = group + group;
+}
+
 async function loadSkills() {
     let supabaseLoaded = false;
     let jsonFallbackLoaded = false;
+
+    // Show placeholders immediately so the section is never empty while loading.
+    renderSkillsSkeleton();
 
     // 1. Start Supabase fetch
     fetchSupabaseSkills().then(({ skillsCategories, skillItems }) => {

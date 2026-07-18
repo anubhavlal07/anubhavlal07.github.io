@@ -16,18 +16,42 @@ function renderProjectsData(data, isFromSupabase = false) {
 
         // Handle property name differences (Supabase vs JSON)
         const imageUrl = isFromSupabase ? proj.image_url : proj.img;
-        const projectLink = isFromSupabase ? proj.project_link : proj.link;
-        const linkText = isFromSupabase ? proj.link_text : proj.linkText;
+        const description = (proj.description || "").trim();
+        const tech = proj.tech_stack || proj.tech || [];
+
+        // Links: prefer explicit code/demo fields; otherwise fall back to the
+        // single legacy link, inferring its kind from its label.
+        const legacyLink = isFromSupabase ? proj.project_link : proj.link;
+        const legacyText = isFromSupabase ? proj.link_text : proj.linkText;
+        const codeLink = proj.code_link || proj.codeLink ||
+            (legacyText && /git|code/i.test(legacyText) ? legacyLink : null);
+        const demoLink = proj.demo_link || proj.demoLink ||
+            (legacyText && /demo|live|app|site/i.test(legacyText) ? legacyLink : null);
+
+        const descHTML = description
+            ? `<p class="projectDescription">${description}</p>`
+            : "";
+        const tagsHTML = Array.isArray(tech) && tech.length
+            ? `<ul class="projectTags">${tech.map(t => `<li>${t}</li>`).join("")}</ul>`
+            : "";
+
+        let linksHTML = "";
+        if (codeLink || demoLink) {
+            if (codeLink) linksHTML += `<a href="${codeLink}" target="_blank" rel="noopener noreferrer" class="projectButton"><i class="ri-github-fill"></i> Code</a>`;
+            if (demoLink) linksHTML += `<a href="${demoLink}" target="_blank" rel="noopener noreferrer" class="projectButton projectButton--ghost"><i class="ri-external-link-line"></i> Live Demo</a>`;
+        } else if (legacyLink) {
+            linksHTML = `<a href="${legacyLink}" target="_blank" rel="noopener noreferrer" class="projectButton">${legacyText || "View"} <i class="ri-arrow-right-line"></i></a>`;
+        }
 
         div.innerHTML = `
         <div class="projectContent">
           <img src="${imageUrl}" alt="${proj.title} project" class="projectImage" loading="lazy"/>
-          <div>
-            <span class="projectSubtitle">${proj.subtitle}</span>
-            <h1 class="projectTitle">${proj.title}</h1>
-            <a href="${projectLink}" target="_blank" rel="noopener noreferrer" class="projectButton">
-              ${linkText} <i class="ri-arrow-right-line"></i>
-            </a>
+          <div class="projectBody">
+            <span class="projectSubtitle">${proj.subtitle || ""}</span>
+            <h3 class="projectTitle">${proj.title}</h3>
+            ${descHTML}
+            ${tagsHTML}
+            <div class="projectLinks">${linksHTML}</div>
           </div>
         </div>`;
         container.appendChild(div);
@@ -86,6 +110,31 @@ function renderProjectsData(data, isFromSupabase = false) {
     }, 100);
 }
 
+// Placeholder cards shown while project data is loading.
+function renderProjectsSkeleton(count = 2) {
+    const container = document.querySelector(".swiper-wrapper");
+    if (!container) return;
+    let html = "";
+    for (let i = 0; i < count; i++) {
+        html += `
+        <div class="swiper-slide">
+          <div class="projectContent projectSkeleton">
+            <div class="skeleton skeletonImage"></div>
+            <div class="projectBody">
+              <div class="skeleton skeletonLine sm"></div>
+              <div class="skeleton skeletonLine lg"></div>
+              <div class="skeleton skeletonLine"></div>
+              <div class="skeleton skeletonLine md"></div>
+              <div class="skeletonChips">
+                <span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
 async function fetchSupabaseProjects() {
     const { data, error } = await supabase
         .from('projects')
@@ -106,6 +155,9 @@ async function fetchSupabaseProjects() {
 async function loadProjects() {
     let supabaseLoaded = false;
     let jsonFallbackLoaded = false;
+
+    // Show placeholders immediately so the section is never empty while loading.
+    renderProjectsSkeleton();
 
     // 1. Start Supabase fetch
     fetchSupabaseProjects().then(data => {

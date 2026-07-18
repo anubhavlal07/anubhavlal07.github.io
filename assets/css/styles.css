@@ -442,12 +442,14 @@ img {
   position: relative;
   width: 200px;
   height: 290px;
-  background-color: var(--container-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--container-color-glass);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--glass-border);
   justify-self: center;
   border-radius: 6.25rem;
   place-items: center;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 var(--glass-highlight);
   transition: background 0.4s, box-shadow 0.4s;
 }
 
@@ -848,9 +850,40 @@ img {
   color: var(--first-color);
 }
 
+.projectBody {
+  display: grid;
+  gap: 0.5rem;
+}
+
 .projectTitle {
   font-size: var(--h3-font-size);
-  margin: 0.5rem 0 1.25rem;
+  margin: 0.15rem 0 0;
+}
+
+.projectDescription {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.projectTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+}
+
+.projectTags li {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-medium);
+  color: var(--first-color);
+  background-color: var(--first-color-tint);
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .projectButton {
@@ -871,6 +904,123 @@ img {
   transform: translateX(0.25rem);
 }
 
+.projectLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.projectLinks .projectButton {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.projectLinks .projectButton:hover {
+  border-color: var(--first-color);
+}
+
+.projectLinks .projectButton:hover i {
+  transform: none;
+}
+
+.projectLinks .projectButton--ghost {
+  color: var(--text-color);
+}
+
+.projectLinks .projectButton--ghost:hover {
+  color: var(--first-color);
+}
+
+/*=============== SKELETON LOADERS ===============*/
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.45), transparent);
+  animation: skeletonShimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}
+
+@keyframes skeletonShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.projectSkeleton {
+  pointer-events: none;
+}
+
+.skeletonImage {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
+.skeletonLine {
+  height: 0.7rem;
+  margin-bottom: 0.65rem;
+}
+
+.skeletonLine.sm {
+  width: 40%;
+}
+
+.skeletonLine.md {
+  width: 70%;
+}
+
+.skeletonLine.lg {
+  width: 85%;
+  height: 1.1rem;
+  margin-bottom: 0.9rem;
+}
+
+.skeletonChips {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+}
+
+.skeletonChips span {
+  width: 3rem;
+  height: 1.15rem;
+  border-radius: 0.4rem;
+}
+
+/* Skill + experience placeholders */
+.skillSkeleton {
+  width: 6.75rem;
+  height: 8.5rem;
+  border-radius: 0.9rem;
+}
+
+.experienceSkeletonCard {
+  width: 100%;
+  max-width: 620px;
+}
+
+.experienceSkeletonCard .skeletonLine:last-child {
+  margin-bottom: 0;
+}
+
 /* Swiper class */
 .projectContainer .swiper-button-prev::after,
 .projectContainer .swiper-button-next::after {
@@ -887,10 +1037,12 @@ img {
   place-items: center;
   font-size: 1.5rem;
   color: var(--title-color);
-  background-color: var(--container-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--container-color-glass);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--glass-border);
   border-radius: 50%;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--glass-highlight);
   transition: color 0.3s, border-color 0.3s, background 0.3s;
 }
 

@@ -122,9 +122,27 @@ async function fetchSupabaseExperience() {
     return data;
 }
 
+// Placeholder card shown while experience is loading.
+function renderExperienceSkeleton() {
+    const container = document.querySelector(".experienceContainer");
+    if (!container) return;
+    container.innerHTML = `
+      <div class="qualificationContent experienceSkeletonCard">
+        <div class="skeleton skeletonLine" style="width:10rem;height:0.9rem;margin-bottom:1.75rem"></div>
+        <div class="skeleton skeletonLine lg"></div>
+        <div class="skeleton skeletonLine md"></div>
+        <div class="skeleton skeletonLine"></div>
+        <div class="skeleton skeletonLine"></div>
+        <div class="skeleton skeletonLine md"></div>
+      </div>`;
+}
+
 async function loadExperience() {
     let supabaseLoaded = false;
     let jsonFallbackLoaded = false;
+
+    // Show a placeholder immediately so the section is never empty while loading.
+    renderExperienceSkeleton();
 
     // 1. Start Supabase fetch
     fetchSupabaseExperience().then(data => {

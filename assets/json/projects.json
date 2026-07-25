@@ -4,39 +4,34 @@
     "subtitle": "Machine Learning",
     "title": "HireMind",
     "description": "An HR screening assistant built on a Retrieval-Augmented Generation pipeline that parses résumés and answers recruiter questions with grounded context.",
-    "tech": ["Python", "LangChain", "Pinecone", "FastAPI"],
-    "code": "https://github.com/anubhavlal07/RAG-Agent"
+    "tech": ["Python", "LangChain", "Pinecone", "FastAPI"]
   },
   {
     "img": "assets/img/faceReg.png",
     "subtitle": "Machine Learning",
     "title": "FaceReg Attendance Monitor",
     "description": "A real-time attendance system using OpenCV face detection and recognition, with a Tkinter GUI and Pandas-based reporting.",
-    "tech": ["Python", "OpenCV", "Tkinter", "Pandas"],
-    "code": "https://github.com/anubhavlal07/Attendance-Management"
+    "tech": ["Python", "OpenCV", "Tkinter", "Pandas"]
   },
   {
     "img": "assets/img/cyberCrimeAnalysis.png",
     "subtitle": "Data Analytics",
     "title": "Cyber Crime Analysis",
     "description": "Exploratory analysis and prediction of cyber-crime trends across regions, surfaced through interactive visual dashboards.",
-    "tech": ["Python", "Pandas", "Scikit-learn", "Tableau"],
-    "code": "https://github.com/anubhavlal07/Cyber-Crime-Analysis-And-Prediction"
+    "tech": ["Python", "Pandas", "Scikit-learn", "Tableau"]
   },
   {
     "img": "assets/img/movieRecommendation.png",
     "subtitle": "Progressive Web App",
     "title": "Movie Bliss",
     "description": "An installable, offline-capable progressive web app for discovering and tracking movies.",
-    "tech": ["JavaScript", "PWA", "REST API"],
-    "demo": "https://distraction-buff.netlify.app/"
+    "tech": ["JavaScript", "PWA", "REST API"]
   },
   {
     "img": "assets/img/MERNstack.png",
     "subtitle": "MERN Stack",
     "title": "Blogger's Den",
     "description": "A full-stack blogging platform with authentication, rich-text posts, and comments.",
-    "tech": ["MongoDB", "Express", "React", "Node.js"],
-    "code": "https://github.com/anubhavlal07/Blog-Website"
+    "tech": ["MongoDB", "Express", "React", "Node.js"]
   }
 ]

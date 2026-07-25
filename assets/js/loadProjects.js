@@ -19,15 +19,6 @@ function renderProjectsData(data, isFromSupabase = false) {
         const description = (proj.description || "").trim();
         const tech = proj.tech_stack || proj.tech || [];
 
-        // Links: prefer explicit code/demo fields; otherwise fall back to the
-        // single legacy link, inferring its kind from its label.
-        const legacyLink = isFromSupabase ? proj.project_link : proj.link;
-        const legacyText = isFromSupabase ? proj.link_text : proj.linkText;
-        const codeLink = proj.code_link || proj.codeLink ||
-            (legacyText && /git|code/i.test(legacyText) ? legacyLink : null);
-        const demoLink = proj.demo_link || proj.demoLink ||
-            (legacyText && /demo|live|app|site/i.test(legacyText) ? legacyLink : null);
-
         const descHTML = description
             ? `<p class="projectDescription">${description}</p>`
             : "";
@@ -36,11 +27,19 @@ function renderProjectsData(data, isFromSupabase = false) {
             : "";
 
         let linksHTML = "";
-        if (codeLink || demoLink) {
+        if (isFromSupabase) {
+            const legacyLink = proj.project_link;
+            const legacyText = proj.link_text;
+            const codeLink = proj.code_link ||
+                (legacyText && /git|code/i.test(legacyText) ? legacyLink : null);
+            const demoLink = proj.demo_link ||
+                (legacyText && /demo|live|app|site/i.test(legacyText) ? legacyLink : null);
+
             if (codeLink) linksHTML += `<a href="${codeLink}" target="_blank" rel="noopener noreferrer" class="projectButton"><i class="ri-github-fill"></i> Code</a>`;
             if (demoLink) linksHTML += `<a href="${demoLink}" target="_blank" rel="noopener noreferrer" class="projectButton projectButton--ghost"><i class="ri-external-link-line"></i> Live Demo</a>`;
-        } else if (legacyLink) {
-            linksHTML = `<a href="${legacyLink}" target="_blank" rel="noopener noreferrer" class="projectButton">${legacyText || "View"} <i class="ri-arrow-right-line"></i></a>`;
+            if (!linksHTML && legacyLink) {
+                linksHTML = `<a href="${legacyLink}" target="_blank" rel="noopener noreferrer" class="projectButton">${legacyText || "View"} <i class="ri-arrow-right-line"></i></a>`;
+            }
         }
 
         div.innerHTML = `
@@ -51,7 +50,7 @@ function renderProjectsData(data, isFromSupabase = false) {
             <h3 class="projectTitle">${proj.title}</h3>
             ${descHTML}
             ${tagsHTML}
-            <div class="projectLinks">${linksHTML}</div>
+            ${linksHTML ? `<div class="projectLinks">${linksHTML}</div>` : ""}
           </div>
         </div>`;
         container.appendChild(div);

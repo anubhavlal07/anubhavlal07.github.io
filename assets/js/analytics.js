@@ -8,24 +8,46 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzcW1ydHhldWJndXp2aWl4bmlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzMzk1NTksImV4cCI6MjA4NDkxNTU1OX0.Lw3mH4Io_RWJaCSj_Cg27HaNFfEf53vJtHFf2XV1_pk";
     const ANALYTICS_SOURCE = window.__analyticsSource || "portfolio";
 
-    // Generate or retrieve session ID (persists across page reloads and tabs)
+    /* ═══════════════════════════════════════════
+       IDENTITY SPINE
+       visitor_id — permanent, identifies the person across every visit
+       session_id — 30-minute rolling window, identifies one visit
+       ═══════════════════════════════════════════ */
+    const VISITOR_KEY = "__analytics_visitor_id";
     const SESSION_KEY = "__analytics_session_id";
     const SESSION_EXP_KEY = "__analytics_session_exp";
     const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 
-    let sessionId = localStorage.getItem(SESSION_KEY);
-    let sessionExp = localStorage.getItem(SESSION_EXP_KEY);
+    // localStorage throws outright in some privacy modes — never let it break analytics
+    const store = {
+        get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { } },
+    };
+
+    function newId(prefix) {
+        if (crypto.randomUUID) return crypto.randomUUID();
+        return prefix + Math.random().toString(36).substring(2) + Date.now().toString(36);
+    }
+
+    // ─── visitor_id: written once, never expires ───
+    let visitorId = store.get(VISITOR_KEY);
+    if (!visitorId) {
+        visitorId = newId("v_");
+        store.set(VISITOR_KEY, visitorId);
+    }
+
+    // ─── session_id: rolls over after 30 minutes idle ───
+    let sessionId = store.get(SESSION_KEY);
+    let sessionExp = store.get(SESSION_EXP_KEY);
     let isExistingSession = false;
 
     if (sessionId && sessionExp && Date.now() < parseInt(sessionExp, 10)) {
         isExistingSession = true;
-        localStorage.setItem(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
+        store.set(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
     } else {
-        sessionId = crypto.randomUUID
-            ? crypto.randomUUID()
-            : "s_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
-        localStorage.setItem(SESSION_KEY, sessionId);
-        localStorage.setItem(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
+        sessionId = newId("s_");
+        store.set(SESSION_KEY, sessionId);
+        store.set(SESSION_EXP_KEY, Date.now() + SESSION_TIMEOUT);
     }
 
     // Store geolocation globally for weather command
@@ -327,6 +349,121 @@
     }
 
     /* ═══════════════════════════════════════════
+       FONT METRICS (rendered text widths vary with the installed font set)
+       ═══════════════════════════════════════════ */
+    function collectFontMetrics() {
+        try {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return "";
+
+            const baselines = ["monospace", "sans-serif", "serif"];
+            const probes = ["Arial", "Verdana", "Times New Roman", "Courier New", "Georgia",
+                "Garamond", "Comic Sans MS", "Trebuchet MS", "Impact", "Tahoma",
+                "Segoe UI", "Roboto", "Helvetica Neue", "Calibri", "Cambria"];
+
+            const widths = [];
+            baselines.forEach(function (base) {
+                probes.forEach(function (font) {
+                    ctx.font = "72px '" + font + "'," + base;
+                    widths.push(Math.round(ctx.measureText("mmmMMMwwwWWW@@@").width));
+                });
+            });
+            return widths.join(",");
+        } catch (e) {
+            return "";
+        }
+    }
+
+    /* ═══════════════════════════════════════════
+       AUDIO FINGERPRINT (DSP output varies by audio stack)
+       ═══════════════════════════════════════════ */
+    async function collectAudioFingerprint() {
+        try {
+            const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+            if (!Ctx) return "";
+
+            const ctx = new Ctx(1, 5000, 44100);
+            const osc = ctx.createOscillator();
+            osc.type = "triangle";
+            osc.frequency.value = 10000;
+
+            const comp = ctx.createDynamicsCompressor();
+            comp.threshold.value = -50;
+            comp.knee.value = 40;
+            comp.ratio.value = 12;
+            comp.attack.value = 0;
+            comp.release.value = 0.25;
+
+            osc.connect(comp);
+            comp.connect(ctx.destination);
+            osc.start(0);
+
+            const buffer = await ctx.startRendering();
+            const data = buffer.getChannelData(0);
+            let sum = 0;
+            for (let i = 4500; i < 5000; i++) sum += Math.abs(data[i]);
+            return sum.toString();
+        } catch (e) {
+            return "";
+        }
+    }
+
+    /* ═══════════════════════════════════════════
+       COMPOSITE DEVICE FINGERPRINT (SHA-256)
+       Recovery signal for when localStorage is cleared — lets a returning
+       visitor be re-linked to an earlier visitor_id during analysis.
+       ═══════════════════════════════════════════ */
+    async function sha256Hex(str) {
+        try {
+            if (!crypto.subtle) return null;
+            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf))
+                .map(function (b) { return b.toString(16).padStart(2, "0"); })
+                .join("");
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function collectDeviceFingerprint() {
+        try {
+            const gpu = collectGPUInfo();
+            const audio = await collectAudioFingerprint();
+
+            const parts = [
+                collectCanvasFingerprint() || "",
+                audio,
+                collectFontMetrics(),
+                gpu ? [gpu.vendor, gpu.renderer, gpu.maxTextureSize, gpu.supportedExtensions].join("|") : "",
+                screen.width + "x" + screen.height + "x" + screen.colorDepth,
+                window.devicePixelRatio || 1,
+                navigator.hardwareConcurrency || "",
+                navigator.deviceMemory || "",
+                navigator.maxTouchPoints || 0,
+                navigator.platform || "",
+                (navigator.languages || []).join(","),
+                Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+                new Date().getTimezoneOffset(),
+            ];
+
+            const raw = parts.join("~");
+            const hashed = await sha256Hex(raw);
+            if (hashed) return hashed;
+
+            // Fallback for non-secure contexts, where SubtleCrypto is unavailable
+            let h = 0;
+            for (let i = 0; i < raw.length; i++) {
+                h = ((h << 5) - h) + raw.charCodeAt(i);
+                h = h & h;
+            }
+            return "w" + (h >>> 0).toString(16);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    /* ═══════════════════════════════════════════
        MEDIA CAPABILITIES
        ═══════════════════════════════════════════ */
     function collectMediaCapabilities() {
@@ -499,18 +636,19 @@
     function getReturnVisitorInfo() {
         try {
             const KEY = "__terminal_visits";
-            const stored = localStorage.getItem(KEY);
+            const stored = store.get(KEY);
             let visits = stored ? JSON.parse(stored) : null;
             const now = new Date().toISOString();
 
             if (!visits) {
                 visits = { count: 1, firstVisit: now, lastVisit: now };
-            } else {
+            } else if (!isExistingSession) {
+                // Only a fresh session is a new visit — a refresh is not
                 visits.count += 1;
                 visits.lastVisit = now;
             }
 
-            localStorage.setItem(KEY, JSON.stringify(visits));
+            store.set(KEY, JSON.stringify(visits));
 
             return {
                 visitNumber: visits.count,
@@ -563,19 +701,22 @@
         await new Promise(function (resolve) { setTimeout(resolve, 1500); });
 
         // Collect everything in parallel
-        const [geo, battery, clientHints, storage, permissions] = await Promise.all([
+        const [geo, battery, clientHints, storage, permissions, fingerprint] = await Promise.all([
             fetchGeoLocation(),
             collectBatteryInfo(),
             collectClientHints(),
             collectStorageInfo(),
             collectPermissions(),
+            collectDeviceFingerprint(),
         ]);
 
         // Return visitor info
         const returnInfo = getReturnVisitorInfo();
 
         const payload = {
+            visitor_id: visitorId,
             session_id: sessionId,
+            fingerprint: fingerprint,
             ip_address: geo.ipv4,
             ipv6_address: geo.ipv6,
             location: geo.location,
@@ -760,6 +901,7 @@
                 if (isResume && linkText === link.href) linkText = "RESUME";
 
                 const clickData = {
+                    visitor_id: visitorId,
                     session_id: sessionId,
                     page_url: window.location.href,
                     url_clicked: link.href,

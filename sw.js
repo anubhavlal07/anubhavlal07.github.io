@@ -9,7 +9,7 @@
  *
  * Bump CACHE when shell assets change so old caches are purged on activate.
  */
-const CACHE = "anubhav-portfolio-v1";
+const CACHE = "anubhav-portfolio-v2";
 
 const SHELL = [
   "./",

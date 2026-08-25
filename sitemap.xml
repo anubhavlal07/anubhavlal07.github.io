@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Single-page portfolio: the in-page sections are fragments of this one URL,
+       so they are deliberately not listed as separate entries. -->
+  <url>
+    <loc>https://portfolio.anubhavlal.dev/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

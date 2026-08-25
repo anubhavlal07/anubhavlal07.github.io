@@ -12,22 +12,28 @@
   <meta name="keywords"
     content="software developer, web developer, data analyst, portfolio, anubhav lal, computer science, python, javascript, react, mysql" />
   <meta name="author" content="Anubhav Lal" />
+  <link rel="canonical" href="https://portfolio.anubhavlal.dev/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <!--=============== OPEN GRAPH / SOCIAL MEDIA ===============-->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://anubhavlal07.github.io/" />
+  <meta property="og:url" content="https://portfolio.anubhavlal.dev/" />
   <meta property="og:title" content="Anubhav Lal - Software Developer Portfolio" />
   <meta property="og:description"
     content="Explore my projects and experience in software development, web development, and data analytics." />
-  <meta property="og:image" content="https://anubhavlal07.github.io/assets/img/Person.png" />
+  <meta property="og:image" content="https://portfolio.anubhavlal.dev/assets/img/Person.png" />
+  <meta property="og:image:alt" content="Anubhav Lal" />
+  <meta property="og:site_name" content="Anubhav Lal" />
+  <meta property="og:locale" content="en_US" />
 
   <!--=============== TWITTER CARD ===============-->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://anubhavlal07.github.io/" />
-  <meta property="twitter:title" content="Anubhav Lal - Software Developer Portfolio" />
-  <meta property="twitter:description"
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://portfolio.anubhavlal.dev/" />
+  <meta name="twitter:title" content="Anubhav Lal - Software Developer Portfolio" />
+  <meta name="twitter:description"
     content="Explore my projects and experience in software development, web development, and data analytics." />
-  <meta property="twitter:image" content="https://anubhavlal07.github.io/assets/img/Person.png" />
+  <meta name="twitter:image" content="https://portfolio.anubhavlal.dev/assets/img/Person.png" />
+  <meta name="twitter:image:alt" content="Anubhav Lal" />
 
   <!--=============== THEME COLOR ===============-->
   <meta name="theme-color" content="#5A9FD4" />
@@ -57,9 +63,121 @@
 
   <!--=============== CSS ===============-->
   <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!--=============== STRUCTURED DATA (schema.org) ===============-->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://portfolio.anubhavlal.dev/#person",
+          "name": "Anubhav Lal",
+          "url": "https://portfolio.anubhavlal.dev/",
+          "image": "https://portfolio.anubhavlal.dev/assets/img/Person.png",
+          "jobTitle": "Software Developer",
+          "description": "Computer Science graduate specializing in software development, web development, data analytics, and cybersecurity.",
+          "knowsAbout": [
+            "Python",
+            "C",
+            "Pinecone",
+            "MySQL",
+            "PostgreSQL",
+            "Git",
+            "Docker",
+            "Fast API",
+            "Pandas",
+            "Postman",
+            "Software Development",
+            "Database Management",
+            "Data Analysis",
+            "Cybersecurity",
+            "Web Development"
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Acharya Institute of Graduate Studies",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Bangalore",
+              "addressRegion": "Karnataka",
+              "addressCountry": "IN"
+            }
+          },
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "SRM Institute of Science and Technology",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Chennai",
+              "addressRegion": "Tamil Nadu",
+              "addressCountry": "IN"
+            }
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/anubhavl/",
+            "https://github.com/anubhavlal07",
+            "https://www.instagram.com/_anu_bhav/",
+            "https://open.spotify.com/user/31te6546l5jifevdxndhszz4eyxi?si=0d60cfb3b67f4b98"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://portfolio.anubhavlal.dev/#website",
+          "url": "https://portfolio.anubhavlal.dev/",
+          "name": "Anubhav Lal - Software Developer Portfolio",
+          "description": "Portfolio of Anubhav Lal, a Computer Science graduate specializing in software development, web development, data analytics, and cybersecurity.",
+          "inLanguage": "en",
+          "author": {
+            "@id": "https://portfolio.anubhavlal.dev/#person"
+          },
+          "publisher": {
+            "@id": "https://portfolio.anubhavlal.dev/#person"
+          }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://portfolio.anubhavlal.dev/#webpage",
+          "url": "https://portfolio.anubhavlal.dev/",
+          "name": "Anubhav Lal - Software Developer Portfolio",
+          "isPartOf": {
+            "@id": "https://portfolio.anubhavlal.dev/#website"
+          },
+          "about": {
+            "@id": "https://portfolio.anubhavlal.dev/#person"
+          },
+          "primaryImageOfPage": {
+            "@id": "https://portfolio.anubhavlal.dev/#primaryimage"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "ImageObject",
+          "@id": "https://portfolio.anubhavlal.dev/#primaryimage",
+          "url": "https://portfolio.anubhavlal.dev/assets/img/Person.png",
+          "contentUrl": "https://portfolio.anubhavlal.dev/assets/img/Person.png",
+          "width": 500,
+          "height": 500
+        }
+      ]
+    }
+  </script>
 </head>
 
 <body>
+  <!--=============== THEME (applied before paint so there is no flash) ===============-->
+  <script>
+    (() => {
+      let mode = "auto";
+      try {
+        const stored = localStorage.getItem("selected-theme");
+        if (stored === "light" || stored === "dark") mode = stored;
+      } catch (e) { /* storage blocked, stay on auto */ }
+      const dark = mode === "dark" ||
+        (mode === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.body.classList.toggle("dark-theme", dark);
+    })();
+  </script>
   <!--==================== HEADER ====================-->
   <header class="header" id="header">
     <nav class="nav conatiner">
@@ -98,7 +216,7 @@
         </div>
       </div>
       <div class="navButtons">
-        <i class="ri-moon-line changeTheme" id="themeButton"></i>
+        <i class="ri-macbook-line changeTheme" id="themeButton" title="Theme: auto"></i>
         <div class="navToggle" id="navToggle">
           <i class="ri-menu-4-line"></i>
         </div>

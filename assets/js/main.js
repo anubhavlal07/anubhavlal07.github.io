@@ -63,40 +63,47 @@ const scrollUp = () => {
     : scrollUp.classList.remove("showScroll");
 };
 window.addEventListener("scroll", scrollUp);
-/*=============== DARK LIGHT THEME ===============*/
+/*=============== DARK / LIGHT / AUTO THEME ===============*/
 const themeButton = document.getElementById("themeButton");
 const darkTheme = "dark-theme";
-const iconTheme = "ri-sun-line";
+// The cycle order the button walks through on each click
+const themeModes = ["auto", "light", "dark"];
+const themeIcons = {
+  auto: "ri-macbook-line",
+  light: "ri-sun-line",
+  dark: "ri-moon-line",
+};
+const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem("selected-theme");
-const selectedIcon = localStorage.getItem("selected-icon");
+// Previously selected mode (if the user chose one); anything else falls back to auto
+const storedTheme = localStorage.getItem("selected-theme");
+let themeMode = themeModes.includes(storedTheme) ? storedTheme : "auto";
 
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () =>
-  document.body.classList.contains(darkTheme) ? "dark" : "light";
-const getCurrentIcon = () =>
-  themeButton.classList.contains(iconTheme) ? "ri-moon-line" : "ri-sun-line";
+// In auto we follow the OS setting, otherwise the chosen mode wins
+const applyTheme = () => {
+  const isDark =
+    themeMode === "dark" || (themeMode === "auto" && systemDark.matches);
+  document.body.classList.toggle(darkTheme, isDark);
 
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-  document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
-    darkTheme
+  Object.values(themeIcons).forEach((icon) =>
+    themeButton.classList.remove(icon)
   );
-  themeButton.classList[selectedIcon === "ri-moon-line" ? "add" : "remove"](
-    iconTheme
-  );
-}
+  themeButton.classList.add(themeIcons[themeMode]);
+  themeButton.title = `Theme: ${themeMode}`;
+};
 
-// Activate / deactivate the theme manually with the button
+applyTheme();
+
+// Follow the OS while the user is on auto
+systemDark.addEventListener("change", () => {
+  if (themeMode === "auto") applyTheme();
+});
+
+// Cycle auto -> light -> dark on every click and remember the choice
 themeButton.addEventListener("click", () => {
-  // Add or remove the dark / icon theme
-  document.body.classList.toggle(darkTheme);
-  themeButton.classList.toggle(iconTheme);
-  // We save the theme and the current icon that the user chose
-  localStorage.setItem("selected-theme", getCurrentTheme());
-  localStorage.setItem("selected-icon", getCurrentIcon());
+  themeMode = themeModes[(themeModes.indexOf(themeMode) + 1) % themeModes.length];
+  localStorage.setItem("selected-theme", themeMode);
+  applyTheme();
 });
 
 /*=============== CHANGE BACKGROUND HEADER ===============*/

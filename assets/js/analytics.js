@@ -665,19 +665,19 @@
        ═══════════════════════════════════════════ */
     async function sendToSupabase(payload, isExisting) {
         try {
-            const url = SUPABASE_URL + "/rest/v1/visitor_analytics" +
-                (isExisting ? "?session_id=eq." + payload.session_id : "");
-            const method = isExisting ? "PATCH" : "POST";
+            const url = isExisting
+                ? SUPABASE_URL + "/rest/v1/rpc/update_visitor_session"
+                : SUPABASE_URL + "/rest/v1/visitor_analytics";
 
             await fetch(url, {
-                method: method,
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     apikey: SUPABASE_KEY,
                     Authorization: "Bearer " + SUPABASE_KEY,
                     Prefer: "return=minimal",
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(isExisting ? { p_payload: payload } : payload),
             });
         } catch (e) {
             // Silent fail — analytics should never break the site

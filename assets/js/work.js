@@ -58,53 +58,49 @@
     return `<ul class="chip-list work-tech${chain}" role="list">${chips}</ul>`;
   }
 
-  function renderLink(project, className) {
+  function renderLink(project) {
     const href = safeUrl(project.link);
     if (!href) return "";
-    return `<a class="${className}" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(
+    return `<a class="tile-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(
       project.linkText || "View"
     )}<span class="visually-hidden"> ${esc(project.title)} (opens in a new tab)</span>${icon("external")}</a>`;
   }
 
-  function renderImage(project, className) {
+  function renderImage(project, eager) {
     const src = safeUrl(project.image);
     if (!src) return "";
-    return `<img class="${className}" src="${esc(src)}" alt="${esc(project.title)}" width="${IMAGE_W}" height="${IMAGE_H}" loading="lazy" decoding="async" />`;
+    return `<div class="tile-media"><img src="${esc(src)}" alt="" width="${IMAGE_W}" height="${IMAGE_H}" loading="${eager ? "eager" : "lazy"}" decoding="async" /></div>`;
   }
 
   function renderFeatured(project) {
-    const image = renderImage(project, "featured-img");
-    const link = renderLink(project, "button featured-link");
     const detail = project.flow
       ? `${renderFlow(project.flow)}${renderTech(project.tech, false)}`
-      : renderTech(project.tech);
-    return `<article class="featured${image ? "" : " featured-text-only"}">${
-      image ? `<div class="featured-media">${image}</div>` : ""
-    }<div class="featured-body"><h3 class="featured-title">${esc(project.title)}</h3>${
-      project.description ? `<p class="featured-desc">${esc(project.description)}</p>` : ""
-    }${detail}${link ? `<div class="featured-actions">${link}</div>` : ""}</div></article>`;
+      : renderTech(project.tech, false);
+    return `<article class="tile tile-featured" data-reveal>${renderImage(project, true)}<div class="tile-body"><span class="tile-badge">Featured</span><h3 class="tile-title">${esc(
+      project.title
+    )}</h3>${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}${detail}<div class="tile-footer">${renderLink(
+      project
+    )}</div></div></article>`;
   }
 
   function renderItem(project) {
-    const image = renderImage(project, "work-thumb");
-    const link = renderLink(project, "work-link");
-    return `<li class="work-item${image ? "" : " work-item-text-only"}">${image}<h3 class="work-title">${esc(
+    return `<li class="tile" data-reveal>${renderImage(project, false)}<div class="tile-body"><h3 class="tile-title">${esc(
       project.title
-    )}</h3><div class="work-body">${project.description ? `<p class="work-desc">${esc(project.description)}</p>` : ""}${
-      project.flow ? renderFlow(project.flow) : renderTech(project.tech)
-    }${link}</div></li>`;
+    )}</h3>${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}${
+      project.flow ? renderFlow(project.flow) : ""
+    }<div class="tile-footer">${renderTech(project.tech, false)}${renderLink(project)}</div></div></li>`;
   }
 
   function renderSkeleton() {
     if (featuredEl) {
       featuredEl.setAttribute("aria-busy", "true");
-      featuredEl.innerHTML = `<div class="featured work-loading" aria-hidden="true"><span class="skeleton work-skel-media"></span><div class="featured-body"><span class="skeleton work-skel-title"></span><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-line work-skel-short"></span><span class="skeleton work-skel-chips"></span></div></div>`;
+      featuredEl.innerHTML = `<div class="tile tile-featured work-loading" aria-hidden="true"><span class="skeleton work-skel-media"></span><div class="tile-body"><span class="skeleton work-skel-title"></span><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-line work-skel-short"></span></div></div>`;
     }
     if (listEl) {
       listEl.innerHTML = Array.from(
         { length: 2 },
         () =>
-          `<li class="work-item work-loading" aria-hidden="true"><span class="skeleton work-skel-thumb"></span><span class="skeleton work-skel-title"></span><div class="work-body"><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-chips"></span></div></li>`
+          `<li class="tile work-loading" aria-hidden="true"><span class="skeleton work-skel-media"></span><div class="tile-body"><span class="skeleton work-skel-title"></span><span class="skeleton work-skel-line"></span><span class="skeleton work-skel-line work-skel-short"></span></div></li>`
       ).join("");
     }
   }

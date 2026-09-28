@@ -1,121 +1,174 @@
 (() => {
-  const nameEl = document.getElementById("hero-name");
+  const statusEl = document.getElementById("hero-status");
   const titleEl = document.getElementById("hero-title");
   const ledeEl = document.getElementById("hero-lede");
-  const resumeEl = document.getElementById("resume-link");
+  const stackEl = document.getElementById("hero-stack");
+  const emailEl = document.getElementById("hero-email");
   const socialEl = document.getElementById("hero-social");
-  const traceEl = document.getElementById("hero-trace");
+  const visualEl = document.getElementById("hero-visual");
+  const companiesEl = document.getElementById("hero-companies");
   if (!window.Site || typeof Site.onContent !== "function" || !titleEl) return;
 
   const esc = Site.esc;
   const icon = (name) => (typeof Site.icon === "function" ? Site.icon(name) : "");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const horizontal = window.matchMedia("(min-width: 720px)");
-  const LINE_MS = 1400;
-  const TOTAL_MS = 1600;
+  let visualKey = null;
+  let played = false;
 
-  let traceKey = null;
-  let hasPlayed = false;
-  let playTimer = 0;
+  function safeUrl(value) {
+    const url = String(value ?? "").trim();
+    if (!url) return "";
+    const scheme = url.match(/^([a-z][a-z0-9+.-]*):/i);
+    if (scheme && !/^(https?|mailto)$/i.test(scheme[1])) return "";
+    return url;
+  }
+
+  function currentRole(experience) {
+    const list = Array.isArray(experience) ? experience : [];
+    return list.find((item) => item.current) || list[list.length - 1] || null;
+  }
+
+  function renderStatus(profile, experience, contact) {
+    if (!statusEl) return;
+    const role = currentRole(experience);
+    const title = profile.title || (role && role.role) || "";
+    const company = role && role.current ? role.company : "";
+    const parts = [];
+    if (title) parts.push(`<span class="hero-status-role">${esc(title)}${company ? ` at ${esc(company)}` : ""}</span>`);
+    if (contact.location) parts.push(`<span class="hero-status-place">${icon("pin")}${esc(contact.location)}</span>`);
+    statusEl.innerHTML = parts.length ? `<span class="hero-status-dot" aria-hidden="true"></span>${parts.join("")}` : "";
+    statusEl.hidden = !parts.length;
+  }
 
   function renderIntro(profile) {
-    const name = profile.name || "Anubhav Lal";
-    const headline = profile.tagline || profile.title || name;
-    const role = profile.title && profile.title !== headline ? profile.title : "";
-    if (nameEl) {
-      nameEl.innerHTML = `<span class="hero-name-main">${esc(name)}</span>${role ? `<span class="hero-name-role">, ${esc(role)}</span>` : ""}`;
-    }
-    titleEl.textContent = headline;
+    const hasTagline = profile.tagline && profile.tagline !== profile.title;
+    titleEl.textContent = hasTagline ? profile.tagline : profile.name || profile.title || "";
     if (ledeEl) {
       ledeEl.textContent = profile.lede || "";
       ledeEl.hidden = !profile.lede;
     }
-  }
-
-  function renderResume(contact) {
-    if (!resumeEl) return;
-    if (contact && contact.resumeLink) resumeEl.setAttribute("href", contact.resumeLink);
-    if (!resumeEl.querySelector(".icon")) {
-      resumeEl.innerHTML = `${icon("file")}<span>Resume</span>`;
+    if (stackEl) {
+      stackEl.innerHTML = (profile.worksOn || []).map((item) => `<li class="chip">${esc(item)}</li>`).join("");
+      stackEl.hidden = !stackEl.children.length;
     }
   }
 
-  function renderSocial(socials) {
-    if (!socialEl) return;
-    socialEl.innerHTML = (socials || [])
+  function renderActions(contact, socials) {
+    document.querySelectorAll("a.resumeButton").forEach((link) => {
+      if (contact.resumeLink) link.setAttribute("href", contact.resumeLink);
+    });
+    const resume = document.getElementById("resume-link");
+    if (resume && !resume.querySelector(".icon")) resume.innerHTML = `${icon("file")}<span>Resume</span>`;
+    if (emailEl) {
+      if (contact.email) {
+        emailEl.setAttribute("href", `mailto:${contact.email}`);
+        emailEl.innerHTML = `${icon("mail")}<span>Email me</span>`;
+      } else {
+        emailEl.setAttribute("href", "#contact");
+        emailEl.innerHTML = `<span>Get in touch</span>`;
+      }
+    }
+    if (socialEl) {
+      socialEl.innerHTML = (socials || [])
+        .map((social) => {
+          const href = safeUrl(social.url);
+          if (!href) return "";
+          return `<li><a class="icon-button" href="${esc(href)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(social.name)}">${icon(social.icon)}</a></li>`;
+        })
+        .join("");
+      socialEl.hidden = !socialEl.children.length;
+    }
+  }
+
+  function renderCompanies(experience) {
+    if (!companiesEl) return;
+    const list = Array.isArray(experience) ? experience.slice() : [];
+    const ordered = list
+      .map((item, index) => ({ item, index }))
+      .sort((a, b) => Number(b.item.current) - Number(a.item.current) || b.index - a.index)
+      .map(({ item }) => item.company)
+      .filter((name, index, all) => name && all.indexOf(name) === index);
+    companiesEl.innerHTML = ordered.length
+      ? `<p class="hero-companies-label">Experience at</p><ul class="hero-companies-list" role="list">${ordered
+          .map((name) => `<li>${esc(name)}</li>`)
+          .join("")}</ul>`
+      : "";
+    companiesEl.hidden = !ordered.length;
+  }
+
+  function runSteps(project) {
+    if (project.flow && project.flow.length) {
+      return { label: "Pipeline", steps: project.flow.map((step) => step.join(" / ")) };
+    }
+    return { label: "Built with", steps: (project.tech || []).slice(0, 5) };
+  }
+
+  function renderVisual(projects) {
+    if (!visualEl) return;
+    const list = Array.isArray(projects) ? projects : [];
+    const project = list.find((item) => item.featured) || list[0];
+    const key = JSON.stringify(project || null);
+    if (key === visualKey) return;
+    visualKey = key;
+    if (!project) {
+      visualEl.hidden = true;
+      return;
+    }
+    visualEl.hidden = false;
+    const image = safeUrl(project.image);
+    const link = safeUrl(project.link);
+    const run = runSteps(project);
+    const animate = !played && !reducedMotion.matches;
+    played = true;
+    const steps = run.steps
       .map(
-        (social) =>
-          `<li><a class="icon-button" href="${esc(social.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(social.name)}">${icon(social.icon)}</a></li>`
+        (step, index) =>
+          `<li class="run-step" style="--i:${index}"><span class="run-check" aria-hidden="true"></span><span class="run-label">${esc(step)}</span></li>`
       )
       .join("");
-    socialEl.hidden = !socialEl.children.length;
-  }
-
-  function traceMarkup(items, state) {
-    const nodes = items
-      .map((item) => `<li class="trace-node"><span class="trace-label">${esc(item)}</span></li>`)
-      .join("");
-    return `<figcaption class="visually-hidden" id="hero-trace-caption">What I work on</figcaption>
-      <div class="trace" data-state="${state}">
-        <span class="trace-track" aria-hidden="true"><span class="trace-fill"></span></span>
-        <ol class="trace-list" role="list">${nodes}</ol>
-        <span class="trace-end" aria-hidden="true"></span>
-      </div>`;
-  }
-
-  function fontsReady() {
-    const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    return Promise.race([ready, new Promise((resolve) => setTimeout(resolve, 700))]);
-  }
-
-  function schedule(trace) {
-    const track = trace.querySelector(".trace-track");
-    const nodes = Array.from(trace.querySelectorAll(".trace-node"));
-    const across = horizontal.matches;
-    const box = track.getBoundingClientRect();
-    const length = across ? box.width : box.height;
-    nodes.forEach((node, index) => {
-      const rect = node.getBoundingClientRect();
-      const offset = across ? rect.left - box.left : rect.top - box.top;
-      const ratio = length > 0 ? Math.min(1, Math.max(0, offset / length)) : index / nodes.length;
-      node.style.setProperty("--at", `${Math.round(ratio * LINE_MS)}ms`);
-    });
-    trace.style.setProperty("--line", `${LINE_MS}ms`);
-    trace.style.setProperty("--end-at", `${LINE_MS - 40}ms`);
-  }
-
-  function play(trace) {
-    fontsReady().then(() => {
-      requestAnimationFrame(() => {
-        if (!trace.isConnected || trace.dataset.state !== "pending") return;
-        schedule(trace);
-        trace.dataset.state = "playing";
-        playTimer = window.setTimeout(() => {
-          if (trace.isConnected) trace.dataset.state = "settled";
-        }, TOTAL_MS + 120);
-      });
-    });
-  }
-
-  function renderTrace(items) {
-    if (!traceEl) return;
-    const key = JSON.stringify(items);
-    if (key === traceKey) return;
-    traceKey = key;
-    traceEl.hidden = items.length === 0;
-    if (!items.length) return;
-    const animate = !hasPlayed && !reducedMotion.matches;
-    hasPlayed = true;
-    window.clearTimeout(playTimer);
-    traceEl.innerHTML = traceMarkup(items, animate ? "pending" : "settled");
-    if (animate) play(traceEl.querySelector(".trace"));
+    visualEl.setAttribute("aria-label", `Featured project: ${project.title}`);
+    visualEl.innerHTML = `
+      <div class="window">
+        <div class="window-bar">
+          <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="window-title">${esc(project.title)}</span>
+          ${link ? `<a class="window-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(project.title)} (${esc(project.linkText || "View")})">${icon("external")}</a>` : `<span class="window-link-spacer"></span>`}
+        </div>
+        <div class="window-body">
+          ${image ? `<img src="${esc(image)}" alt="" width="1264" height="848" decoding="async" fetchpriority="high" />` : ""}
+        </div>
+      </div>
+      ${
+        run.steps.length
+          ? `<div class="run-card" data-state="${animate ? "pending" : "done"}">
+          <p class="run-head"><span class="run-pulse" aria-hidden="true"></span>${esc(run.label)}</p>
+          <ol class="run-steps" role="list">${steps}</ol>
+        </div>`
+          : ""
+      }
+      <figcaption class="visually-hidden">${esc(project.title)}${project.description ? `: ${esc(project.description)}` : ""}</figcaption>`;
+    if (animate) {
+      const card = visualEl.querySelector(".run-card");
+      if (card) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.dataset.state = "running";
+            window.setTimeout(() => {
+              if (card.isConnected) card.dataset.state = "done";
+            }, 500 + run.steps.length * 260);
+          });
+        });
+      }
+    }
   }
 
   Site.onContent((content) => {
     const profile = (content && content.profile) || {};
+    const contact = (content && content.contact) || {};
+    renderStatus(profile, content && content.experience, contact);
     renderIntro(profile);
-    renderResume(content && content.contact);
-    renderSocial(content && content.socials);
-    renderTrace(Array.isArray(profile.worksOn) ? profile.worksOn : []);
+    renderActions(contact, content && content.socials);
+    renderCompanies(content && content.experience);
+    renderVisual(content && content.projects);
   });
 })();

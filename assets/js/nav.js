@@ -160,7 +160,11 @@
   if (window.Site && typeof Site.onContent === "function" && brand) {
     Site.onContent((content) => {
       const name = content && content.profile && content.profile.name;
-      if (name) brand.textContent = name;
+      if (!name) return;
+      const nameEl = document.getElementById("nav-name");
+      const markEl = document.getElementById("nav-mark");
+      if (nameEl) nameEl.textContent = name;
+      if (markEl) markEl.textContent = name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join("");
     });
   }
 })();

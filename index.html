@@ -14,6 +14,7 @@
       const dark = mode === "dark" || (mode === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.dataset.theme = dark ? "dark" : "light";
       document.documentElement.dataset.themeMode = mode;
+      document.documentElement.classList.add("js");
     })();
   </script>
   <title>Anubhav Lal — AI Engineer</title>
@@ -49,7 +50,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Anubhav Lal" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
@@ -162,45 +163,52 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <canvas id="graph" aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
 
   <header class="site-header" id="header">
     <nav class="nav container" aria-label="Primary">
-      <a href="#home" class="nav-brand" id="nav-brand">Anubhav Lal</a>
+      <a href="#home" class="nav-brand" id="nav-brand"><span class="nav-mark" id="nav-mark" aria-hidden="true">AL</span><span class="nav-name" id="nav-name">Anubhav Lal</span></a>
       <div class="nav-menu" id="nav-menu">
         <ul class="nav-list" role="list">
           <li><a href="#work" class="nav-link">Work</a></li>
           <li><a href="#experience" class="nav-link">Experience</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#skills" class="nav-link">Stack</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
         </ul>
       </div>
       <div class="nav-actions">
         <button type="button" class="icon-button" id="theme-toggle" aria-label="Theme: auto"></button>
+        <a href="#" class="button button-sm nav-resume resumeButton">Resume</a>
         <button type="button" class="icon-button nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Open menu"></button>
       </div>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero section" id="home" aria-labelledby="hero-title">
-      <div class="container hero-inner">
-        <p class="hero-name" id="hero-name"></p>
-        <h1 class="hero-title" id="hero-title"><span class="skeleton" style="width:min(18ch,90%);height:1em"></span></h1>
-        <p class="hero-lede" id="hero-lede"></p>
-        <div class="hero-actions" id="hero-actions">
-          <a href="#" class="button button-primary resumeButton" id="resume-link">Resume</a>
-          <ul class="hero-social" id="hero-social" role="list"></ul>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="page-backdrop" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-status" id="hero-status"></p>
+          <h1 class="hero-title" id="hero-title"><span class="skeleton" style="width:min(14ch,90%);height:1em"></span></h1>
+          <p class="hero-lede" id="hero-lede"></p>
+          <ul class="hero-stack" id="hero-stack" role="list" aria-label="Focus areas"></ul>
+          <div class="hero-actions" id="hero-actions">
+            <a href="#" class="button button-primary resumeButton" id="resume-link">Resume</a>
+            <a href="#contact" class="button" id="hero-email">Get in touch</a>
+            <ul class="hero-social" id="hero-social" role="list"></ul>
+          </div>
         </div>
-        <figure class="hero-trace" id="hero-trace" aria-labelledby="hero-trace-caption">
-          <figcaption class="visually-hidden" id="hero-trace-caption">What I work on</figcaption>
-        </figure>
+        <figure class="hero-visual" id="hero-visual" aria-label="Featured project"></figure>
+      </div>
+      <div class="container">
+        <div class="hero-companies" id="hero-companies"></div>
       </div>
     </section>
 
     <section class="work section" id="work" aria-labelledby="work-title">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head" data-reveal>
           <h2 class="section-title" id="work-title">Selected work</h2>
         </header>
         <div class="work-featured" id="work-featured"></div>
@@ -255,7 +263,7 @@
   <script src="assets/js/data.js" defer></script>
   <script src="assets/js/nav.js" defer></script>
   <script src="assets/js/hero.js" defer></script>
-  <script src="assets/js/graph.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
   <script src="assets/js/work.js" defer></script>
   <script src="assets/js/experience.js" defer></script>
   <script src="assets/js/skills.js" defer></script>

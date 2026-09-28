@@ -10,7 +10,7 @@
  *
  * Bump CACHE when shell assets change so old caches are purged on activate.
  */
-const CACHE = "anubhav-portfolio-v3";
+const CACHE = "anubhav-portfolio-v4";
 
 const SHELL = [
   "./",
@@ -30,7 +30,7 @@ const SHELL = [
   "assets/js/data.js",
   "assets/js/nav.js",
   "assets/js/hero.js",
-  "assets/js/graph.js",
+  "assets/js/motion.js",
   "assets/js/work.js",
   "assets/js/experience.js",
   "assets/js/skills.js",

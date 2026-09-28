@@ -1,0 +1,285 @@
+.hero.section {
+  padding-block: clamp(var(--space-6), 7vh, var(--space-9)) var(--space-7);
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--slate);
+  font-size: var(--step-0);
+  line-height: 1.4;
+}
+
+.hero-name::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--trace);
+  border-radius: 50%;
+}
+
+.hero-name:empty {
+  display: none;
+}
+
+.hero-name-main {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hero-title {
+  max-width: 16ch;
+  margin-top: var(--space-4);
+  font-size: var(--step-4);
+  font-weight: 700;
+  font-variation-settings: "opsz" 96;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero-title .skeleton {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hero-lede {
+  max-width: 56ch;
+  margin-top: var(--space-5);
+  color: var(--slate);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.hero-actions .button .icon {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.hero-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0 0 0 calc(var(--space-2) * -1);
+  padding: 0;
+  list-style: none;
+}
+
+.hero-trace {
+  --trace-gap: var(--space-5);
+  --trace-dot: 14px;
+  --trace-x: 22px;
+  --trace-stroke: 2px;
+  align-self: stretch;
+  margin-top: var(--space-8);
+}
+
+.hero-trace[hidden] {
+  display: none;
+}
+
+.trace {
+  position: relative;
+  padding-bottom: calc(var(--trace-gap) + var(--trace-dot));
+}
+
+.trace-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--trace-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trace-node {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--trace);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.trace-track {
+  position: absolute;
+  top: 0;
+  bottom: calc(var(--trace-dot) / 2);
+  left: calc(var(--trace-x) - var(--trace-stroke) / 2);
+  width: var(--trace-stroke);
+  background: var(--rule);
+  border-radius: var(--trace-stroke);
+  overflow: hidden;
+}
+
+.trace-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--trace);
+  transform-origin: center top;
+}
+
+.trace-end {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--trace-x) - var(--trace-dot) / 2);
+  width: var(--trace-dot);
+  height: var(--trace-dot);
+  border: 2px solid var(--trace);
+  border-radius: 50%;
+  background: var(--trace);
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.trace[data-state="pending"] .trace-fill {
+  transform: scaleY(0);
+}
+
+.trace[data-state="pending"] .trace-node {
+  border-color: var(--rule);
+}
+
+.trace[data-state="pending"] .trace-end {
+  border-color: var(--rule-strong);
+  background: var(--paper);
+}
+
+.trace[data-state="playing"] .trace-fill {
+  animation: trace-draw-y var(--line, 1400ms) linear both;
+}
+
+.trace[data-state="playing"] .trace-node {
+  animation: trace-node-light 360ms var(--ease) var(--at, 0ms) both;
+}
+
+.trace[data-state="playing"] .trace-end {
+  animation: trace-end-fill 240ms var(--ease) var(--end-at, 1360ms) both;
+}
+
+@keyframes trace-draw-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes trace-draw-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes trace-node-light {
+  0% {
+    border-color: var(--rule);
+    box-shadow: 0 0 0 0 transparent;
+  }
+  45% {
+    border-color: var(--trace);
+    box-shadow: 0 0 0 4px var(--trace-soft);
+  }
+  100% {
+    border-color: var(--trace);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes trace-end-fill {
+  0% {
+    border-color: var(--rule-strong);
+    background: var(--paper);
+    transform: scale(0.7);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    border-color: var(--trace);
+    background: var(--trace);
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero.section {
+    padding-block: clamp(var(--space-8), 11vh, var(--space-10)) var(--space-8);
+  }
+
+  .hero-lede {
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .hero-trace {
+    --trace-gap: clamp(var(--space-5), 3vw, var(--space-7));
+    margin-top: var(--space-9);
+  }
+
+  .trace {
+    padding-bottom: 0;
+    padding-right: calc(var(--trace-gap) + var(--trace-dot));
+  }
+
+  .trace-list {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .trace-node {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 64px;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--step-0);
+  }
+
+  .trace-track {
+    top: calc(50% - var(--trace-stroke) / 2);
+    bottom: auto;
+    left: 0;
+    right: calc(var(--trace-dot) / 2);
+    width: auto;
+    height: var(--trace-stroke);
+  }
+
+  .trace-fill {
+    transform-origin: left center;
+  }
+
+  .trace-end {
+    top: calc(50% - var(--trace-dot) / 2);
+    bottom: auto;
+    left: auto;
+    right: 0;
+  }
+
+  .trace[data-state="pending"] .trace-fill {
+    transform: scaleX(0);
+  }
+
+  .trace[data-state="playing"] .trace-fill {
+    animation-name: trace-draw-x;
+  }
+}

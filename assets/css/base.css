@@ -8,7 +8,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + var(--space-4));
+  scroll-padding-top: var(--header-h);
   background: var(--bg);
 }
 
@@ -180,7 +180,7 @@ kbd,
 .section-head {
   display: grid;
   gap: var(--space-3);
-  margin-bottom: clamp(var(--space-6), 4vw, var(--space-7));
+  margin-bottom: clamp(var(--space-5), 3vw, var(--space-6));
   max-width: 44rem;
 }
 

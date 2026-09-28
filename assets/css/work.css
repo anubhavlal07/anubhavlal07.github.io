@@ -304,7 +304,7 @@
   bottom: 100%;
   width: var(--flow-trace);
   height: var(--flow-vgap);
-  background: var(--trace);
+  background: var(--accent);
 }
 
 .flow-branch::before {
@@ -314,7 +314,7 @@
   bottom: 0;
   left: calc(var(--flow-rail) - var(--flow-indent) - var(--flow-trace) / 2);
   width: var(--flow-trace);
-  background: var(--trace);
+  background: var(--accent);
 }
 
 .flow-step + .flow-step .flow-branch:first-child::before {
@@ -337,13 +337,13 @@
   right: 100%;
   width: calc(var(--flow-indent) - var(--flow-rail));
   height: var(--flow-line);
-  background: var(--rule-strong);
+  background: var(--border-strong);
 }
 
 .flow-branch:first-child > .flow-node::before {
   top: calc(var(--flow-trunk) - 1px - var(--flow-trace) / 2);
   height: var(--flow-trace);
-  background: var(--trace);
+  background: var(--accent);
 }
 
 @container flow (min-width: 8.25rem) {
@@ -381,7 +381,7 @@
     left: 100%;
     width: calc(var(--flow-gap) / 2 + 1px);
     height: var(--flow-trace);
-    background: var(--trace);
+    background: var(--accent);
   }
 
   .flow:not(.flow-stacked) .flow-branch > .flow-node::before {
@@ -399,13 +399,13 @@
     left: 100%;
     width: calc(var(--flow-gap) / 2 + 1px);
     height: var(--flow-line);
-    background: var(--rule-strong);
+    background: var(--border-strong);
   }
 
   .flow:not(.flow-stacked) .flow-step:not(:last-child) .flow-branch:first-child > .flow-node::after {
     top: calc(var(--flow-trunk) - 1px - var(--flow-trace) / 2);
     height: var(--flow-trace);
-    background: var(--trace);
+    background: var(--accent);
   }
 
   .flow:not(.flow-stacked) .flow-branch::before,
@@ -416,7 +416,7 @@
     bottom: 0;
     width: var(--flow-line);
     height: auto;
-    background: var(--rule-strong);
+    background: var(--border-strong);
   }
 
   .flow:not(.flow-stacked) .flow-branch::before {
@@ -451,4 +451,46 @@
 :root[data-theme="dark"] .tile-media img,
 :root[data-theme="dark"] .window-body img {
   filter: brightness(0.9) saturate(0.92);
+}
+
+@media (max-width: 719.98px) {
+  .work-list .tile-media {
+    aspect-ratio: 21 / 9;
+  }
+
+  .work-list {
+    gap: var(--space-3);
+  }
+
+  .tile-body,
+  .tile-featured .tile-body {
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .tile-desc,
+  .tile-featured .tile-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    font-size: var(--text-sm);
+  }
+
+  .work-tech > li:nth-child(n + 5) {
+    display: none;
+  }
+
+  .tile-featured .tile-title {
+    font-size: var(--text-lg);
+  }
+
+  .tile-footer {
+    gap: var(--space-3);
+  }
+
+  .tile-footer .tile-link {
+    padding-top: var(--space-3);
+  }
 }

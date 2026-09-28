@@ -7,7 +7,7 @@
   --elevated: #f4f4f5;
   --text: #0a0a0b;
   --muted: #5f6368;
-  --faint: #8b8f96;
+  --faint: #6b7078;
   --border: rgba(10, 10, 11, 0.08);
   --border-strong: rgba(10, 10, 11, 0.14);
   --accent: #3b5bdb;
@@ -51,7 +51,7 @@
   --space-8: 4rem;
   --space-9: 6rem;
   --space-10: 8rem;
-  --section-y: clamp(4rem, 3rem + 5vw, 7.5rem);
+  --section-y: clamp(3rem, 2.5rem + 2vw, 4.5rem);
 
   --radius-xs: 6px;
   --radius-sm: 8px;
@@ -70,32 +70,6 @@
   --fast: 150ms;
   --base: 240ms;
   --slow: 480ms;
-
-  --paper: var(--bg);
-  --ink: var(--text);
-  --slate: var(--muted);
-  --rule: var(--border);
-  --rule-strong: var(--border-strong);
-  --trace: var(--accent);
-  --trace-ink: var(--accent-text);
-  --trace-soft: var(--accent-soft);
-  --on-trace: var(--on-accent);
-  --surface-sunken: var(--bg-subtle);
-  --shadow: var(--shadow-md);
-  --font-display: var(--font-sans);
-  --font-body: var(--font-sans);
-  --step--1: var(--text-sm);
-  --step-0: var(--text-base);
-  --step-1: var(--text-lg);
-  --step-2: var(--text-xl);
-  --step-3: var(--text-2xl);
-  --step-4: var(--text-hero);
-  --leading-tight: 1.05;
-  --leading-snug: 1.25;
-  --leading-body: 1.65;
-  --radius-s: var(--radius-xs);
-  --radius-m: var(--radius-md);
-  --radius-l: var(--radius-lg);
 }
 
 :root[data-theme="dark"] {
@@ -107,7 +81,7 @@
   --elevated: #15171b;
   --text: #ededef;
   --muted: #8a8f98;
-  --faint: #62666d;
+  --faint: #7b8089;
   --border: rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
   --accent: #6b8cff;

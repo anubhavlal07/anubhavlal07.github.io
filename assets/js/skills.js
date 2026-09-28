@@ -3,45 +3,38 @@
   if (!root || !window.Site) return;
 
   const { esc } = Site;
-  const WORDS = { 1: "Beginner", 2: "Intermediate", 3: "Skillful" };
+  let signature = null;
 
   root.setAttribute("aria-busy", "true");
   root.innerHTML = [0, 1, 2]
     .map(
-      () => `<div class="skill-group" aria-hidden="true">
-        <span class="skeleton" style="width:12ch;height:1.4em"></span>
-        <span class="skeleton" style="width:100%;height:1.2em;margin-top:var(--space-5)"></span>
-        <span class="skeleton" style="width:100%;height:1.2em;margin-top:var(--space-4)"></span>
-        <span class="skeleton" style="width:100%;height:1.2em;margin-top:var(--space-4)"></span>
+      () => `<div class="stack-group" aria-hidden="true">
+        <span class="skeleton" style="width:12ch;height:1.1em"></span>
+        <span class="skeleton" style="width:100%;height:4.5em"></span>
       </div>`
     )
     .join("");
 
-  function meter(rank) {
-    const filled = Math.min(3, Math.max(1, Number(rank) || 2));
-    return `<span class="skill-meter" data-rank="${filled}" aria-hidden="true">${[1, 2, 3]
-      .map((n) => `<span class="skill-seg${n <= filled ? " is-on" : ""}"></span>`)
-      .join("")}</span>`;
-  }
-
   function logo(item) {
-    if (!item.image) return `<span class="skill-logo skill-logo-empty" aria-hidden="true">${Site.icon("node")}</span>`;
-    return `<span class="skill-logo"><img src="${esc(item.image)}" alt="" width="24" height="24" loading="lazy" decoding="async" /></span>`;
+    if (!item.image) return `<span class="stack-logo stack-logo-empty" aria-hidden="true">${Site.icon("node")}</span>`;
+    return `<span class="stack-logo"><img src="${esc(item.image)}" alt="" width="18" height="18" loading="lazy" decoding="async" /></span>`;
   }
 
   function item(skill) {
-    const word = skill.level || WORDS[skill.rank] || "";
-    return `<li class="skill">
-      ${logo(skill)}
-      <span class="skill-name">${esc(skill.name)}</span>
-      <span class="skill-level">${meter(skill.rank)}<span class="skill-word">${esc(word)}</span></span>
-    </li>`;
+    const strong = Number(skill.rank) >= 3;
+    return `<li class="stack-item${strong ? " is-strong" : ""}" title="${esc(skill.level || "")}">${logo(skill)}<span>${esc(skill.name)}</span></li>`;
   }
 
   function group(g) {
-    return `<div class="skill-group">
-      <h3 class="skill-group-title">${Site.icon(g.icon, "icon skill-group-icon")}<span>${esc(g.title)}</span></h3>
-      <ul class="skill-list" role="list">${g.items.filter((s) => s.name).map(item).join("")}</ul>
+    const items = g.items
+      .filter((s) => s.name)
+      .map((s, index) => ({ s, index }))
+      .sort((a, b) => (Number(b.s.rank) || 0) - (Number(a.s.rank) || 0) || a.index - b.index)
+      .map(({ s }) => item(s))
+      .join("");
+    return `<div class="stack-group" data-reveal>
+      <h3 class="stack-title">${Site.icon(g.icon, "icon stack-icon")}<span>${esc(g.title)}</span></h3>
+      <ul class="stack-list" role="list">${items}</ul>
     </div>`;
   }
 
@@ -52,7 +45,7 @@
       if (img.tagName !== "IMG" || !root.contains(img)) return;
       const holder = img.parentElement;
       if (!holder) return;
-      holder.classList.add("skill-logo-empty");
+      holder.classList.add("stack-logo-empty");
       holder.setAttribute("aria-hidden", "true");
       holder.innerHTML = Site.icon("node");
     },
@@ -61,6 +54,9 @@
 
   Site.onContent((content) => {
     const groups = (content.skills || []).filter((g) => g.items && g.items.length);
+    const next = JSON.stringify(groups);
+    if (next === signature) return;
+    signature = next;
     root.removeAttribute("aria-busy");
     root.innerHTML = groups.map(group).join("");
   });

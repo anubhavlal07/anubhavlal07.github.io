@@ -17,9 +17,9 @@ A **static, dependency-free site**: hand-written HTML, CSS and JavaScript with n
 - **HTML5 / CSS3**: semantic markup, custom-property design tokens, Grid, Flexbox and container queries.
 - **Vanilla JavaScript (ES2020)**: one small renderer per section, with inline SVG icons.
 - **Supabase**: content and visitor analytics, read through a tiny hand-rolled REST client (`assets/js/supabaseClient.js`).
-- **Google Fonts**: Bricolage Grotesque (display) and IBM Plex Sans (body).
+- **Google Fonts**: Geist and Geist Mono.
 
-The visual system ("Agent trace") is documented in [`docs/DESIGN.md`](docs/DESIGN.md).
+The visual system is documented in [`docs/DESIGN.md`](docs/DESIGN.md).
 
 ## Project Structure
 
@@ -37,12 +37,12 @@ anubhavlal07.github.io/
 │   │   ├── data.js                  # Loads all tables, falls back to JSON, normalises content
 │   │   ├── icons.js                 # Inline SVG icons, maps ri-* names stored in the database
 │   │   ├── nav.js                   # Header, mobile menu, scroll-spy, theme toggle
-│   │   ├── hero.js                  # Headline, socials, animated works-on pipeline
-│   │   ├── graph.js                 # Node-graph canvas background
-│   │   ├── work.js                  # Selected work and project flow diagrams
-│   │   ├── experience.js            # Experience timeline
-│   │   ├── skills.js                # Skill groups and levels
-│   │   ├── about.js                 # About, education and footer
+│   │   ├── hero.js                  # Status, headline, actions, featured project window
+│   │   ├── motion.js                # Cursor spotlight, tile glow, scroll reveal
+│   │   ├── work.js                  # Selected work bento and project flow diagrams
+│   │   ├── experience.js            # Experience list
+│   │   ├── skills.js                # Stack groups
+│   │   ├── about.js                 # About, education and contact panel
 │   │   ├── resume.js                # Resume dialog (printable)
 │   │   ├── analytics.js             # Visitor analytics collector (sends to Supabase)
 │   │   ├── disableInput.js          # Blocks DevTools shortcuts, right-click and selection
@@ -66,7 +66,7 @@ matching `assets/json/*.json` snapshots:
 3. Renderers subscribe with `Site.onContent(fn)` and receive a normalised content object (see `docs/DESIGN.md`).
 
 Everything visible on the page is editable from the dashboard, including the hero headline
-(`profile.tagline`, falling back to `profile.title`), the hero pipeline (`profile.works_on`) and each
+(`profile.tagline`, falling back to your name), the focus chips (`profile.works_on`) and each
 project's flow diagram (`projects.flow`, falling back to the tech list in `subtitle`). Visibility,
 featured state and ordering follow `is_visible`, `is_featured` and `display_order`.
 
@@ -80,7 +80,7 @@ committing only when content changed. To refresh by hand: `node scripts/snapshot
 
 - **Responsive**: mobile-first layouts from 320px to wide desktop, with a full-screen mobile menu.
 - **Theme**: auto, light and dark, applied before first paint and persisted in `localStorage`.
-- **Project flows**: each project's pipeline drawn from dashboard data.
+- **Project flows**: each project's pipeline drawn from dashboard data, featured in a framed hero window.
 - **Resume dialog**: native `<dialog>` with download and print.
 - **Accessibility**: skip link, visible focus, labelled icon links, reduced-motion support.
 - **Offline**: installable PWA with a network-first service worker.

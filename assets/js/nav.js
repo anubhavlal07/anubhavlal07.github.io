@@ -98,7 +98,9 @@
     toggle.addEventListener("click", () => setMenu(!menuOpen, true));
   }
 
-  links.forEach((link) => link.addEventListener("click", () => setMenu(false, false)));
+  menu.addEventListener("click", (event) => {
+    if (event.target.closest("a")) setMenu(false, false);
+  });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && menuOpen) {

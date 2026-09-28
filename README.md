@@ -36,7 +36,7 @@ anubhavlal07.github.io/
 │   │   ├── supabaseClient.js        # Minimal Supabase REST client (global `supabase`)
 │   │   ├── data.js                  # Loads all tables, falls back to JSON, normalises content
 │   │   ├── icons.js                 # Inline SVG icons, maps ri-* names stored in the database
-│   │   ├── nav.js                   # Header, mobile menu, scroll-spy, theme toggle
+│   │   ├── nav.js                   # Header, scroll-spy, theme toggle
 │   │   ├── hero.js                  # Status, headline, actions, featured project window
 │   │   ├── motion.js                # Cursor spotlight, tile glow, scroll reveal
 │   │   ├── background.js            # Interactive dot-field canvas (cursor glow, click ripples)
@@ -79,7 +79,7 @@ committing only when content changed. To refresh by hand: `node scripts/snapshot
 
 ## Features
 
-- **Responsive**: mobile-first layouts from 320px to wide desktop, with a full-screen mobile menu.
+- **Responsive**: mobile-first layouts from 320px to wide desktop; the four nav links stay visible on every screen size.
 - **Theme**: auto, light and dark, applied before first paint and persisted in `localStorage`.
 - **Project flows**: each project's pipeline drawn from dashboard data, featured in a framed hero window.
 - **Resume dialog**: native `<dialog>` with download and print.

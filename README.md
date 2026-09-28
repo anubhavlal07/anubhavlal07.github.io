@@ -12,85 +12,94 @@ Explore my portfolio for a comprehensive overview of my software development exp
 
 ## Tech Stack
 
-A **static, dependency-free site** — plain HTML, CSS, and JavaScript with no build step, bundler, or framework. Content is served dynamically from a **Supabase** (PostgreSQL) backend, with local JSON files as an offline fallback.
+A **static, dependency-free site**: hand-written HTML, CSS and JavaScript with no framework, no third-party libraries and no build step. Content comes from **Supabase** (PostgreSQL) and is edited in the private [portfolio-data](https://github.com/anubhavlal07/portfolio-data) dashboard. Local JSON snapshots are the offline fallback.
 
-- **HTML5 / CSS3** — semantic markup; custom properties, Flexbox, and CSS Grid.
-- **Vanilla JavaScript (ES6+)** — Fetch API, no framework.
-- **Supabase** — content (profile, skills, experience, projects, resume) and visitor analytics, read via a tiny hand-rolled REST client (`assets/js/supabaseClient.js`).
-- **Swiper.js** — touch project carousel.
-- **ScrollReveal.js** — scroll animations.
-- **RemixIcons** — icon system (via CDN).
+- **HTML5 / CSS3**: semantic markup, custom-property design tokens, Grid, Flexbox and container queries.
+- **Vanilla JavaScript (ES2020)**: one small renderer per section, with inline SVG icons.
+- **Supabase**: content and visitor analytics, read through a tiny hand-rolled REST client (`assets/js/supabaseClient.js`).
+- **Google Fonts**: Bricolage Grotesque (display) and IBM Plex Sans (body).
+
+The visual system ("Agent trace") is documented in [`docs/DESIGN.md`](docs/DESIGN.md).
 
 ## Project Structure
 
 ```
 anubhavlal07.github.io/
+├── .github/workflows/snapshot.yml   # Nightly Supabase → assets/json snapshot
 ├── assets/
 │   ├── css/
-│   │   ├── styles.css              # Main stylesheet (CSS variables, dark/light theme)
-│   │   └── swiper-bundle.min.css   # Swiper styles (vendored)
-│   ├── img/                        # Images (profile, project thumbnails, skill icons, shapes)
+│   │   ├── tokens.css               # Colour, type, spacing, motion tokens (light + dark)
+│   │   ├── base.css                 # Reset, typography, layout primitives, shared controls
+│   │   └── nav, hero, work, experience, skills, about, resume .css
+│   ├── img/                         # Avatar, favicon, project screenshots, skill logos
 │   ├── js/
-│   │   ├── supabaseClient.js       # Minimal Supabase REST client (defines global `supabase`)
-│   │   ├── loadProfile.js          # Loads summary / works-on / social links
-│   │   ├── loadSkills.js           # Loads skill categories + items
-│   │   ├── loadExperience.js       # Loads work experience
-│   │   ├── loadProjects.js         # Loads projects (Swiper carousel)
-│   │   ├── resumeModal.js          # Resume modal open/close + data loading
-│   │   ├── quotes.js               # Daily "quote of the day" (cached in localStorage)
-│   │   ├── main.js                 # Menu, scroll-spy, theme toggle, ScrollReveal, footer
-│   │   ├── analytics.js            # Visitor analytics collector (sends to Supabase)
-│   │   ├── disableInput.js         # Disables DevTools shortcuts / right-click / selection
-│   │   ├── scrollreveal.min.js     # ScrollReveal library (vendored)
-│   │   └── swiper-bundle.min.js    # Swiper library (vendored)
-│   └── json/                       # Offline fallback data, mirrors the Supabase tables
-│       ├── profile.json
-│       ├── skills.json
-│       ├── experience.json
-│       ├── projects.json
-│       └── resume.json
-├── index.html                      # Single-page entry point
-├── CNAME                           # Custom domain for GitHub Pages
-└── README.md
+│   │   ├── supabaseClient.js        # Minimal Supabase REST client (global `supabase`)
+│   │   ├── data.js                  # Loads all tables, falls back to JSON, normalises content
+│   │   ├── icons.js                 # Inline SVG icons, maps ri-* names stored in the database
+│   │   ├── nav.js                   # Header, mobile menu, scroll-spy, theme toggle
+│   │   ├── hero.js                  # Headline, socials, animated works-on pipeline
+│   │   ├── graph.js                 # Node-graph canvas background
+│   │   ├── work.js                  # Selected work and project flow diagrams
+│   │   ├── experience.js            # Experience timeline
+│   │   ├── skills.js                # Skill groups and levels
+│   │   ├── about.js                 # About, education and footer
+│   │   ├── resume.js                # Resume dialog (printable)
+│   │   ├── analytics.js             # Visitor analytics collector (sends to Supabase)
+│   │   ├── disableInput.js          # Blocks DevTools shortcuts, right-click and selection
+│   │   └── pwa.js                   # Service worker registration
+│   └── json/                        # Raw snapshots of the public Supabase tables
+├── docs/DESIGN.md                   # Design tokens, rules and the content data contract
+├── scripts/snapshot.mjs             # Writes assets/json from Supabase (no dependencies)
+├── index.html                       # Single-page entry point
+├── sw.js                            # Service worker (network-first pages and JSON)
+└── CNAME
 ```
 
 ## How Content Loads
 
-Each section (`profile`, `skills`, `experience`, `projects`, and the resume modal) uses an
-**optimistic dual-source pattern**:
+`assets/js/data.js` requests the seven public tables (`profile`, `social_links`, `skills`,
+`skill_items`, `experience`, `projects`, `resume`) from Supabase, and at the same time reads the
+matching `assets/json/*.json` snapshots:
 
-1. Fire a request to **Supabase** immediately.
-2. If Supabase hasn't responded within ~1 second, render from the matching
-   `assets/json/*.json` fallback so the page is never empty.
-3. When Supabase data arrives — even after the fallback rendered — **re-render** with the live data.
+1. The snapshot renders first, so the page is never empty.
+2. When Supabase answers, every section re-renders with live data. Any table that fails falls back to its snapshot.
+3. Renderers subscribe with `Site.onContent(fn)` and receive a normalised content object (see `docs/DESIGN.md`).
 
-Because of this, the JSON files are a mirror of the Supabase tables and are kept schema-compatible
-as an offline/degraded-mode fallback. Supabase columns use `snake_case` while the JSON files use
-`camelCase`; the render functions handle both shapes.
+Everything visible on the page is editable from the dashboard, including the hero headline
+(`profile.tagline`, falling back to `profile.title`), the hero pipeline (`profile.works_on`) and each
+project's flow diagram (`projects.flow`, falling back to the tech list in `subtitle`). Visibility,
+featured state and ordering follow `is_visible`, `is_featured` and `display_order`.
+
+### Keeping the fallback fresh
+
+`scripts/snapshot.mjs` writes the snapshots using the public anon key, and
+`.github/workflows/snapshot.yml` runs it every night (and on demand from the Actions tab),
+committing only when content changed. To refresh by hand: `node scripts/snapshot.mjs`.
 
 ## Features
 
-- **Responsive design** — mobile, tablet, and desktop layouts via CSS media queries.
-- **Dynamic content** — profile, skills, experience, projects, and resume all load at runtime.
-- **Dark / light theme** — toggle persisted in `localStorage`.
-- **Project carousel** — touch-friendly Swiper slider.
-- **Resume modal** — pop-up resume view with a download link.
-- **Scroll animations** — via ScrollReveal.
-- **Quote of the day** — fetched daily and cached.
-- **Visitor analytics** — anonymous session, device, and engagement metrics sent to Supabase.
+- **Responsive**: mobile-first layouts from 320px to wide desktop, with a full-screen mobile menu.
+- **Theme**: auto, light and dark, applied before first paint and persisted in `localStorage`.
+- **Project flows**: each project's pipeline drawn from dashboard data.
+- **Resume dialog**: native `<dialog>` with download and print.
+- **Accessibility**: skip link, visible focus, labelled icon links, reduced-motion support.
+- **Offline**: installable PWA with a network-first service worker.
+- **Visitor analytics**: anonymous session, device and engagement metrics sent to Supabase.
 
 ## Running Locally
 
 Serve the folder over HTTP (opening `index.html` directly with `file://` breaks the `fetch()`
-calls the loaders rely on):
+calls):
 
 ```bash
 python -m http.server 8000
 # then open http://localhost:8000
 ```
 
+Local visits are recorded by `analytics.js` like any other visit.
+
 ## Deployment
 
-Hosted on **GitHub Pages** at the custom domain in `CNAME`. There is no build step — pushing to
-`main` publishes the site.
-</content>
+Hosted on **GitHub Pages** at the custom domain in `CNAME`. There is no build step: pushing to
+`main` publishes the site. When shell files change, bump `CACHE` in `sw.js` so returning visitors
+get the new version.

@@ -1,13 +1,13 @@
 {
-  "name": "Anubhav Lal — Software Developer Portfolio",
+  "name": "Anubhav Lal — AI Engineer",
   "short_name": "Anubhav Lal",
-  "description": "Portfolio of Anubhav Lal, an AI software developer specializing in multi-agent systems, web development, and data analytics.",
+  "description": "Portfolio of Anubhav Lal, an AI engineer building LLM agents, retrieval systems and the FastAPI backends behind them.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#111820",
-  "theme_color": "#217ff2",
+  "background_color": "#0f1a2b",
+  "theme_color": "#0f1a2b",
   "icons": [
     {
       "src": "assets/img/favicon.png",

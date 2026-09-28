@@ -1,45 +1,53 @@
 /**
  * Service worker for the portfolio PWA.
  *
- * Strategy: cache-first for same-origin GET requests (the static app shell),
- * with runtime caching of anything else same-origin. Cross-origin requests
- * (Supabase reads/writes, analytics, Google Fonts, RemixIcon CDN, IP/geo APIs)
+ * Strategy: network-first for page navigations and content JSON so edits
+ * published from the dashboard show up immediately, stale-while-revalidate for
+ * the rest of the same-origin static shell. Cross-origin requests
+ * (Supabase reads/writes, analytics, Google Fonts, IP/geo APIs)
  * are left untouched so they always hit the network. Non-GET requests
  * (analytics POSTs, Supabase heartbeats) are ignored entirely.
  *
  * Bump CACHE when shell assets change so old caches are purged on activate.
  */
-const CACHE = "anubhav-portfolio-v2";
+const CACHE = "anubhav-portfolio-v3";
 
 const SHELL = [
   "./",
   "index.html",
   "manifest.json",
-  "assets/css/styles.css",
-  "assets/css/swiper-bundle.min.css",
+  "assets/css/tokens.css",
+  "assets/css/base.css",
+  "assets/css/nav.css",
+  "assets/css/hero.css",
+  "assets/css/work.css",
+  "assets/css/experience.css",
+  "assets/css/skills.css",
+  "assets/css/about.css",
+  "assets/css/resume.css",
   "assets/js/supabaseClient.js",
-  "assets/js/main.js",
-  "assets/js/interactiveBackground.js",
+  "assets/js/icons.js",
+  "assets/js/data.js",
+  "assets/js/nav.js",
+  "assets/js/hero.js",
+  "assets/js/graph.js",
+  "assets/js/work.js",
+  "assets/js/experience.js",
+  "assets/js/skills.js",
+  "assets/js/about.js",
+  "assets/js/resume.js",
   "assets/js/disableInput.js",
-  "assets/js/loadProjects.js",
-  "assets/js/loadExperience.js",
-  "assets/js/loadProfile.js",
-  "assets/js/loadSkills.js",
-  "assets/js/quotes.js",
-  "assets/js/resumeModal.js",
-  "assets/js/scrollreveal.min.js",
-  "assets/js/swiper-bundle.min.js",
   "assets/js/analytics.js",
   "assets/js/pwa.js",
   "assets/json/profile.json",
+  "assets/json/social_links.json",
   "assets/json/skills.json",
+  "assets/json/skill_items.json",
   "assets/json/experience.json",
   "assets/json/projects.json",
   "assets/json/resume.json",
   "assets/img/favicon.png",
-  "assets/img/Person.png",
-  "assets/img/shape-wawes.svg",
-  "assets/img/shape-circle.svg"
+  "assets/img/Person.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -69,25 +77,36 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // let cross-origin hit network
 
+  const fresh = req.mode === "navigate" || url.pathname.endsWith(".json");
+
   event.respondWith(
     (async () => {
-      const cached = await caches.match(req);
-      if (cached) return cached;
-      try {
-        const res = await fetch(req);
-        if (res && res.status === 200 && res.type === "basic") {
-          const cache = await caches.open(CACHE);
-          cache.put(req, res.clone());
-        }
+      const cache = await caches.open(CACHE);
+      const network = fetch(req).then((res) => {
+        if (res && res.status === 200 && res.type === "basic") cache.put(req, res.clone());
         return res;
-      } catch (err) {
-        // Offline and not cached: fall back to the app shell for navigations.
-        if (req.mode === "navigate") {
-          const shell = await caches.match("index.html");
-          if (shell) return shell;
+      });
+
+      if (fresh) {
+        try {
+          return await network;
+        } catch (err) {
+          const cached = await cache.match(req);
+          if (cached) return cached;
+          if (req.mode === "navigate") {
+            const shell = await cache.match("index.html");
+            if (shell) return shell;
+          }
+          throw err;
         }
-        throw err;
       }
+
+      const cached = await cache.match(req);
+      if (cached) {
+        event.waitUntil(network.catch(() => {}));
+        return cached;
+      }
+      return network;
     })()
   );
 });

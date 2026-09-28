@@ -73,14 +73,22 @@
   }
 
   function renderFeatured(project) {
-    const detail = project.flow
-      ? `${renderFlow(project.flow)}${renderTech(project.tech, false)}`
-      : renderTech(project.tech, false);
-    return `<article class="tile tile-featured" data-reveal>${renderImage(project, true)}<div class="tile-body"><span class="tile-badge">Featured</span><h3 class="tile-title">${esc(
-      project.title
-    )}</h3>${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}${detail}<div class="tile-footer">${renderLink(
-      project
-    )}</div></div></article>`;
+    const flow = project.flow ? renderFlow(project.flow) : "";
+    const tech = renderTech(project.tech, false);
+    const link = renderLink(project);
+    return `<article class="tile tile-featured" data-reveal>
+      <div class="featured-top">
+        ${renderImage(project, true)}
+        <div class="tile-body">
+          <span class="tile-badge">Featured</span>
+          <h3 class="tile-title">${esc(project.title)}</h3>
+          ${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}
+          ${flow ? "" : tech}
+          ${link ? `<div class="featured-actions">${link}</div>` : ""}
+        </div>
+      </div>
+      ${flow ? `<div class="featured-flow"><div class="featured-flow-head"><p class="featured-flow-label">How it works</p>${tech}</div>${flow}</div>` : ""}
+    </article>`;
   }
 
   function renderItem(project) {

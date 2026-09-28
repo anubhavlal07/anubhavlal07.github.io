@@ -104,10 +104,7 @@
             </div>`
               : ""
           }
-          <div class="contact-row">
-            <a class="button button-primary resumeButton" href="${esc(safeUrl(contact.resumeLink) || "#")}">${Site.icon("file")}<span>Resume</span></a>
-            ${social ? `<ul class="contact-social" role="list">${social}</ul>` : ""}
-          </div>
+          ${social ? `<div class="contact-row"><ul class="contact-social" role="list">${social}</ul></div>` : ""}
         </div>
       </div>
       <div class="footer-bar">

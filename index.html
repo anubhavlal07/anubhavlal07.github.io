@@ -171,19 +171,18 @@
       <a href="#home" class="nav-brand" id="nav-brand"><span class="nav-mark" id="nav-mark" aria-hidden="true">AL</span><span class="nav-name" id="nav-name">Anubhav Lal</span></a>
       <div class="nav-menu" id="nav-menu">
         <ul class="nav-list" role="list">
-          <li><a href="#work" class="nav-link">Work</a></li>
           <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#work" class="nav-link">Work</a></li>
           <li><a href="#skills" class="nav-link">Stack</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
         </ul>
         <div class="nav-menu-foot">
-          <a href="#" class="button button-primary resumeButton">Resume</a>
           <a href="#contact" class="button nav-contact">Get in touch</a>
         </div>
       </div>
       <div class="nav-actions">
         <button type="button" class="icon-button" id="theme-toggle" aria-label="Theme: auto"></button>
-        <a href="#" class="button button-sm nav-resume resumeButton">Resume</a>
+        <a href="#" class="button button-sm nav-resume resumeButton" id="resume-link">Resume</a>
         <button type="button" class="icon-button nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Open menu"></button>
       </div>
     </nav>
@@ -198,15 +197,21 @@
           <p class="hero-lede" id="hero-lede"></p>
           <ul class="hero-stack" id="hero-stack" role="list" aria-label="Focus areas"></ul>
           <div class="hero-actions" id="hero-actions">
-            <a href="#" class="button button-primary resumeButton" id="resume-link">Resume</a>
-            <a href="#contact" class="button" id="hero-email">Get in touch</a>
+            <a href="#contact" class="button button-primary" id="hero-email">Get in touch</a>
+            <a href="#work" class="button" id="hero-work">See my work</a>
             <ul class="hero-social" id="hero-social" role="list"></ul>
           </div>
         </div>
         <figure class="hero-visual" id="hero-visual" aria-label="Featured project"></figure>
       </div>
+    </section>
+
+    <section class="experience section" id="experience" aria-labelledby="experience-title">
       <div class="container">
-        <div class="hero-companies" id="hero-companies"></div>
+        <header class="section-head" data-reveal>
+          <h2 class="section-title" id="experience-title">Experience</h2>
+        </header>
+        <ol class="experience-list" id="experience-list" role="list"></ol>
       </div>
     </section>
 
@@ -217,15 +222,6 @@
         </header>
         <div class="work-featured" id="work-featured"></div>
         <ul class="work-list" id="work-list" role="list"></ul>
-      </div>
-    </section>
-
-    <section class="experience section" id="experience" aria-labelledby="experience-title">
-      <div class="container">
-        <header class="section-head" data-reveal>
-          <h2 class="section-title" id="experience-title">Experience</h2>
-        </header>
-        <ol class="experience-list" id="experience-list" role="list"></ol>
       </div>
     </section>
 

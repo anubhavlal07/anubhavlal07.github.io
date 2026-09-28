@@ -1,6 +1,6 @@
 # Design system (v2)
 
-The look is dark-first and product-grade, in the tradition of Linear, Vercel and Raycast, with a recruiter-friendly structure: identity, stack and contact on the first screen, then selected work, experience, stack, about and contact. All visible content comes from Supabase (edited in the portfolio-data dashboard), with `assets/json/*.json` as the offline fallback.
+The look is dark-first and product-grade, in the tradition of Linear, Vercel and Raycast, with a recruiter-friendly structure: identity, focus areas and contact on the first screen, then experience, selected work, stack, about and contact. The resume lives in the nav bar only (`a#resume-link`, which opens the resume dialog), at every screen size. All visible content comes from Supabase (edited in the portfolio-data dashboard), with `assets/json/*.json` as the offline fallback.
 
 ## Tokens
 
@@ -44,7 +44,7 @@ content.contact     { email, location, resumeLink }
 content.resume      raw resume row (JSONB sections)
 ```
 
-The hero headline is `profile.tagline` when it differs from the title; otherwise it's the name. The hero run card lists the featured project's `flow` steps, or its tech list when `flow` is null.
+The hero headline is `profile.tagline` when it differs from the title; otherwise it's the name. The hero run card lists the featured project's `flow` steps, or its tech list when `flow` is null. The featured tile keeps its screenshot at its natural 1264:848 ratio beside the text and draws the flow in a full-width "How it works" strip underneath: horizontal when each step gets at least 8.25rem, vertical otherwise.
 
 ## Files
 

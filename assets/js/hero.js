@@ -6,7 +6,6 @@
   const emailEl = document.getElementById("hero-email");
   const socialEl = document.getElementById("hero-social");
   const visualEl = document.getElementById("hero-visual");
-  const companiesEl = document.getElementById("hero-companies");
   if (!window.Site || typeof Site.onContent !== "function" || !titleEl) return;
 
   const esc = Site.esc;
@@ -57,8 +56,6 @@
     document.querySelectorAll("a.resumeButton").forEach((link) => {
       if (contact.resumeLink) link.setAttribute("href", contact.resumeLink);
     });
-    const resume = document.getElementById("resume-link");
-    if (resume && !resume.querySelector(".icon")) resume.innerHTML = `${icon("file")}<span>Resume</span>`;
     if (emailEl) {
       if (contact.email) {
         emailEl.setAttribute("href", `mailto:${contact.email}`);
@@ -78,22 +75,6 @@
         .join("");
       socialEl.hidden = !socialEl.children.length;
     }
-  }
-
-  function renderCompanies(experience) {
-    if (!companiesEl) return;
-    const list = Array.isArray(experience) ? experience.slice() : [];
-    const ordered = list
-      .map((item, index) => ({ item, index }))
-      .sort((a, b) => Number(b.item.current) - Number(a.item.current) || b.index - a.index)
-      .map(({ item }) => item.company)
-      .filter((name, index, all) => name && all.indexOf(name) === index);
-    companiesEl.innerHTML = ordered.length
-      ? `<p class="hero-companies-label">Experience at</p><ul class="hero-companies-list" role="list">${ordered
-          .map((name) => `<li>${esc(name)}</li>`)
-          .join("")}</ul>`
-      : "";
-    companiesEl.hidden = !ordered.length;
   }
 
   function runSteps(project) {
@@ -168,7 +149,6 @@
     renderStatus(profile, content && content.experience, contact);
     renderIntro(profile);
     renderActions(contact, content && content.socials);
-    renderCompanies(content && content.experience);
     renderVisual(content && content.projects);
   });
 })();

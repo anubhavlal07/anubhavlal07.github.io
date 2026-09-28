@@ -1,64 +1,37 @@
 [
-    {
-        "title": "Programming Languages",
-        "icon": "ri-braces-line",
-        "skills": [
-            {
-                "name": "Python",
-                "level": "Skillful",
-                "image": "assets/img/python.svg"
-            },
-            {
-                "name": "C",
-                "level": "Skillful",
-                "image": "assets/img/c.svg"
-            },
-            {
-                "name": "Pinecone",
-                "level": "Beginner",
-                "image": "assets/img/pinecone-icon.svg"
-            },
-            {
-                "name": "MySQL",
-                "level": "Skillful",
-                "image": "assets/img/mysql.svg"
-            },
-            {
-                "name": "PostgreSQL",
-                "level": "Skillful",
-                "image": "assets/img/postgresql.svg"
-            }
-        ]
-    },
-    {
-        "title": "Tools and Technologies",
-        "icon": "ri-server-line",
-        "skills": [
-            {
-                "name": "Git",
-                "level": "Intermediate",
-                "image": "assets/img/git-icon.svg"
-            },
-            {
-                "name": "Docker",
-                "level": "Beginner",
-                "image": "assets/img/docker-icon.svg"
-            },
-            {
-                "name": "Fast API",
-                "level": "Intermediate",
-                "image": "assets/img/fastapi-icon.svg"
-            },
-            {
-                "name": "Pandas",
-                "level": "Intermediate",
-                "image": "assets/img/pandas-icon.svg"
-            },
-            {
-                "name": "Postman",
-                "level": "Beginner",
-                "image": "assets/img/postman-icon.svg"
-            }
-        ]
-    }
+  {
+    "id": "9c56bb7f-53c6-4b17-8b6c-b4ba1799338f",
+    "title": "Programming Languages",
+    "icon": "ri-braces-line",
+    "display_order": 0,
+    "created_at": "2026-01-25T13:10:08.552377+00:00"
+  },
+  {
+    "id": "b1a7e0d2-0000-4000-8000-000000000001",
+    "title": "Backend & Frameworks",
+    "icon": "ri-stack-line",
+    "display_order": 1,
+    "created_at": "2026-09-28T12:14:58.134923+00:00"
+  },
+  {
+    "id": "b1a7e0d2-0000-4000-8000-000000000002",
+    "title": "AI & LLM Systems",
+    "icon": "ri-robot-2-line",
+    "display_order": 2,
+    "created_at": "2026-09-28T12:14:58.134923+00:00"
+  },
+  {
+    "id": "b1a7e0d2-0000-4000-8000-000000000003",
+    "title": "Databases",
+    "icon": "ri-database-2-line",
+    "display_order": 3,
+    "created_at": "2026-09-28T12:14:58.134923+00:00"
+  },
+  {
+    "id": "26470252-72e2-4813-8387-4b306399a518",
+    "title": "Tools and Technologies",
+    "icon": "ri-server-line",
+    "display_order": 4,
+    "created_at": "2026-01-25T13:10:10.157126+00:00"
+  }
 ]

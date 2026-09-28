@@ -1,0 +1,29 @@
+[
+  {
+    "id": "d9e54ded-c120-4674-9e1f-fe6c20449dc4",
+    "name": "LinkedIn",
+    "url": "https://www.linkedin.com/in/anubhavl/",
+    "icon": "ri-linkedin-line",
+    "display_order": 0,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:07.088567+00:00"
+  },
+  {
+    "id": "142756dc-a303-4751-9381-83e004a22596",
+    "name": "GitHub",
+    "url": "https://github.com/anubhavlal07",
+    "icon": "ri-github-line",
+    "display_order": 1,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:07.386012+00:00"
+  },
+  {
+    "id": "f8affe62-99ad-44ec-ac88-4ae41fb90b4e",
+    "name": "Terminal",
+    "url": "https://anubhavlal07.github.io/terminal",
+    "icon": "ri-terminal-box-line",
+    "display_order": 4,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:08.216828+00:00"
+  }
+]

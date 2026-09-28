@@ -1,41 +1,56 @@
 [
-    {
-        "id": 1,
-        "role": "Junior Cyber Security Analyst Intern",
-        "company": "Supraja Technologies",
-        "start_date": "Dec 2023",
-        "end_date": "Dec 2024",
-        "_comment": [
-            "I conducted over 50 security assessments to find and fix vulnerabilities like SQL injection and XSS.",
-            "I performed specialized testing on APIs to identify weaknesses in how they handle data.",
-            "I successfully resolved over 30 complex security issues to strengthen the server defenses against attacks."
-        ],
-        "description": ""
-    },
-    {
-        "id": 2,
-        "role": "Python Developer Intern",
-        "company": "Jupitos Technologies LLC",
-        "start_date": "Jan 2025",
-        "end_date": "Jun 2025",
-        "_comment": [
-            "I developed a hiring platform that automatically screens resumes and handles high user traffic efficiently.",
-            "I designed an AI interview bot that simulates a real recruiter and retrieves information instantly.",
-            "Additionally, I deployed an automated attendance system that drastically reduced manual data entry errors."
-        ],
-        "description": ""
-    },
-    {
-        "id": 3,
-        "role": "AI Software Developer",
-        "company": "KAT Enterprise LLC",
-        "start_date": "Jul 2025",
-        "end_date": "Present",
-        "_comment": [
-            "I built a multi-agent chat system called \"Etown\" that helps users find and book service providers autonomously.",
-            "I developed over 15 AI tools to enable features like location-based searching and real-time management.",
-            "I also added support for multiple languages and personalized the system's responses based on the user's specific location."
-        ],
-        "description": ""
-    }
+  {
+    "id": "1e9dc904-2b5b-4446-b900-c79371460d0f",
+    "role": "Cyber Security Analyst Intern",
+    "company": "Supraja Technologies",
+    "start_date": "Oct 2022",
+    "end_date": "Dec 2023",
+    "highlights": [
+      "Built Python and FastAPI internal tooling and REST endpoints that automated recurring security assessment workflows, replacing manual checks and cutting report turnaround time.",
+      "Developed Python automation scripts for vulnerability scanning, log parsing, and evidence collection, consolidating output from multiple tools into a single structured reporting pipeline.",
+      "Performed vulnerability assessment and penetration testing across web applications, documenting OWASP Top 10 findings with reproducible steps and remediation guidance for development teams.",
+      "Applied secure coding practices such as input validation, authentication and authorization checks, and dependency review, which now carry into API design and LLM application work."
+    ],
+    "display_order": 0,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:11.477892+00:00",
+    "updated_at": "2026-09-28T12:14:58.134923+00:00",
+    "include_in_resume": true
+  },
+  {
+    "id": "361888a6-4693-40e9-a753-8919d7b76e8a",
+    "role": "Python Developer Intern",
+    "company": "Jupitos Technologies LLC",
+    "start_date": "Jan 2025",
+    "end_date": "Jun 2025",
+    "highlights": [
+      "Built and optimized Django backend hiring platform serving 150 concurrent users, improving page load speed by 50% through SQL query optimization, session management, and database tuning.",
+      "Integrated a resume parser automating screening of 250+ resumes/month at 92% field-extraction accuracy, reducing manual HR verification time.",
+      "Designed a dual-agent Generative AI interview bot using Groq, LangChain, PostgreSQL, and Pinecone, achieving sub-200ms context retrieval through hybrid storage and vector search.",
+      "Deployed an automated attendance module for 150 employees, reducing data-entry errors by 80%."
+    ],
+    "display_order": 1,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:11.673035+00:00",
+    "updated_at": "2026-09-28T12:14:58.134923+00:00",
+    "include_in_resume": true
+  },
+  {
+    "id": "4b4f147a-9e3d-4114-9446-b7c8fb5d1e58",
+    "role": "AI Software Developer",
+    "company": "KAT Enterprise LLC",
+    "start_date": "Jul 2025",
+    "end_date": "Present",
+    "highlights": [
+      "Engineered a production Generative AI platform in Python and FastAPI using async REST APIs, SSE streaming, and microservices, orchestrating LangGraph Member and Provider agents for autonomous service discovery and booking workflows.",
+      "Developed 15+ custom agent tools letting GPT-4 agents call deterministic backend actions such as geospatial provider search, booking management, PostgreSQL queries, and multi-step API workflows, backed by typed Pydantic contracts and OpenAPI documentation.",
+      "Adopted AI-assisted development workflows to accelerate Python development, repository analysis, debugging, refactoring, test creation, and code review; built Model Context Protocol (MCP) tool and context integrations to extend those workflows.",
+      "Built context-injection and prompt-engineering logic personalizing LLM prompts by location, role, and session state, improving relevance and routing accuracy across the agent graph; containerized services with Docker and shipped through CI/CD."
+    ],
+    "display_order": 2,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:11.88226+00:00",
+    "updated_at": "2026-09-28T12:30:08.071674+00:00",
+    "include_in_resume": true
+  }
 ]

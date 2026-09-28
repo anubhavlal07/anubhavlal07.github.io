@@ -1,37 +1,77 @@
 [
   {
-    "img": "assets/img/HRagent.png",
-    "subtitle": "Machine Learning",
+    "id": "f16dbda7-4ea6-43d6-87fa-a5d89acb0961",
+    "title": "Cerebro",
+    "subtitle": "LangGraph, FastAPI, PostgreSQL, pgvector, REST APIs, Next.js",
+    "description": "Multi-agent RAG research system: a LangGraph supervisor decomposes research questions, routes parallel web, academic, and document tasks, and emits a cited report. Includes human-in-the-loop interrupt/resume gates, checkpoint time-travel, and an offline LLM evaluation harness for citation validity, grounding, recall@k, and faithfulness.",
+    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/cerebro.png",
+    "project_link": "http://cerebro.anubhavlal.dev/",
+    "link_text": "Demo",
+    "display_order": 0,
+    "is_featured": true,
+    "is_visible": true,
+    "created_at": "2026-07-25T22:05:42.516697+00:00",
+    "updated_at": "2026-09-28T12:14:58.134923+00:00",
+    "include_in_resume": true
+  },
+  {
+    "id": "100e7cdd-20e5-408e-aef6-c69e9e2a45f1",
+    "title": "Document Automation Platform",
+    "subtitle": "FastAPI, Gemini, Supabase, PostgreSQL, Pydantic, CI/CD",
+    "description": "Invoice approval, PO matching, resume screening, and support-ticket triage workflows on one shared pipeline. Gemini outputs are constrained to structured extraction with response_schema and Pydantic validation, while business rules, approvals, and orchestration stay in deterministic Python services. Hardened with retry/backoff, Message-ID idempotency, dedupe hashing, dead-letter handling, and confidence-based human review.",
+    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/documentAutomationPlatform.png",
+    "project_link": "https://github.com/anubhavlal07/document-workflow-automation",
+    "link_text": "View",
+    "display_order": 1,
+    "is_featured": false,
+    "is_visible": true,
+    "created_at": "2026-09-28T12:22:37.029614+00:00",
+    "updated_at": "2026-09-28T12:52:01.778552+00:00",
+    "include_in_resume": true
+  },
+  {
+    "id": "32da1751-0b5f-45ea-9b83-85c45001d44e",
+    "title": "Enterprise Knowledge Assistant",
+    "subtitle": "RAG, ChromaDB, BM25, cross-encoder reranking, retrieval evaluation",
+    "description": "Hybrid semantic + keyword retrieval with Reciprocal Rank Fusion and cross-encoder reranking. Relevance thresholds drive explicit knowledge-base refusals, evaluated with Hit@k, MRR, grounding quality, and refusal accuracy.",
+    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/enterpriseKnowledgeAssistant.png",
+    "project_link": "https://github.com/anubhavlal07/enterprise-knowledge-assistant",
+    "link_text": "View",
+    "display_order": 2,
+    "is_featured": false,
+    "is_visible": true,
+    "created_at": "2026-09-28T12:22:37.029614+00:00",
+    "updated_at": "2026-09-28T12:52:01.778552+00:00",
+    "include_in_resume": true
+  },
+  {
+    "id": "9161f625-c609-4604-9f35-945319a8a255",
     "title": "HireMind",
-    "description": "An HR screening assistant built on a Retrieval-Augmented Generation pipeline that parses résumés and answers recruiter questions with grounded context.",
-    "tech": ["Python", "LangChain", "Pinecone", "FastAPI"]
-  },
-  {
-    "img": "assets/img/faceReg.png",
     "subtitle": "Machine Learning",
+    "description": "\n",
+    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/HRagent.png",
+    "project_link": "https://github.com/anubhavlal07/RAG-Agent",
+    "link_text": "GitHub",
+    "display_order": 3,
+    "is_featured": false,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:12.081467+00:00",
+    "updated_at": "2026-09-28T12:22:37.029614+00:00",
+    "include_in_resume": false
+  },
+  {
+    "id": "ad1594a8-74a0-45b5-86ce-2d50ec2588ba",
     "title": "FaceReg Attendance Monitor",
-    "description": "A real-time attendance system using OpenCV face detection and recognition, with a Tkinter GUI and Pandas-based reporting.",
-    "tech": ["Python", "OpenCV", "Tkinter", "Pandas"]
-  },
-  {
-    "img": "assets/img/cyberCrimeAnalysis.png",
-    "subtitle": "Data Analytics",
-    "title": "Cyber Crime Analysis",
-    "description": "Exploratory analysis and prediction of cyber-crime trends across regions, surfaced through interactive visual dashboards.",
-    "tech": ["Python", "Pandas", "Scikit-learn", "Tableau"]
-  },
-  {
-    "img": "assets/img/movieRecommendation.png",
-    "subtitle": "Progressive Web App",
-    "title": "Movie Bliss",
-    "description": "An installable, offline-capable progressive web app for discovering and tracking movies.",
-    "tech": ["JavaScript", "PWA", "REST API"]
-  },
-  {
-    "img": "assets/img/MERNstack.png",
-    "subtitle": "MERN Stack",
-    "title": "Blogger's Den",
-    "description": "A full-stack blogging platform with authentication, rich-text posts, and comments.",
-    "tech": ["MongoDB", "Express", "React", "Node.js"]
+    "subtitle": "Machine Learning",
+    "description": "",
+    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/faceReg.png",
+    "project_link": "https://github.com/anubhavlal07/Attendance-Management",
+    "link_text": "Github",
+    "display_order": 4,
+    "is_featured": false,
+    "is_visible": true,
+    "created_at": "2026-01-25T13:10:12.287711+00:00",
+    "updated_at": "2026-09-28T12:22:37.029614+00:00",
+    "include_in_resume": false
   }
 ]

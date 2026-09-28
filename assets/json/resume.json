@@ -1,106 +1,192 @@
-{
-    "personalInfo": {
-        "name": "Anubhav Lal",
-        "title": "AI Software Developer",
-        "email": "anubhavlal.15@gmail.com",
-        "phone": "+91 8578028430",
-        "location": "Bangalore, India",
-        "linkedin": "linkedin.com/in/anubhavl",
-        "github": "github.com/anubhavlal07",
-        "resumeDownloadLink": "https://drive.google.com/file/d/1kLQAOWJKMIA8Qv8nrYeYm29XN0ZiMVVN/view"
-    },
-    "summary": "Performance-focused Software Developer with expertise in Python backend engineering and AI system design. Proven track record of building high-concurrency applications using FastAPI and Django, reducing process errors by 80% and supporting 150+ concurrent users. Adept at merging complex PostgreSQL schemas with vector databases to deliver sub-200ms latency in retrieval systems. Proficient in containerizing applications using Docker and managing version control with Git.",
+[
+  {
+    "id": "da0d2f26-3b74-487f-9933-0d827e3c33a8",
+    "name": "Anubhav Lal",
+    "title": "Python Developer | FastAPI & Backend Engineering | Generative AI",
+    "email": "anubhavlal.15@gmail.com",
+    "phone": "+91 8578028430",
+    "location": "Bangalore, India",
+    "resume_download_link": "https://drive.google.com/file/d/1kLQAOWJKMIA8Qv8nrYeYm29XN0ZiMVVN/view",
+    "summary": "Python developer with 3 years of building production FastAPI and Django services, REST APIs, and microservices. Generative AI delivery across LLM agents, RAG pipelines, tool calling, prompt engineering, and evaluation. Takes features from design to release: async APIs, Pydantic contracts, automated tests, Docker, and CI/CD.",
     "education": [
-        {
-            "degree": "Master in Computer Application",
-            "institution": "SRM Institute of Science and Technology",
-            "location": "Chennai, India",
-            "date": "Jul 2023 — May 2025",
-            "coursework": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security"
-        },
-        {
-            "degree": "Bachelor in Computer Application",
-            "institution": "Acharya Institute of Graduate Studies",
-            "location": "Bangalore, India",
-            "date": "Jul 2019 — Sep 2022",
-            "coursework": "Database Management Systems, Software Engineering, Web Technologies"
-        }
+      {
+        "id": "1",
+        "score": "Database Management Systems, Software Engineering, Web Technologies",
+        "degree": "BCA, Computer Applications",
+        "endDate": "Sep 2022",
+        "startDate": "Jul 2019",
+        "institution": "Acharya Institute of Graduate Studies, Bangalore"
+      },
+      {
+        "id": "2",
+        "score": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security",
+        "degree": "MCA, Computer Applications",
+        "endDate": "May 2025",
+        "startDate": "Jul 2023",
+        "institution": "SRM Institute of Science and Technology, Chennai"
+      }
     ],
     "experience": [
-        {
-            "id": 1,
-            "role": "Python Developer Intern",
-            "company": "Jupitos Technologies LLC",
-            "start_date": "Jan 2025",
-            "end_date": "Jun 2025",
-            "achievements": [
-                "Developed a robust Django-based hiring platform capable of handling 150 concurrent users, improving page load speeds by 50% through optimized session management",
-                "Integrated a Resume Parser that automates the screening of 250+ resumes/month, achieving 92% parsing accuracy and significantly reducing manual HR verification time",
-                "Designed a 'Dual-Agent' interview bot using Groq LLM and LangChain that simulates recruiter behaviour with 95% response relevance",
-                "Engineered a hybrid storage system using PostgreSQL (structured) and Pinecone (vector) to achieve sub-200ms information retrieval speeds for the interview agent",
-                "Deployed an automated attendance tracking module for 150 employees, cutting data entry errors by 80%"
-            ]
-        },
-        {
-            "id": 2,
-            "role": "AI Software Developer",
-            "company": "KAT Enterprise LLC",
-            "start_date": "Jul 2025",
-            "end_date": "Present",
-            "achievements": [
-                "Engineered a multi-agent conversational ecosystem ('Etown') using LangGraph and FastAPI, orchestrating distinct 'Member' and 'Provider' agents for autonomous service discovery",
-                "Developed 15+ custom AI tools, enabling GPT-4 agents to execute deterministic actions including geospatial provider search and real-time booking management via direct PostgreSQL interfacing",
-                "Implemented a dynamic context injection system to personalize System Prompts based on user location and role, increasing response relevance and location awareness",
-                "Built an asynchronous translation pipeline using Azure Translator, enabling multilingual support for diverse user bases with efficient batch processing"
-            ]
-        }
+      {
+        "id": "3",
+        "role": "AI Software Developer",
+        "company": "KAT Enterprise LLC",
+        "endDate": "Present",
+        "location": "",
+        "startDate": "Jul 2025",
+        "description": "Key Achievements:\n• Engineered a production Generative AI platform in Python and FastAPI using async REST APIs, SSE streaming, and microservices, orchestrating LangGraph Member and Provider agents for autonomous service discovery and booking workflows.\n• Developed 15+ custom agent tools letting GPT-4 agents call deterministic backend actions such as geospatial provider search, booking management, PostgreSQL queries, and multi-step API workflows, backed by typed Pydantic contracts and OpenAPI documentation.\n• Adopted AI-assisted development workflows to accelerate Python development, repository analysis, debugging, refactoring, test creation, and code review; built Model Context Protocol (MCP) tool and context integrations to extend those workflows.\n• Built context-injection and prompt-engineering logic personalizing LLM prompts by location, role, and session state, improving relevance and routing accuracy across the agent graph; containerized services with Docker and shipped through CI/CD."
+      },
+      {
+        "id": "2",
+        "role": "Python Developer Intern",
+        "company": "Jupitos Technologies LLC",
+        "endDate": "Jun 2025",
+        "location": "",
+        "startDate": "Jan 2025",
+        "description": "Key Achievements:\n• Built and optimized Django backend hiring platform serving 150 concurrent users, improving page load speed by 50% through SQL query optimization, session management, and database tuning.\n• Integrated a resume parser automating screening of 250+ resumes/month at 92% field-extraction accuracy, reducing manual HR verification time.\n• Designed a dual-agent Generative AI interview bot using Groq, LangChain, PostgreSQL, and Pinecone, achieving sub-200ms context retrieval through hybrid storage and vector search.\n• Deployed an automated attendance module for 150 employees, reducing data-entry errors by 80%."
+      },
+      {
+        "id": "1",
+        "role": "Cyber Security Analyst Intern",
+        "company": "Supraja Technologies",
+        "endDate": "Dec 2023",
+        "location": "",
+        "startDate": "Oct 2022",
+        "description": "Key Achievements:\n• Built Python and FastAPI internal tooling and REST endpoints that automated recurring security assessment workflows, replacing manual checks and cutting report turnaround time.\n• Developed Python automation scripts for vulnerability scanning, log parsing, and evidence collection, consolidating output from multiple tools into a single structured reporting pipeline.\n• Performed vulnerability assessment and penetration testing across web applications, documenting OWASP Top 10 findings with reproducible steps and remediation guidance for development teams.\n• Applied secure coding practices such as input validation, authentication and authorization checks, and dependency review, which now carry into API design and LLM application work."
+      }
     ],
-    "skills": {
-        "languages": [
-            "Python",
-            "SQL",
-            "JavaScript (Basic)"
-        ],
-        "backend": [
-            "FastAPI",
-            "Django",
-            "RESTful APIs",
-            "AsyncIO",
-            "Microservices Architecture"
-        ],
-        "ai": [
-            "LangChain",
-            "LangGraph",
-            "OpenAI API",
-            "Groq",
-            "RAG",
-            "Pinecone",
-            "Vector Databases"
-        ],
-        "databases": [
-            "PostgreSQL",
-            "SQLAlchemy",
-            "PGVector"
-        ],
-        "devops": [
-            "Docker",
-            "Git",
-            "GitHub",
-            "NumPy",
-            "Pandas",
-            "GeoPy"
-        ]
-    },
+    "skills": [
+      {
+        "id": "1",
+        "name": "Python",
+        "category": "languages"
+      },
+      {
+        "id": "2",
+        "name": "TypeScript",
+        "category": "languages"
+      },
+      {
+        "id": "3",
+        "name": "MySQL",
+        "category": "languages"
+      },
+      {
+        "id": "4",
+        "name": "JavaScript",
+        "category": "languages"
+      },
+      {
+        "id": "5",
+        "name": "Fast API",
+        "category": "backend"
+      },
+      {
+        "id": "6",
+        "name": "Django",
+        "category": "backend"
+      },
+      {
+        "id": "7",
+        "name": "Pydantic",
+        "category": "backend"
+      },
+      {
+        "id": "8",
+        "name": "SQLAlchemy",
+        "category": "backend"
+      },
+      {
+        "id": "9",
+        "name": "LangGraph",
+        "category": "ai"
+      },
+      {
+        "id": "10",
+        "name": "LangChain",
+        "category": "ai"
+      },
+      {
+        "id": "11",
+        "name": "OpenAI GPT",
+        "category": "ai"
+      },
+      {
+        "id": "12",
+        "name": "Gemini",
+        "category": "ai"
+      },
+      {
+        "id": "13",
+        "name": "Claude Code",
+        "category": "ai"
+      },
+      {
+        "id": "14",
+        "name": "Model Context Protocol",
+        "category": "ai"
+      },
+      {
+        "id": "15",
+        "name": "PostgreSQL",
+        "category": "databases"
+      },
+      {
+        "id": "16",
+        "name": "Pinecone",
+        "category": "databases"
+      },
+      {
+        "id": "17",
+        "name": "Supabase",
+        "category": "databases"
+      },
+      {
+        "id": "18",
+        "name": "Docker",
+        "category": "devops"
+      },
+      {
+        "id": "19",
+        "name": "Git",
+        "category": "devops"
+      },
+      {
+        "id": "20",
+        "name": "Postman",
+        "category": "devops"
+      },
+      {
+        "id": "21",
+        "name": "GitHub Actions",
+        "category": "devops"
+      }
+    ],
     "projects": [
-        {
-            "name": "Real-Time Face Recognition Attendance System",
-            "role": "Researcher & Developer",
-            "description": "Authored and published a research paper in the Indian Journal of Natural Sciences validating the efficiency of biometric automation in educational sectors. Developed the proof-of-concept using Python and OpenCV, demonstrating a reduction in manual tracking time by over 90%."
-        },
-        {
-            "name": "Cybersecurity Hackathon",
-            "role": "Team Lead",
-            "description": "Secured 2nd Place among 100+ participants by identifying and exploiting critical vulnerabilities (SQL Injection, XSS) in target web applications under strict time constraints. Earned a Junior Cybersecurity Analyst Internship at Supraja Technologies based on strong technical performance."
-        }
-    ]
-}
+      {
+        "id": "1",
+        "link": "http://cerebro.anubhavlal.dev/",
+        "title": "Cerebro",
+        "description": "Multi-agent RAG research system: a LangGraph supervisor decomposes research questions, routes parallel web, academic, and document tasks, and emits a cited report. Includes human-in-the-loop interrupt/resume gates, checkpoint time-travel, and an offline LLM evaluation harness for citation validity, grounding, recall@k, and faithfulness.",
+        "technologies": "LangGraph, FastAPI, PostgreSQL, pgvector, REST APIs, Next.js"
+      },
+      {
+        "id": "2",
+        "link": "https://github.com/anubhavlal07/document-workflow-automation",
+        "title": "Document Automation Platform",
+        "description": "Invoice approval, PO matching, resume screening, and support-ticket triage workflows on one shared pipeline. Gemini outputs are constrained to structured extraction with response_schema and Pydantic validation, while business rules, approvals, and orchestration stay in deterministic Python services. Hardened with retry/backoff, Message-ID idempotency, dedupe hashing, dead-letter handling, and confidence-based human review.",
+        "technologies": "FastAPI, Gemini, Supabase, PostgreSQL, Pydantic, CI/CD"
+      },
+      {
+        "id": "3",
+        "link": "https://github.com/anubhavlal07/enterprise-knowledge-assistant",
+        "title": "Enterprise Knowledge Assistant",
+        "description": "Hybrid semantic + keyword retrieval with Reciprocal Rank Fusion and cross-encoder reranking. Relevance thresholds drive explicit knowledge-base refusals, evaluated with Hit@k, MRR, grounding quality, and refusal accuracy.",
+        "technologies": "RAG, ChromaDB, BM25, cross-encoder reranking, retrieval evaluation"
+      }
+    ],
+    "created_at": "2026-01-26T11:56:52.569036+00:00",
+    "updated_at": "2026-09-28T12:55:44.920749+00:00",
+    "auto_sync": true
+  }
+]

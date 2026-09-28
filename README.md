@@ -39,6 +39,7 @@ anubhavlal07.github.io/
 │   │   ├── nav.js                   # Header, mobile menu, scroll-spy, theme toggle
 │   │   ├── hero.js                  # Status, headline, actions, featured project window
 │   │   ├── motion.js                # Cursor spotlight, tile glow, scroll reveal
+│   │   ├── background.js            # Interactive dot-field canvas (cursor glow, click ripples)
 │   │   ├── work.js                  # Selected work bento and project flow diagrams
 │   │   ├── experience.js            # Experience list
 │   │   ├── skills.js                # Stack groups

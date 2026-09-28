@@ -1,6 +1,6 @@
 # Design system (v2)
 
-The look is dark-first and product-grade, in the tradition of Linear, Vercel and Raycast, with a recruiter-friendly structure: identity, focus areas and contact on the first screen, then experience, selected work, stack, about and contact. The resume lives in the nav bar only (`a#resume-link`, which opens the resume dialog), at every screen size. All visible content comes from Supabase (edited in the portfolio-data dashboard), with `assets/json/*.json` as the offline fallback.
+The look is dark-first and product-grade, in the tradition of Linear, Vercel and Raycast, with a recruiter-friendly structure: identity, focus areas and contact on the first screen, then experience, selected work, stack and about, with a slim footer (copyright, email, socials). The resume lives in the nav bar only (`a#resume-link`, which opens the resume dialog), at every screen size. All visible content comes from Supabase (edited in the portfolio-data dashboard), with `assets/json/*.json` as the offline fallback.
 
 ## Tokens
 
@@ -23,7 +23,7 @@ Layout: a 1200px container, `--gutter` of 16–32px, `--section-y` of 48–72px.
 
 ## Rules
 
-- **Motion** is short and purposeful. Scroll reveals run once (12px, 500ms, staggered), the hero run card ticks through its steps once, tiles lift 2px on hover with a cursor-following glow, and a faint page spotlight follows the pointer. `background.js` draws a fixed dot field: dots within about 210px of the cursor brighten towards `--accent` and ease away from it, and a click or tap sends a ripple through the grid. It animates only while the pointer moves or a ripple runs, and goes static when the tab is hidden. All of it is disabled under `prefers-reduced-motion`.
+- **Motion** is short and purposeful. Scroll reveals run once (12px, 500ms, staggered), the hero run card ticks through its steps once, tiles lift 2px on hover with a cursor-following glow, and a faint page spotlight follows the pointer. `background.js` draws a fixed dot field on its own compositor layer (no CSS mask on it; masking a full-viewport canvas caused dropped frames while scrolling): dots within about 210px of the cursor brighten towards `--accent` and ease away from it, and a click or tap sends a ripple through the grid. It animates only while the pointer moves or a ripple runs, and goes static when the tab is hidden. All of it is disabled under `prefers-reduced-motion`.
 - **Mobile is calm, not a squeezed desktop.** The hero drops the focus chips, location and project window below 1024px. Tiles clamp descriptions to four lines and show at most four chips. Experience shows one highlight per role, and About shows one paragraph until expanded.
 - **Accessibility:** 44px touch targets, visible `:focus-visible` rings, a skip link, labelled icon links (analytics reads `aria-label`), and AA contrast in both themes.
 - **Avoid:** skill-level bars, particle backgrounds, three or more typefaces, 700–800 weight display type, and gradient washes as decoration.

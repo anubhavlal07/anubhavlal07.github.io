@@ -43,7 +43,7 @@ anubhavlal07.github.io/
 │   │   ├── work.js                  # Selected work bento and project flow diagrams
 │   │   ├── experience.js            # Experience list
 │   │   ├── skills.js                # Stack groups
-│   │   ├── about.js                 # About, education and contact panel
+│   │   ├── about.js                 # About, education and footer
 │   │   ├── resume.js                # Resume dialog (printable)
 │   │   ├── analytics.js             # Visitor analytics collector (sends to Supabase)
 │   │   ├── disableInput.js          # Blocks DevTools shortcuts, right-click and selection

@@ -90,25 +90,10 @@
       )
       .join("");
 
-    footer.innerHTML = `<div class="contact-panel" data-reveal>
-        <div class="contact-copy">
-          <h2 class="contact-title">Get in touch</h2>
-          ${contact.location ? `<p class="contact-place">${Site.icon("pin")}<span>${esc(contact.location)}</span></p>` : ""}
-        </div>
-        <div class="contact-actions">
-          ${
-            contact.email
-              ? `<div class="contact-email">
-              <a class="contact-email-link" href="mailto:${esc(contact.email)}">${Site.icon("mail")}<span>${esc(contact.email)}</span></a>
-              <button type="button" class="contact-copy-btn" data-copy="${esc(contact.email)}" aria-label="Copy email address"><span class="contact-copy-label">Copy</span></button>
-            </div>`
-              : ""
-          }
-          ${social ? `<div class="contact-row"><ul class="contact-social" role="list">${social}</ul></div>` : ""}
-        </div>
-      </div>
-      <div class="footer-bar">
-        <p>© ${year} ${esc(name)}</p>
+    footer.innerHTML = `<p class="footer-copy">© ${year} ${esc(name)}</p>
+      <div class="footer-links">
+        ${contact.email ? `<a class="footer-email" href="mailto:${esc(contact.email)}">${Site.icon("mail")}<span>${esc(contact.email)}</span></a>` : ""}
+        ${social ? `<ul class="footer-social" role="list">${social}</ul>` : ""}
       </div>`;
     footer.removeAttribute("aria-busy");
   }
@@ -121,22 +106,6 @@
       more.textContent = bioOpen ? "Show less" : "Read more";
       const text = document.getElementById("about-text");
       if (text) text.classList.toggle("is-open", bioOpen);
-      return;
-    }
-    const copy = event.target.closest(".contact-copy-btn");
-    if (!copy) return;
-    const value = copy.dataset.copy || "";
-    const labelEl = copy.querySelector(".contact-copy-label");
-    const done = () => {
-      if (labelEl) labelEl.textContent = "Copied";
-      copy.classList.add("is-done");
-      window.setTimeout(() => {
-        if (labelEl) labelEl.textContent = "Copy";
-        copy.classList.remove("is-done");
-      }, 1600);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(value).then(done, () => {});
     }
   });
 

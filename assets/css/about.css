@@ -167,154 +167,49 @@
 }
 
 .site-footer {
-  padding-block: 0 var(--space-5);
+  padding-block: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--border);
 }
 
 .footer-inner {
-  display: grid;
-  gap: var(--space-5);
-}
-
-.contact-panel {
-  position: relative;
-  display: grid;
-  gap: var(--space-6);
-  overflow: hidden;
-  padding: clamp(var(--space-5), 4vw, var(--space-8));
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  background:
-    radial-gradient(60% 120% at 100% 0%, var(--accent-soft), transparent 60%),
-    var(--surface);
-  box-shadow: var(--shadow-sm), var(--highlight);
-  isolation: isolate;
-}
-
-.contact-panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 90% at 100% 0%, #000, transparent 70%);
-  mask-image: radial-gradient(ellipse 60% 90% at 100% 0%, #000, transparent 70%);
-}
-
-.contact-copy {
-  display: grid;
-  gap: var(--space-3);
-}
-
-.contact-title {
-  font-size: var(--text-2xl);
-  line-height: 1.1;
-  letter-spacing: var(--tracking-tight);
-}
-
-.contact-place {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  color: var(--muted);
-  font-size: var(--text-sm);
-}
-
-.contact-actions {
-  display: grid;
-  gap: var(--space-4);
-  min-width: 0;
-}
-
-.contact-email {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 0;
-  max-width: 100%;
-  padding: 0.375rem 0.375rem 0.375rem var(--space-4);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-pill);
-  background: var(--bg-subtle);
-  box-shadow: var(--highlight);
-}
-
-.contact-email-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 0;
-  flex: 1;
-  min-height: 40px;
-  font-size: var(--text-md);
-  font-weight: 500;
-}
-
-.contact-email-link span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.contact-email-link .icon {
-  color: var(--muted);
-}
-
-.contact-copy-btn {
-  flex: none;
-  min-height: 36px;
-  padding: 0 var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--muted);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  transition: color var(--fast) var(--ease-standard), background-color var(--fast) var(--ease-standard);
-}
-
-.contact-copy-btn:hover {
-  color: var(--text);
-  background: var(--elevated);
-}
-
-.contact-copy-btn.is-done {
-  color: var(--success);
-}
-
-.contact-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3);
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
 }
 
-.contact-social {
+.footer-copy {
+  color: var(--faint);
+  font-size: var(--text-sm);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+
+.footer-email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.footer-email:hover {
+  color: var(--text);
+}
+
+.footer-social {
   display: flex;
   gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.footer-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding-top: var(--space-2);
-  color: var(--faint);
-  font-size: var(--text-sm);
-}
-
-@media (min-width: 1024px) {
-  .contact-panel {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
-    align-items: center;
-  }
 }
 
 @media (max-width: 479.98px) {
@@ -326,11 +221,8 @@
     padding: var(--space-4);
   }
 
-  .contact-panel {
-    gap: var(--space-5);
-  }
-
-  .contact-email-link {
-    font-size: var(--text-sm);
+  .footer-inner {
+    flex-direction: column-reverse;
+    align-items: flex-start;
   }
 }

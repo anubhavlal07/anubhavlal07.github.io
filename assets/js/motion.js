@@ -34,6 +34,34 @@
     { passive: true }
   );
 
+  const root = document.documentElement;
+  let hideTimer = 0;
+  let nearEdge = false;
+  const showScrollbar = () => {
+    root.classList.add("is-scrolling");
+    window.clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(() => {
+      if (!nearEdge) root.classList.remove("is-scrolling");
+    }, 900);
+  };
+  document.addEventListener("scroll", showScrollbar, { capture: true, passive: true });
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      if (!finePointer.matches) return;
+      const edge = event.clientX >= root.clientWidth - 16;
+      if (edge === nearEdge) return;
+      nearEdge = edge;
+      if (edge) {
+        window.clearTimeout(hideTimer);
+        root.classList.add("is-scrolling");
+      } else {
+        showScrollbar();
+      }
+    },
+    { passive: true }
+  );
+
   const reveal = (el) => el.classList.add("is-revealed");
   const observer =
     "IntersectionObserver" in window

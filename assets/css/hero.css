@@ -222,7 +222,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 720px) {
   .hero.section {
     padding-block: clamp(var(--space-8), 11vh, var(--space-10)) var(--space-8);
   }

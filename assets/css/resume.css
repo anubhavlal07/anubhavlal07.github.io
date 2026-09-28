@@ -66,6 +66,10 @@ html.resume-open {
   background: var(--surface);
 }
 
+.resume-close:focus-visible {
+  outline-offset: -2px;
+}
+
 .resume-dialog-inner {
   display: grid;
   gap: var(--space-6);

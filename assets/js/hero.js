@@ -10,7 +10,7 @@
   const esc = Site.esc;
   const icon = (name) => (typeof Site.icon === "function" ? Site.icon(name) : "");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const horizontal = window.matchMedia("(min-width: 900px)");
+  const horizontal = window.matchMedia("(min-width: 720px)");
   const LINE_MS = 1400;
   const TOTAL_MS = 1600;
 

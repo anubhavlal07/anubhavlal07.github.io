@@ -22,7 +22,22 @@
     const store = {
         get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
         set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { } },
+        remove: function (k) { try { localStorage.removeItem(k); } catch (e) { } },
     };
+
+    const OPT_OUT_KEY = "__analytics_opt_out";
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("notrack") || params.has("track")) {
+        if (params.has("notrack")) store.set(OPT_OUT_KEY, "1");
+        else store.remove(OPT_OUT_KEY);
+        params.delete("notrack");
+        params.delete("track");
+        const query = params.toString();
+        try {
+            history.replaceState(history.state, "", window.location.pathname + (query ? "?" + query : "") + window.location.hash);
+        } catch (e) { }
+    }
+    if (store.get(OPT_OUT_KEY) === "1") return;
 
     function newId(prefix) {
         if (crypto.randomUUID) return crypto.randomUUID();

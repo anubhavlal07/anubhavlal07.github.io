@@ -17,6 +17,7 @@
     const SESSION_KEY = "__analytics_session_id";
     const SESSION_EXP_KEY = "__analytics_session_exp";
     const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+    const MIN_VISIT_MS = 5000;
 
     // localStorage throws outright in some privacy modes — never let it break analytics
     const store = {
@@ -769,10 +770,15 @@
             delete payload.scroll_depth;
         }
 
+        const remainingMs = MIN_VISIT_MS - performance.now();
+        if (remainingMs > 0) {
+            await new Promise(function (resolve) { setTimeout(resolve, remainingMs); });
+        }
+
         await sendToSupabase(payload, isExistingSession);
 
         // ─── Heartbeat: update ALL dynamic metrics ───
-        const startTime = Date.now();
+        const startTime = Date.now() - Math.round(performance.now());
 
         // ─── Resume Boolean Tracking ───
         let hasViewedResume = false;

@@ -700,6 +700,96 @@
         }
     }
 
+    const SOCIAL_HOSTS = ["linkedin.com", "instagram.com", "github.com", "x.com", "twitter.com", "medium.com"];
+    const SECTION_ID = /^[a-z][a-z0-9-]{0,39}$/;
+    const SECTION_DWELL_MS = 1000;
+
+    function linkHost(link) {
+        return String(link.hostname || "").toLowerCase().replace(/^www\./, "");
+    }
+
+    function classifyClick(link, isResume, isDownload) {
+        if (isDownload) return { click_kind: "resume_download" };
+        if (isResume) return { click_kind: "resume_open" };
+        const host = linkHost(link);
+        const slug = link.getAttribute("data-project");
+        if (slug) return { project_slug: slug, click_kind: host === "github.com" ? "project_code" : "project_demo" };
+        if (link.protocol === "mailto:") return { click_kind: "email" };
+        if (host && host !== "github.com" && SOCIAL_HOSTS.indexOf(host) !== -1) return { click_kind: "social" };
+        return {};
+    }
+
+    function sendSectionView(section) {
+        try {
+            fetch(SUPABASE_URL + "/rest/v1/rpc/record_section_view", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    apikey: SUPABASE_KEY,
+                    Authorization: "Bearer " + SUPABASE_KEY,
+                },
+                body: JSON.stringify({ p_session_id: sessionId, p_section: section }),
+                keepalive: true,
+            }).catch(function () { });
+        } catch (e) { }
+    }
+
+    function startSectionTracking() {
+        if (!("IntersectionObserver" in window)) return;
+        const targets = Array.prototype.slice
+            .call(document.querySelectorAll("main section[id], footer#contact"))
+            .filter(function (el) { return SECTION_ID.test(el.id); });
+        if (targets.length === 0) return;
+
+        const seen = {};
+        const timers = new Map();
+        const qualifying = new Set();
+        const thresholds = [];
+        for (let i = 0; i <= 20; i++) thresholds.push(i / 20);
+
+        function arm(el) {
+            if (timers.has(el) || seen[el.id] || document.visibilityState === "hidden") return;
+            timers.set(el, setTimeout(function () {
+                timers.delete(el);
+                if (seen[el.id] || !qualifying.has(el)) return;
+                seen[el.id] = true;
+                observer.unobserve(el);
+                qualifying.delete(el);
+                sendSectionView(el.id);
+            }, SECTION_DWELL_MS));
+        }
+
+        function disarm(el) {
+            clearTimeout(timers.get(el));
+            timers.delete(el);
+        }
+
+        const observer = new IntersectionObserver(function (entries) {
+            const viewport = window.innerHeight || document.documentElement.clientHeight || 1;
+            entries.forEach(function (entry) {
+                const el = entry.target;
+                const covers = entry.intersectionRect.height / viewport;
+                if (entry.isIntersecting && (entry.intersectionRatio >= 0.4 || covers >= 0.5)) {
+                    qualifying.add(el);
+                    arm(el);
+                } else {
+                    qualifying.delete(el);
+                    disarm(el);
+                }
+            });
+        }, { threshold: thresholds });
+
+        targets.forEach(function (el) { observer.observe(el); });
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "hidden") {
+                timers.forEach(function (_, el) { disarm(el); });
+            } else {
+                qualifying.forEach(arm);
+            }
+        });
+    }
+
     /* ═══════════════════════════════════════════
        MAIN COLLECTOR — runs once on page load
        ═══════════════════════════════════════════ */
@@ -872,13 +962,17 @@
             }
         });
 
+        startSectionTracking();
+
         // ─── Link Click Tracking ───
         document.addEventListener("click", function (e) {
             const link = e.target.closest("a");
             if (!link || !link.href) return;
 
             const isResume = link.id === "resume-link" || (link.classList && link.classList.contains("resumeButton"));
-            const isExternal = link.href.startsWith("http") || link.href.startsWith("mailto");
+            const isDownload = /download pdf/i.test(link.textContent || "");
+            const isSameOrigin = link.origin === window.location.origin;
+            const isExternal = (link.href.startsWith("http") && !isSameOrigin) || link.href.startsWith("mailto");
 
             if (isResume) {
                 hasViewedResume = true;
@@ -890,7 +984,7 @@
             // (ignore internal navigation like #skills, unless it's the resume link)
             const isInternalAnchor = link.href.includes(window.location.host) && link.href.includes("#");
 
-            if ((isExternal && !isInternalAnchor) || isResume) {
+            if ((isExternal && !isInternalAnchor) || isResume || isDownload) {
                 let linkText = link.innerText.trim() || link.getAttribute("aria-label") || "";
 
                 if (!linkText) {
@@ -928,6 +1022,9 @@
                     url_clicked: link.href,
                     link_text: linkText
                 };
+                const kind = classifyClick(link, isResume, isDownload);
+                if (kind.click_kind) clickData.click_kind = kind.click_kind;
+                if (kind.project_slug) clickData.project_slug = kind.project_slug;
 
                 try {
                     fetch(SUPABASE_URL + "/rest/v1/link_clicks", {

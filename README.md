@@ -50,8 +50,11 @@ anubhavlal07.github.io/
 │   │   └── pwa.js                   # Service worker registration
 │   └── json/                        # Raw snapshots of the public Supabase tables
 ├── docs/DESIGN.md                   # Design tokens, rules and the content data contract
+├── projects/<slug>/index.html       # Generated static page per visible project
 ├── scripts/snapshot.mjs             # Writes assets/json from Supabase (no dependencies)
+├── scripts/build-pages.mjs          # Writes projects/ and sitemap.xml from assets/json
 ├── index.html                       # Single-page entry point
+├── sitemap.xml                      # Generated: home plus every project page
 ├── sw.js                            # Service worker (network-first pages and JSON)
 └── CNAME
 ```
@@ -75,7 +78,59 @@ featured state and ordering follow `is_visible`, `is_featured` and `display_orde
 
 `scripts/snapshot.mjs` writes the snapshots using the public anon key, and
 `.github/workflows/snapshot.yml` runs it every night (and on demand from the Actions tab),
-committing only when content changed. To refresh by hand: `node scripts/snapshot.mjs`.
+then runs `scripts/build-pages.mjs`, committing `assets/json`, `projects/` and `sitemap.xml` only
+when something changed. To refresh by hand: `node scripts/snapshot.mjs && node scripts/build-pages.mjs`.
+
+## Project Pages
+
+Every visible project also gets its own crawlable page at `/projects/<slug>/`, written as plain
+static HTML by `scripts/build-pages.mjs` (Node 22, no dependencies). The generator reads
+`assets/json/projects.json`, `profile.json`, `social_links.json` and `resume.json`, and reuses the
+site's own `data.js` (normalisation and slugs), `work.js` (flow diagram markup) and `icons.js`, so a
+project page renders exactly what the home page tile shows.
+
+- **Slug**: the title lowercased, every run of characters outside `a-z0-9` replaced with `-`, and
+  leading/trailing `-` trimmed (`Document Automation Platform` → `document-automation-platform`).
+  The dashboard database uses the same rule (`_project_slug`), so clicks and pages line up.
+- **Content in the HTML**: title, description, tech chips (from `subtitle`), the "How it works" flow
+  when `projects.flow` is set, the screenshot, the primary link, other projects and the footer.
+- **Head**: a unique `<title>` (`<Title> — Anubhav Lal`), a meta description of at most 160
+  characters (built from the title and tech when the description is empty), the canonical URL,
+  Open Graph and Twitter tags using the project image, and JSON-LD (`SoftwareSourceCode` with
+  `codeRepository` for GitHub links, `CreativeWork` with `url` otherwise, plus a breadcrumb).
+- **Design**: the pages load the same `tokens`, `base`, `nav`, `work`, `about` and `resume`
+  stylesheets with root-relative paths, the same theme bootstrap and theme toggle, and the resume dialog.
+- **Housekeeping**: pages for projects that are hidden or deleted are removed, and `sitemap.xml` is
+  rewritten with the home page and every project page (`lastmod` from `updated_at`). Unchanged
+  inputs produce byte-identical output; the footer year comes from the build date (`BUILD_YEAR`
+  overrides it).
+
+The home page links each tile to its page with a **Details** link.
+
+## Campaign Links
+
+Add `?ref=<tag>` to any link you share and the dashboard groups visits by it (first touch per
+session). `utm_source` and `utm_campaign` work too when `ref` is absent. Tags are lowercased and
+kept to `a-z 0-9 . _ / -`, at most 64 characters.
+
+| Where the link lives | Link |
+|---|---|
+| LinkedIn featured section | `https://portfolio.anubhavlal.dev/?ref=linkedin-featured` |
+| Resume PDF | `https://portfolio.anubhavlal.dev/?ref=resume` |
+| A GitHub README | `https://portfolio.anubhavlal.dev/projects/cerebro/?ref=github-cerebro` |
+| A newsletter | `https://portfolio.anubhavlal.dev/?utm_source=newsletter&utm_campaign=october` |
+
+The tracker sends the full `page_url`, query string included, so nothing extra is needed on the site.
+
+## Search Console
+
+1. In [Google Search Console](https://search.google.com/search-console) add a **Domain** property
+   for `anubhavlal.dev`.
+2. Copy the `google-site-verification=…` TXT record it shows, add it at the DNS provider for
+   `anubhavlal.dev`, wait for it to propagate and press **Verify**.
+3. Open **Sitemaps** and submit `https://portfolio.anubhavlal.dev/sitemap.xml`.
+4. Use **URL inspection** on a project page (for example `/projects/cerebro/`) and request indexing
+   to speed up the first crawl.
 
 ## Features
 
@@ -86,6 +141,23 @@ committing only when content changed. To refresh by hand: `node scripts/snapshot
 - **Accessibility**: skip link, visible focus, labelled icon links, reduced-motion support.
 - **Offline**: installable PWA with a network-first service worker.
 - **Visitor analytics**: anonymous session, device and engagement metrics sent to Supabase.
+
+### What the tracker records
+
+`assets/js/analytics.js` records a visit only after the page has been open for 5 seconds, and
+`?notrack` opts a browser out (`?track` opts back in). Once the visit is recorded it also sends:
+
+- **Section views**: each `main section[id]` and `footer#contact` counts once per page load when it is
+  at least 40% visible, or fills at least half the viewport, for one second. Each one calls
+  `rpc/record_section_view` with `{ p_session_id, p_section }`. Home page ids are `home`,
+  `experience`, `work`, `skills`, `about` and `contact`; project pages use `project`, `flow`, `more`
+  and `contact`.
+- **Link clicks** to `link_clicks`, with `click_kind` and `project_slug` when the page knows them:
+  the nav Resume link is `resume_open`, the dialog's "Download PDF" is `resume_download`, links
+  carrying `data-project="<slug>"` are `project_code` (GitHub) or `project_demo`, `mailto:` links are
+  `email`, and LinkedIn, Instagram, X/Twitter and Medium links are `social`. Anything else, including
+  GitHub links without `data-project`, is left for the database trigger to classify. Same-site links
+  (Details, back links) are not recorded as clicks.
 
 ## Running Locally
 
@@ -103,4 +175,5 @@ Local visits are recorded by `analytics.js` like any other visit.
 
 Hosted on **GitHub Pages** at the custom domain in `CNAME`. There is no build step: pushing to
 `main` publishes the site. When shell files change, bump `CACHE` in `sw.js` so returning visitors
-get the new version.
+get the new version. After editing projects in the dashboard, run `node scripts/build-pages.mjs`
+(or wait for the nightly workflow) so the project pages and sitemap follow.

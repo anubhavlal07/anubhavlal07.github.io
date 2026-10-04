@@ -61,9 +61,22 @@
   function renderLink(project) {
     const href = safeUrl(project.link);
     if (!href) return "";
-    return `<a class="tile-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(
+    const slug = project.slug ? ` data-project="${esc(project.slug)}"` : "";
+    return `<a class="tile-link" href="${esc(href)}"${slug} target="_blank" rel="noopener noreferrer">${esc(
       project.linkText || "View"
     )}<span class="visually-hidden"> ${esc(project.title)} (opens in a new tab)</span>${icon("external")}</a>`;
+  }
+
+  function renderDetails(project) {
+    if (!project.slug) return "";
+    return `<a class="tile-details" href="/projects/${esc(project.slug)}/">Details<span class="visually-hidden"> about ${esc(
+      project.title
+    )}</span></a>`;
+  }
+
+  function renderActions(project, className) {
+    const items = renderLink(project) + renderDetails(project);
+    return items ? `<div class="${className}">${items}</div>` : "";
   }
 
   function renderImage(project, eager) {
@@ -75,7 +88,7 @@
   function renderFeatured(project) {
     const flow = project.flow ? renderFlow(project.flow) : "";
     const tech = renderTech(project.tech, false);
-    const link = renderLink(project);
+    const actions = renderActions(project, "featured-actions tile-actions");
     return `<article class="tile tile-featured" data-reveal>
       <div class="featured-top">
         ${renderImage(project, true)}
@@ -84,7 +97,7 @@
           <h3 class="tile-title">${esc(project.title)}</h3>
           ${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}
           ${flow ? "" : tech}
-          ${link ? `<div class="featured-actions">${link}</div>` : ""}
+          ${actions}
         </div>
       </div>
       ${flow ? `<div class="featured-flow"><div class="featured-flow-head"><p class="featured-flow-label">How it works</p>${tech}</div>${flow}</div>` : ""}
@@ -96,7 +109,7 @@
       project.title
     )}</h3>${project.description ? `<p class="tile-desc">${esc(project.description)}</p>` : ""}${
       project.flow ? renderFlow(project.flow) : ""
-    }<div class="tile-footer">${renderTech(project.tech, false)}${renderLink(project)}</div></div></li>`;
+    }<div class="tile-footer">${renderTech(project.tech, false)}${renderActions(project, "tile-actions")}</div></div></li>`;
   }
 
   function renderSkeleton() {

@@ -113,7 +113,7 @@
         <div class="window-bar">
           <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="window-title">${esc(project.title)}</span>
-          ${link ? `<a class="window-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(project.title)} (${esc(project.linkText || "View")})">${icon("external")}</a>` : `<span class="window-link-spacer"></span>`}
+          ${link ? `<a class="window-link" href="${esc(link)}"${project.slug ? ` data-project="${esc(project.slug)}"` : ""} target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(project.title)} (${esc(project.linkText || "View")})">${icon("external")}</a>` : `<span class="window-link-spacer"></span>`}
         </div>
         <div class="window-body">
           ${image ? `<img src="${esc(image)}" alt="" width="1264" height="848" decoding="async" fetchpriority="high" />` : ""}

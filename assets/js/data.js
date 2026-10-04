@@ -1,6 +1,7 @@
 (() => {
   const TABLES = ["profile", "social_links", "skills", "skill_items", "experience", "projects", "resume"];
   const LEVELS = { beginner: 1, intermediate: 2, skillful: 3, advanced: 3, expert: 3 };
+  const JSON_BASE = new URL("../json/", (document.currentScript && document.currentScript.src) || location.href);
   const listeners = [];
   let current = null;
 
@@ -11,6 +12,10 @@
   const list = (value) => (Array.isArray(value) ? value.map(text).filter(Boolean) : []);
   const visible = (rows) => rows.filter((row) => row && row.is_visible !== false);
   const byOrder = (a, b) => (a.display_order ?? 0) - (b.display_order ?? 0);
+
+  function slugify(title) {
+    return text(title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
 
   function splitTech(subtitle) {
     return text(subtitle).split(",").map((part) => part.trim()).filter(Boolean);
@@ -84,6 +89,7 @@
       .sort((a, b) => Number(!!b.is_featured) - Number(!!a.is_featured) || byOrder(a, b))
       .map((row) => ({
         title: text(row.title),
+        slug: slugify(row.title),
         subtitle: text(row.subtitle),
         tech: splitTech(row.subtitle),
         description: text(row.description),
@@ -120,7 +126,7 @@
   }
 
   async function fallback(table) {
-    const response = await fetch(`assets/json/${table}.json`);
+    const response = await fetch(new URL(`${table}.json`, JSON_BASE));
     if (!response.ok) throw new Error(`${table}.json: ${response.status}`);
     return response.json();
   }
@@ -171,7 +177,7 @@
   }
 
   window.Site = window.Site || {};
-  Object.assign(window.Site, { esc, onContent, normalize });
+  Object.assign(window.Site, { esc, onContent, normalize, slugify });
   Object.defineProperty(window.Site, "content", { get: () => current });
 
   if (document.readyState === "loading") {

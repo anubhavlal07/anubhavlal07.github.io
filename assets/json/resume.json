@@ -6,7 +6,7 @@
     "email": "anubhavlal.15@gmail.com",
     "phone": "+91 8578028430",
     "location": "Bangalore, India",
-    "resume_download_link": "https://drive.google.com/file/d/1kLQAOWJKMIA8Qv8nrYeYm29XN0ZiMVVN/view",
+    "resume_download_link": "https://drive.google.com/file/d/1uvtI8WYQgf2ctEyeKpmxq02bErkKruo3/view",
     "summary": "Python developer with 3 years of building production FastAPI and Django services, REST APIs, and microservices. Generative AI delivery across LLM agents, RAG pipelines, tool calling, prompt engineering, and evaluation. Takes features from design to release: async APIs, Pydantic contracts, automated tests, Docker, and CI/CD.",
     "education": [
       {
@@ -31,7 +31,7 @@
         "id": "3",
         "role": "AI Software Developer",
         "company": "KAT Enterprise LLC",
-        "endDate": "Present",
+        "endDate": "Sept 2026",
         "location": "",
         "startDate": "Jul 2025",
         "description": "Key Achievements:\n• Engineered a production Generative AI platform in Python and FastAPI using async REST APIs, SSE streaming, and microservices, orchestrating LangGraph Member and Provider agents for autonomous service discovery and booking workflows.\n• Developed 15+ custom agent tools letting GPT-4 agents call deterministic backend actions such as geospatial provider search, booking management, PostgreSQL queries, and multi-step API workflows, backed by typed Pydantic contracts and OpenAPI documentation.\n• Adopted AI-assisted development workflows to accelerate Python development, repository analysis, debugging, refactoring, test creation, and code review; built Model Context Protocol (MCP) tool and context integrations to extend those workflows.\n• Built context-injection and prompt-engineering logic personalizing LLM prompts by location, role, and session state, improving relevance and routing accuracy across the agent graph; containerized services with Docker and shipped through CI/CD."
@@ -186,7 +186,7 @@
       }
     ],
     "created_at": "2026-01-26T11:56:52.569036+00:00",
-    "updated_at": "2026-09-28T12:55:44.920749+00:00",
+    "updated_at": "2026-10-01T21:39:22.205729+00:00",
     "auto_sync": true
   }
 ]

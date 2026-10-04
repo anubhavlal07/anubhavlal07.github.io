@@ -4,7 +4,7 @@
     "name": "Anubhav Lal",
     "title": "AI Engineer",
     "summary": [
-      "I am an AI Engineer who builds production Generative AI systems in Python — LLM agents, RAG pipelines, and the FastAPI backends behind them. At KAT Enterprise, I engineer a multi-agent platform on LangGraph where GPT-4 agents use 15+ custom tools to find and book service providers on their own, served through async REST APIs with SSE streaming and typed Pydantic contracts.",
+      "I am an AI Engineer who builds production Generative AI systems in Python, LLM agents, RAG pipelines, and the FastAPI backends behind them. At KAT Enterprise, I engineer a multi-agent platform on LangGraph where GPT-4 agents use 15+ custom tools to find and book service providers on their own, served through async REST APIs with SSE streaming and typed Pydantic contracts.",
       "I care about making LLM applications dependable, not just impressive in a demo. That means schema-constrained outputs, business rules kept in deterministic code, human review where decisions matter, and evaluation harnesses that check grounding, citations, retrieval recall, and faithfulness before anything ships.",
       "Before KAT, I built Django and FastAPI services at Jupitos Technologies, including a dual-agent interview bot with sub-200ms context retrieval, and began my career in cyber security at Supraja Technologies, which still shapes how I design secure APIs and AI systems.",
       "I hold an MCA from SRM Institute of Science and Technology and a BCA from Acharya Institute of Graduate Studies, and published a peer-reviewed paper on real-time biometric attendance automation. Outside work, I enjoy football, reading, and video games."
@@ -16,6 +16,7 @@
       "LLM Evaluation"
     ],
     "created_at": "2026-01-25T13:10:06.750118+00:00",
-    "updated_at": "2026-09-28T12:27:43.361924+00:00"
+    "updated_at": "2026-10-04T08:44:29.497183+00:00",
+    "tagline": "I build AI agents that hold up in production."
   }
 ]

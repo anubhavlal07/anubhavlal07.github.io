@@ -11,8 +11,27 @@
     "is_featured": true,
     "is_visible": true,
     "created_at": "2026-07-25T22:05:42.516697+00:00",
-    "updated_at": "2026-09-28T12:14:58.134923+00:00",
-    "include_in_resume": true
+    "updated_at": "2026-09-28T15:07:38.332865+00:00",
+    "include_in_resume": true,
+    "flow": [
+      [
+        "Research question"
+      ],
+      [
+        "Supervisor agent"
+      ],
+      [
+        "Web search",
+        "Academic papers",
+        "Documents"
+      ],
+      [
+        "Human review"
+      ],
+      [
+        "Cited report"
+      ]
+    ]
   },
   {
     "id": "100e7cdd-20e5-408e-aef6-c69e9e2a45f1",
@@ -27,7 +46,8 @@
     "is_visible": true,
     "created_at": "2026-09-28T12:22:37.029614+00:00",
     "updated_at": "2026-09-28T12:52:01.778552+00:00",
-    "include_in_resume": true
+    "include_in_resume": true,
+    "flow": null
   },
   {
     "id": "32da1751-0b5f-45ea-9b83-85c45001d44e",
@@ -42,36 +62,7 @@
     "is_visible": true,
     "created_at": "2026-09-28T12:22:37.029614+00:00",
     "updated_at": "2026-09-28T12:52:01.778552+00:00",
-    "include_in_resume": true
-  },
-  {
-    "id": "9161f625-c609-4604-9f35-945319a8a255",
-    "title": "HireMind",
-    "subtitle": "Machine Learning",
-    "description": "\n",
-    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/HRagent.png",
-    "project_link": "https://github.com/anubhavlal07/RAG-Agent",
-    "link_text": "GitHub",
-    "display_order": 3,
-    "is_featured": false,
-    "is_visible": true,
-    "created_at": "2026-01-25T13:10:12.081467+00:00",
-    "updated_at": "2026-09-28T12:22:37.029614+00:00",
-    "include_in_resume": false
-  },
-  {
-    "id": "ad1594a8-74a0-45b5-86ce-2d50ec2588ba",
-    "title": "FaceReg Attendance Monitor",
-    "subtitle": "Machine Learning",
-    "description": "",
-    "image_url": "https://raw.githubusercontent.com/anubhavlal07/anubhavlal07.github.io/refs/heads/main/assets/img/faceReg.png",
-    "project_link": "https://github.com/anubhavlal07/Attendance-Management",
-    "link_text": "Github",
-    "display_order": 4,
-    "is_featured": false,
-    "is_visible": true,
-    "created_at": "2026-01-25T13:10:12.287711+00:00",
-    "updated_at": "2026-09-28T12:22:37.029614+00:00",
-    "include_in_resume": false
+    "include_in_resume": true,
+    "flow": null
   }
 ]

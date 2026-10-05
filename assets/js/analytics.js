@@ -719,7 +719,19 @@
         return {};
     }
 
+    let sectionsReady = false;
+    const pendingSections = [];
+
+    function flushSectionViews() {
+        sectionsReady = true;
+        pendingSections.splice(0).forEach(sendSectionView);
+    }
+
     function sendSectionView(section) {
+        if (!sectionsReady) {
+            pendingSections.push(section);
+            return;
+        }
         try {
             fetch(SUPABASE_URL + "/rest/v1/rpc/record_section_view", {
                 method: "POST",
@@ -794,6 +806,8 @@
        MAIN COLLECTOR — runs once on page load
        ═══════════════════════════════════════════ */
     async function collectAndSend() {
+        startSectionTracking();
+
         // Wait for page to finish loading
         await new Promise(function (resolve) {
             if (document.readyState === "complete") {
@@ -962,7 +976,7 @@
             }
         });
 
-        startSectionTracking();
+        flushSectionViews();
 
         // ─── Link Click Tracking ───
         document.addEventListener("click", function (e) {

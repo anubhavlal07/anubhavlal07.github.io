@@ -83,81 +83,76 @@
       },
       {
         "id": "6",
-        "name": "Django",
-        "category": "backend"
-      },
-      {
-        "id": "7",
         "name": "Pydantic",
         "category": "backend"
       },
       {
-        "id": "8",
+        "id": "7",
         "name": "SQLAlchemy",
         "category": "backend"
       },
       {
-        "id": "9",
+        "id": "8",
         "name": "LangGraph",
         "category": "ai"
       },
       {
-        "id": "10",
+        "id": "9",
         "name": "LangChain",
         "category": "ai"
       },
       {
-        "id": "11",
+        "id": "10",
         "name": "OpenAI GPT",
         "category": "ai"
       },
       {
-        "id": "12",
+        "id": "11",
         "name": "Gemini",
         "category": "ai"
       },
       {
-        "id": "13",
+        "id": "12",
         "name": "Claude Code",
         "category": "ai"
       },
       {
-        "id": "14",
+        "id": "13",
         "name": "Model Context Protocol",
         "category": "ai"
       },
       {
-        "id": "15",
+        "id": "14",
         "name": "PostgreSQL",
         "category": "databases"
       },
       {
-        "id": "16",
+        "id": "15",
         "name": "Pinecone",
         "category": "databases"
       },
       {
-        "id": "17",
+        "id": "16",
         "name": "Supabase",
         "category": "databases"
       },
       {
-        "id": "18",
+        "id": "17",
         "name": "Docker",
         "category": "devops"
       },
       {
-        "id": "19",
+        "id": "18",
         "name": "Git",
         "category": "devops"
       },
       {
-        "id": "20",
+        "id": "19",
         "name": "Postman",
         "category": "devops"
       },
       {
-        "id": "21",
+        "id": "20",
         "name": "GitHub Actions",
         "category": "devops"
       }
@@ -186,7 +181,7 @@
       }
     ],
     "created_at": "2026-01-26T11:56:52.569036+00:00",
-    "updated_at": "2026-10-01T21:39:22.205729+00:00",
+    "updated_at": "2026-10-05T06:14:06.823685+00:00",
     "auto_sync": true
   }
 ]

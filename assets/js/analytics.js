@@ -879,6 +879,14 @@
             await new Promise(function (resolve) { setTimeout(resolve, remainingMs); });
         }
 
+        if (!isExistingSession) {
+            const openVis = getVisibilityStats();
+            payload.uptime = Math.round(performance.now() / 600) / 100;
+            payload.visible_time = Math.round(openVis.visible / 0.6) / 100;
+            payload.hidden_time = Math.round(openVis.hidden / 0.6) / 100;
+            payload.scroll_depth = maxScrollDepth;
+        }
+
         await sendToSupabase(payload, isExistingSession);
 
         // ─── Heartbeat: update ALL dynamic metrics ───

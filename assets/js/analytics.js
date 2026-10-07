@@ -175,9 +175,24 @@
     /* ═══════════════════════════════════════════
        BROWSER CAPABILITIES
        ═══════════════════════════════════════════ */
+    function browserName(ua) {
+        if (/Instagram/i.test(ua)) return "Instagram";
+        if (/FBAN|FBAV|FB_IAB/i.test(ua)) return "Facebook";
+        if (/LinkedInApp/i.test(ua)) return "LinkedIn";
+        if (/Edg(e|A|iOS)?\//.test(ua)) return "Microsoft Edge";
+        if (/OPR\/|OPT\/|Opera/.test(ua)) return "Opera";
+        if (/SamsungBrowser/.test(ua)) return "Samsung Internet";
+        if (/Firefox\/|FxiOS/.test(ua)) return "Firefox";
+        if (/CriOS|Chrome\//.test(ua)) return "Google Chrome";
+        if (/Version\/[\d.]+.*Safari\//.test(ua)) return "Safari";
+        if (/(iPhone|iPad|iPod).*AppleWebKit/.test(ua)) return "iOS WebView";
+        return null;
+    }
+
     function collectBrowserInfo() {
         const nav = navigator;
         return {
+            name: browserName(nav.userAgent || ""),
             language: nav.language || "",
             languages: nav.languages ? Array.from(nav.languages) : [],
             cookieEnabled: nav.cookieEnabled,

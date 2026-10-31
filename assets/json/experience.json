@@ -1,7 +1,20 @@
 [
   {
+    "id": "d0a4789c-1d54-4061-bf0b-b6f49233a1b5",
+    "role": "Software Engineer",
+    "company": "Altezzasys Inc",
+    "start_date": "Oct 2026",
+    "end_date": "Present",
+    "highlights": [],
+    "display_order": 0,
+    "is_visible": true,
+    "created_at": "2026-10-31T12:20:16.723859+00:00",
+    "updated_at": "2026-10-31T19:46:42.93651+00:00",
+    "include_in_resume": true
+  },
+  {
     "id": "4b4f147a-9e3d-4114-9446-b7c8fb5d1e58",
-    "role": "AI Software Developer",
+    "role": "System Analyst",
     "company": "KAT Enterprise LLC",
     "start_date": "Jul 2025",
     "end_date": "Sept 2026",
@@ -11,10 +24,10 @@
       "Adopted AI-assisted development workflows to accelerate Python development, repository analysis, debugging, refactoring, test creation, and code review; built Model Context Protocol (MCP) tool and context integrations to extend those workflows.",
       "Built context-injection and prompt-engineering logic personalizing LLM prompts by location, role, and session state, improving relevance and routing accuracy across the agent graph; containerized services with Docker and shipped through CI/CD."
     ],
-    "display_order": 0,
+    "display_order": 1,
     "is_visible": true,
     "created_at": "2026-01-25T13:10:11.88226+00:00",
-    "updated_at": "2026-10-01T21:39:22.205729+00:00",
+    "updated_at": "2026-10-31T20:10:09.123925+00:00",
     "include_in_resume": true
   },
   {
@@ -29,10 +42,10 @@
       "Designed a dual-agent Generative AI interview bot using Groq, LangChain, PostgreSQL, and Pinecone, achieving sub-200ms context retrieval through hybrid storage and vector search.",
       "Deployed an automated attendance module for 150 employees, reducing data-entry errors by 80%."
     ],
-    "display_order": 1,
+    "display_order": 2,
     "is_visible": true,
     "created_at": "2026-01-25T13:10:11.673035+00:00",
-    "updated_at": "2026-09-28T15:07:38.332865+00:00",
+    "updated_at": "2026-10-31T12:20:28.756545+00:00",
     "include_in_resume": true
   },
   {
@@ -47,10 +60,10 @@
       "Performed vulnerability assessment and penetration testing across web applications, documenting OWASP Top 10 findings with reproducible steps and remediation guidance for development teams.",
       "Applied secure coding practices such as input validation, authentication and authorization checks, and dependency review, which now carry into API design and LLM application work."
     ],
-    "display_order": 2,
+    "display_order": 3,
     "is_visible": true,
     "created_at": "2026-01-25T13:10:11.477892+00:00",
-    "updated_at": "2026-10-30T10:14:48.431315+00:00",
+    "updated_at": "2026-10-31T12:20:28.756545+00:00",
     "include_in_resume": true
   }
 ]

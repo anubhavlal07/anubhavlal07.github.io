@@ -6,17 +6,9 @@
     "email": "anubhavlal.15@gmail.com",
     "phone": "+91 8578028430",
     "location": "Bangalore, India",
-    "resume_download_link": "https://drive.google.com/file/d/1uvtI8WYQgf2ctEyeKpmxq02bErkKruo3/view",
+    "resume_download_link": "https://drive.google.com/file/d/1GOgBkCBjOo3ZxxPFYhdQuL_CrIgoNMrj/view",
     "summary": "Python developer with 3 years of building production FastAPI and Django services, REST APIs, and microservices. Generative AI delivery across LLM agents, RAG pipelines, tool calling, prompt engineering, and evaluation. Takes features from design to release: async APIs, Pydantic contracts, automated tests, Docker, and CI/CD.",
     "education": [
-      {
-        "id": "1",
-        "score": "Database Management Systems, Software Engineering, Web Technologies",
-        "degree": "BCA, Computer Applications",
-        "endDate": "Sep 2022",
-        "startDate": "Jul 2019",
-        "institution": "Acharya Institute of Graduate Studies, Bangalore"
-      },
       {
         "id": "2",
         "score": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security",
@@ -24,22 +16,30 @@
         "endDate": "May 2025",
         "startDate": "Jul 2023",
         "institution": "SRM Institute of Science and Technology, Chennai"
+      },
+      {
+        "id": "1",
+        "score": "Database Management Systems, Software Engineering, Web Technologies",
+        "degree": "BCA, Computer Applications",
+        "endDate": "Sep 2022",
+        "startDate": "Jul 2019",
+        "institution": "Acharya Institute of Graduate Studies, Bangalore"
       }
     ],
     "experience": [
       {
         "id": "4",
-        "role": "Software Engineer",
-        "company": "Altezzasys Inc",
+        "role": "Python Developer",
+        "company": "Altezzasys Systems Pvt. Ltd",
         "endDate": "Present",
         "location": "",
         "startDate": "Oct 2026",
-        "description": ""
+        "description": "Key Achievements:\n• Automated 6 enterprise client workflows end to end, cutting manual case-handling time by 40%, by architecting a production\nLangGraph supervisor–specialist multi-agent system with typed tool contracts, human-in-the-loop approval gates and checkpointed\nfailure recovery\n• Raised answer groundedness from 71% to 92% and Hit@5 to 0.89 across a 120K-document knowledge base, by building an enterprise\nRAG pipeline with async ingestion, hybrid pgvector + BM25 retrieval fused via Reciprocal Rank Fusion, cross-encoder reranking and\nthreshold-based refusals\n• Cut LLM inference cost by 35% and p95 response latency from 4.8s to 2.1s, by introducing a model gateway with tiered model\nrouting, semantic caching, per-tenant quotas and streaming token metering\n• Blocked 14 quality regressions before release across 600+ golden test cases, by building an LLM evaluation system that scores\nfaithfulness (LLM-as-judge), citation validity and retrieval recall@k and gates every CI/CD deployment\n• Sustained 99.9% uptime across 5 AI services, by owning MLOps orchestration: Dockerized releases through GitHub Actions,\nLangSmith tracing, structured logging and cost/latency dashboards with alerting."
       },
       {
         "id": "3",
         "role": "System Analyst",
-        "company": "KAT Enterprise LLC",
+        "company": "Mani India Technologies Pvt. Ltd",
         "endDate": "Sept 2026",
         "location": "",
         "startDate": "Jul 2025",
@@ -190,7 +190,7 @@
       }
     ],
     "created_at": "2026-01-26T11:56:52.569036+00:00",
-    "updated_at": "2026-10-31T20:10:09.123925+00:00",
+    "updated_at": "2026-11-04T18:09:00.440678+00:00",
     "auto_sync": true
   }
 ]

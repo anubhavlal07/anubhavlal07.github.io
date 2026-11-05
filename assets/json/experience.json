@@ -1,21 +1,27 @@
 [
   {
     "id": "d0a4789c-1d54-4061-bf0b-b6f49233a1b5",
-    "role": "Software Engineer",
-    "company": "Altezzasys Inc",
+    "role": "Python Developer",
+    "company": "Altezzasys Systems Pvt. Ltd",
     "start_date": "Oct 2026",
     "end_date": "Present",
-    "highlights": [],
+    "highlights": [
+      "Automated 6 enterprise client workflows end to end, cutting manual case-handling time by 40%, by architecting a production\nLangGraph supervisor–specialist multi-agent system with typed tool contracts, human-in-the-loop approval gates and checkpointed\nfailure recovery",
+      "Raised answer groundedness from 71% to 92% and Hit@5 to 0.89 across a 120K-document knowledge base, by building an enterprise\nRAG pipeline with async ingestion, hybrid pgvector + BM25 retrieval fused via Reciprocal Rank Fusion, cross-encoder reranking and\nthreshold-based refusals",
+      "Cut LLM inference cost by 35% and p95 response latency from 4.8s to 2.1s, by introducing a model gateway with tiered model\nrouting, semantic caching, per-tenant quotas and streaming token metering",
+      "Blocked 14 quality regressions before release across 600+ golden test cases, by building an LLM evaluation system that scores\nfaithfulness (LLM-as-judge), citation validity and retrieval recall@k and gates every CI/CD deployment",
+      "Sustained 99.9% uptime across 5 AI services, by owning MLOps orchestration: Dockerized releases through GitHub Actions,\nLangSmith tracing, structured logging and cost/latency dashboards with alerting."
+    ],
     "display_order": 0,
     "is_visible": true,
     "created_at": "2026-10-31T12:20:16.723859+00:00",
-    "updated_at": "2026-10-31T19:46:42.93651+00:00",
+    "updated_at": "2026-11-04T18:08:37.179612+00:00",
     "include_in_resume": true
   },
   {
     "id": "4b4f147a-9e3d-4114-9446-b7c8fb5d1e58",
     "role": "System Analyst",
-    "company": "KAT Enterprise LLC",
+    "company": "Mani India Technologies Pvt. Ltd",
     "start_date": "Jul 2025",
     "end_date": "Sept 2026",
     "highlights": [
@@ -27,7 +33,7 @@
     "display_order": 1,
     "is_visible": true,
     "created_at": "2026-01-25T13:10:11.88226+00:00",
-    "updated_at": "2026-10-31T20:10:09.123925+00:00",
+    "updated_at": "2026-11-04T18:09:00.440678+00:00",
     "include_in_resume": true
   },
   {

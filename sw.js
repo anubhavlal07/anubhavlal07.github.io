@@ -10,7 +10,7 @@
  *
  * Bump CACHE when shell assets change so old caches are purged on activate.
  */
-const CACHE = "anubhav-portfolio-v11";
+const CACHE = "anubhav-portfolio-v12";
 
 const SHELL = [
   "./",
@@ -48,7 +48,7 @@ const SHELL = [
   "assets/json/projects.json",
   "assets/json/resume.json",
   "assets/img/favicon.png",
-  "assets/img/Person.png"
+  "assets/img/avatar.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -56,7 +56,7 @@ self.addEventListener("install", (event) => {
     caches
       .open(CACHE)
       // Cache what we can; a single 404 shouldn't abort the whole install.
-      .then((cache) => Promise.allSettled(SHELL.map((url) => cache.add(url))))
+      .then((cache) => Promise.allSettled(SHELL.map((url) => cache.add(new Request(url, { cache: "reload" })))))
       .then(() => self.skipWaiting())
   );
 });

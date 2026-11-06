@@ -34,7 +34,7 @@
     const paragraphs = profile.summary || [];
     const more = paragraphs.length > 1;
     body.innerHTML = `<div class="about-card">
-        <img class="about-avatar" src="assets/img/Person.png" alt="${esc(name || "Portrait")}" width="56" height="56" decoding="async" loading="lazy" />
+        <img class="about-avatar" src="assets/img/avatar.png" alt="${esc(name || "Portrait")}" width="56" height="56" decoding="async" loading="lazy" />
         <div>
           <p class="about-name">${esc(name)}</p>
           ${profile.title ? `<p class="about-role">${esc(profile.title)}</p>` : ""}

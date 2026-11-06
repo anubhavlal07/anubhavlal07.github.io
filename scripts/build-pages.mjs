@@ -168,7 +168,7 @@ function page(project) {
   const url = `${SITE}/projects/${project.slug}/`;
   const title = `${project.title} — ${name}`;
   const description = describe(project);
-  const image = safeUrl(project.image) || `${SITE}/assets/img/Person.png`;
+  const image = safeUrl(project.image) || `${SITE}/assets/img/avatar.png`;
   const imageAlt = safeUrl(project.image) ? `${project.title} screenshot` : name;
   const keywords = [project.title, name, ...project.tech].join(", ");
   const link = safeUrl(project.link);
@@ -241,7 +241,7 @@ function page(project) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="apple-touch-icon" href="/assets/img/Person.png" />
+  <link rel="apple-touch-icon" href="/assets/img/avatar.png" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="${esc(name)}" />

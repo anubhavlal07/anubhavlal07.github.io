@@ -10,7 +10,7 @@
  *
  * Bump CACHE when shell assets change so old caches are purged on activate.
  */
-const CACHE = "anubhav-portfolio-v12";
+const CACHE = "anubhav-portfolio-v13";
 
 const SHELL = [
   "./",
@@ -45,6 +45,7 @@ const SHELL = [
   "assets/json/skills.json",
   "assets/json/skill_items.json",
   "assets/json/experience.json",
+  "assets/json/education.json",
   "assets/json/projects.json",
   "assets/json/resume.json",
   "assets/img/favicon.png",

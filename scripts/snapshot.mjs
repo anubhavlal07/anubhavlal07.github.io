@@ -13,6 +13,7 @@ const tables = {
   skills: "&order=display_order.asc",
   skill_items: "&order=display_order.asc",
   experience: "&order=display_order.asc",
+  education: "&order=display_order.asc",
   projects: "&order=is_featured.desc,display_order.asc",
   resume: "",
 };

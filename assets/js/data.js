@@ -1,5 +1,5 @@
 (() => {
-  const TABLES = ["profile", "social_links", "skills", "skill_items", "experience", "projects", "resume"];
+  const TABLES = ["profile", "social_links", "skills", "skill_items", "experience", "education", "projects", "resume"];
   const LEVELS = { beginner: 1, intermediate: 2, skillful: 3, advanced: 3, expert: 3 };
   const JSON_BASE = new URL("../json/", (document.currentScript && document.currentScript.src) || location.href);
   const listeners = [];
@@ -100,13 +100,28 @@
         flow: normalizeFlow(row.flow),
       }));
 
-    const education = (Array.isArray(resumeRow.education) ? resumeRow.education : []).map((row) => ({
-      degree: text(row.degree),
-      institution: text(row.institution),
-      start: text(row.startDate),
-      end: text(row.endDate),
-      detail: text(row.score),
-    }));
+    const educationRows = visible(raw.education || []).sort(byOrder);
+    const education = educationRows.length
+      ? educationRows.map((row) => ({
+          degree: text(row.degree),
+          institution: text(row.institution),
+          location: text(row.location),
+          start: text(row.start_date),
+          end: text(row.end_date),
+          detail: text(row.score),
+          description: text(row.description),
+          highlights: list(row.highlights),
+        }))
+      : (Array.isArray(resumeRow.education) ? resumeRow.education : []).map((row) => ({
+          degree: text(row.degree),
+          institution: text(row.institution),
+          location: text(row.location),
+          start: text(row.startDate),
+          end: text(row.endDate),
+          detail: text(row.score),
+          description: text(row.description),
+          highlights: list(row.highlights),
+        }));
 
     const contact = {
       email: text(resumeRow.email),

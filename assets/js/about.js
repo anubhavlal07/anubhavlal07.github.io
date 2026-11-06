@@ -63,8 +63,10 @@
               ${row.degree ? `<p class="edu-degree">${esc(row.degree)}</p>` : ""}
               ${when ? `<p class="edu-dates">${when}</p>` : ""}
             </div>
-            ${row.institution ? `<p class="edu-school">${esc(row.institution)}</p>` : ""}
+            ${row.institution ? `<p class="edu-school">${esc(row.institution)}${row.location ? `, ${esc(row.location)}` : ""}</p>` : ""}
             ${row.detail ? `<p class="edu-detail">${esc(row.detail)}</p>` : ""}
+            ${row.description ? `<p class="edu-description">${esc(row.description)}</p>` : ""}
+            ${row.highlights && row.highlights.length ? `<ul class="edu-highlights" role="list">${row.highlights.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>` : ""}
           </li>`;
         })
         .join("")}</ol>`;

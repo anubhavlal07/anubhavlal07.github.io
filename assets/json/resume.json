@@ -14,7 +14,10 @@
         "score": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security",
         "degree": "MCA, Computer Applications",
         "endDate": "May 2025",
+        "location": "",
         "startDate": "Jul 2023",
+        "highlights": [],
+        "description": "",
         "institution": "SRM Institute of Science and Technology, Chennai"
       },
       {
@@ -22,7 +25,10 @@
         "score": "Database Management Systems, Software Engineering, Web Technologies",
         "degree": "BCA, Computer Applications",
         "endDate": "Sep 2022",
+        "location": "",
         "startDate": "Jul 2019",
+        "highlights": [],
+        "description": "",
         "institution": "Acharya Institute of Graduate Studies, Bangalore"
       }
     ],

@@ -191,7 +191,10 @@
         institution: clean(entry.institution),
         start: clean(entry.startDate ?? entry.start_date),
         end: clean(entry.endDate ?? entry.end_date),
+        location: clean(entry.location),
         coursework: clean(entry.score ?? entry.coursework),
+        description: clean(entry.description),
+        highlights: Array.isArray(entry.highlights) ? entry.highlights.map(clean).filter(Boolean) : [],
       })),
     };
   }
@@ -273,10 +276,12 @@
             (e) => `<li class="resume-entry">
               <div class="resume-entry-head">
                 <h4 class="resume-entry-title">${esc(e.degree)}</h4>
-                ${e.institution ? `<p class="resume-entry-org">${esc(e.institution)}</p>` : ""}
+                ${e.institution ? `<p class="resume-entry-org">${esc(e.institution)}${e.location ? `, ${esc(e.location)}` : ""}</p>` : ""}
                 <p class="resume-entry-date">${dates(e.start, e.end)}</p>
               </div>
               ${e.coursework ? `<p class="resume-entry-text"><span class="resume-label">Coursework:</span> ${esc(e.coursework)}</p>` : ""}
+              ${e.description ? `<p class="resume-entry-text">${esc(e.description)}</p>` : ""}
+              ${e.highlights.length ? `<ul class="resume-bullets">${e.highlights.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
             </li>`
           )
           .join("")}</ul>`

@@ -1,7 +1,7 @@
 [
   {
     "id": "5a5b20e2-d69d-4035-b544-121b7fa5abd0",
-    "degree": "MCA, Computer Applications",
+    "degree": "Masters in Computer Applications",
     "institution": "SRM Institute of Science and Technology, Chennai",
     "start_date": "Jul 2023",
     "end_date": "May 2025",
@@ -13,11 +13,11 @@
     "is_visible": true,
     "include_in_resume": true,
     "created_at": "2026-11-06T21:25:42.353776+00:00",
-    "updated_at": "2026-11-06T21:25:42.353776+00:00"
+    "updated_at": "2026-11-07T10:09:36.280284+00:00"
   },
   {
     "id": "53440320-95b4-4dc8-b71f-3ac8cd7c28c8",
-    "degree": "BCA, Computer Applications",
+    "degree": "Bachelors in Computer Applications",
     "institution": "Acharya Institute of Graduate Studies, Bangalore",
     "start_date": "Jul 2019",
     "end_date": "Sep 2022",
@@ -29,6 +29,6 @@
     "is_visible": true,
     "include_in_resume": true,
     "created_at": "2026-11-06T21:25:42.353776+00:00",
-    "updated_at": "2026-11-06T21:29:18.365186+00:00"
+    "updated_at": "2026-11-07T10:09:36.280284+00:00"
   }
 ]

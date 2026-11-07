@@ -12,7 +12,7 @@
       {
         "id": "2",
         "score": "Machine Learning, Artificial Intelligence, Cloud Computing, Cyber Security",
-        "degree": "MCA, Computer Applications",
+        "degree": "Masters in Computer Applications",
         "endDate": "May 2025",
         "location": "",
         "startDate": "Jul 2023",
@@ -23,7 +23,7 @@
       {
         "id": "1",
         "score": "Database Management Systems, Software Engineering, Web Technologies",
-        "degree": "BCA, Computer Applications",
+        "degree": "Bachelors in Computer Applications",
         "endDate": "Sep 2022",
         "location": "",
         "startDate": "Jul 2019",
@@ -196,7 +196,7 @@
       }
     ],
     "created_at": "2026-01-26T11:56:52.569036+00:00",
-    "updated_at": "2026-11-06T21:29:18.365186+00:00",
+    "updated_at": "2026-11-07T10:09:36.280284+00:00",
     "auto_sync": true
   }
 ]
